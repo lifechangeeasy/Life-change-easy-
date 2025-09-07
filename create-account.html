@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Life Change Easy Market</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      /* Page ka background waisa hi hai */
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      background-size: 400% 400%;
+      animation: rainbowBackground 15s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    @keyframes rainbowBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* === START: NAYI TABDEELIYAN === */
+
+    .card {
+      /* Card ka background ab black nahi, balke ek naya multi-color gradient hai */
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      width: 90%;
+      max-width: 400px;
+      padding: 40px 30px;
+      border-radius: 25px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card h1 {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, #00c6ff, #0072ff, #f8ffae, #43c6ac, #f8ffae);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleGlow 5s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+        0%, 100% { text-shadow: 0 0 5px #00c6ff, 0 0 10px #00c6ff; }
+        50% { text-shadow: 0 0 5px #43c6ac, 0 0 10px #43c6ac; }
+    }
+
+    .card h2 {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #b0b3b8;
+      font-weight: normal;
+    }
+
+    label {
+      font-size: 14px;
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      color: #00ffdd;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      font-size: 16px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    input:focus {
+        outline: none;
+        border-color: #00ffdd;
+        box-shadow: 0 0 10px #00ffdd;
+    }
+
+    /* Button ka naya professional style */
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 198, 255, 0.4);
+    }
+    /* === END: NAYI TABDEELIYAN === */
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Life change easy market</h1>
+    <h2>ife change easy.io login official Ads dashboard</h2>
+
+    <label for="email">Enter Gmail</label>
+    <input type="email" id="email" placeholder="example@gmail.com" />
+
+    <label for="password">Enter Password</label>
+    <input type="password" id="password" placeholder="Enter your password" />
+
+    <button id="continueBtn" onclick="login()">Continue</button>
+  </div>
+
+  <!-- Firebase Scripts (Koi tabdeeli nahi) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+      // ✅ NEW Firebase Config (life-change-easy)
+  const firebaseConfig = {
+    apiKey: "AIzaSyBFLTBJFMJAHNJs1XIWgRivwlAwPv2A5PQ",
+    authDomain: "life-change-easy.firebaseapp.com",
+    databaseURL: "https://life-change-easy-default-rtdb.firebaseio.com",
+    projectId: "life-change-easy",
+    storageBucket: "life-change-easy.firebasestorage.app",
+    messagingSenderId: "340480283671",
+    appId: "1:340480283671:web:fd4d1aeb5f2d9500d4b852",
+    measurementId: "G-WDC7ETRF8F"
+  };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = async () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        alert("Login successful! Redirecting to dashboard...");
+        window.location.href = './ads_view.html';
+      } catch (error) {
+        alert("Login failed: " + error.message);
+      }
+    };
+  </script>
+
+</body>
+</html>

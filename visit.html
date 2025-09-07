@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Life Change Easy - Full Search + Stats + Transaction</title>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<style>
+    body { 
+      /* === YEH TABDEELI KI GAYI HAI === */
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      background-size: 400% 400%;
+      animation: rainbowBackground 15s ease infinite;
+      color: white; 
+      font-family: Arial, sans-serif; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    /* === YEH ANIMATION ADD KI GAYI HAI === */
+    @keyframes rainbowBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .topbar { background-color: #00FF00; padding: 15px; font-size: 28px; font-weight: bold; color: black; text-align: center; }
+    .search-section { text-align: center; margin: 30px 0; }
+    .search-section input { padding: 10px; width: 250px; font-size: 16px; border-radius: 5px; background: #111; border: 1px solid #444; color: white; }
+    .search-section button { padding: 10px 20px; margin-left: 10px; border: none; background-color: #00FF00; color: black; font-size: 16px; font-weight: bold; border-radius: 5px; cursor: pointer; }
+    .stats-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 30px; }
+    .stat-box { background: #1c1c1c; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); width: 250px; text-align: center; }
+    .stat-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: white; }
+    .stat-value { font-size: 24px; font-weight: bold; color: white; }
+    .green-text { color: lime; }
+    .bottom-text { text-align: center; font-size: 18px; color: #00FF00; font-weight: bold; margin: 30px 0 20px; }
+    .transaction-box { background: #1c1c1c; border-radius: 10px; padding: 20px; max-width: 600px; margin: 0 auto; height: 400px; overflow-y: auto; box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); }
+    .transaction { margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+    .transaction a { color: #00FF00; text-decoration: none; font-weight: bold; }
+    .more-button { text-align: center; margin-top: 20px; }
+    .more-button button { background-color: #00FF00; border: none; padding: 10px 20px; font-size: 16px; color: black; font-weight: bold; border-radius: 5px; cursor: pointer; }
+  
+.transaction-entry {
+    border: 2px solid;
+    border-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet) 1;
+    border-top-left-radius: 12px; border-bottom-right-radius: 12px; border-top-right-radius: 0; border-bottom-left-radius: 0;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+</style>
+</head>
+<body>
+<div class="topbar">LIFE_CHANGE_EASY.IO</div>
+
+<div id="bookBox" style="border: 4px solid transparent; padding: 20px; background: black; border-radius: 12px; width: 80%; max-width: 600px; margin: 50px auto; font-family: 'Segoe UI', sans-serif; font-size: 18px; font-weight: bold; position: relative; animation: borderGlow 2s infinite; overflow: hidden; transition: height 0.3s ease;">
+  <div id="typewriter" style="color: #00ff00; white-space: pre-line;"></div>
+</div>
+
+<style>
+@keyframes borderGlow {
+  0% { border-color: #ff00ff; }
+  25% { border-color: #00ffff; }
+  50% { border-color: #00ff00; }
+  75% { border-color: #ff6600; }
+  100% { border-color: #ff00ff; }
+}
+</style>
+
+<script>
+const text1 = `🌟 Welcome to your Sign Up to Visit page! 🌟
+
+Here you will see all connected users of the entire system. 🌐
+Check out the users who joined in the last 24 hours.
+View the total earnings distributed so far. 💸
+Watch how the profit of the shop owner is shared among earning users! 🔥
+You will also see every newly joining user LIVE! 🚀
+
+✅ Visit now, join this beautiful system, change your life, and enjoy.
+💚 Thank you!`;
+
+const text2 = `\n\n✨ The creator of this beautiful project is **Jigar Shahzad**, who belongs to Bahawalpur and believe me, he has done a great job.
+
+🌍 He has created the world's first project of its kind — and it's so amazing that even the biggest developers in the world are stunned.
+
+🧠 Such a powerful, decentralized system that turns people from zero to hero!
+
+💎 Thank you Jigar Shahzad for this gift to the world. You are the reason thousands are transforming their lives.
+
+❤️ I love you Jigar Shahzad. This is a lifetime gratitude from all of us!`;
+
+let i = 0;
+let currentText = text1 + text2;  // Both texts combined
+
+const typeTarget = document.getElementById("typewriter");
+const bookBox = document.getElementById("bookBox");
+
+function typeWriter() {
+  if (i < currentText.length) {
+    typeTarget.innerHTML += currentText.charAt(i);
+    
+    // Auto-expand height dynamically
+    bookBox.style.height = typeTarget.scrollHeight + 40 + "px";
+    
+    i++;
+    setTimeout(typeWriter, 35); // typing speed
+  }
+}
+
+window.onload = () => {
+  bookBox.style.height = "60px";
+  typeWriter();
+};
+</script>
+<div id="searchSection" style="margin:20px 0; background-color:#1a1a1a; padding:15px; border:2px solid #0f0; border-radius:10px; display:flex; align-items:center; gap:10px;border: 3px solid transparent; border-image: linear-gradient(to right, red, orange, green, blue, indigo, violet) 1; border-radius: 10px; box-shadow: 0 0 12px rgba(255,255,255,0.4); padding: 10px;">
+<input id="searchIdInput" placeholder="Enter ID" style="flex:1; padding:10px; border:none; border-radius:5px; background-color:#333; color:white; font-size:16px;" type="text"/> <button id="goButton" onclick="searchIdInPartners()" style="background-color:#0f0; color:black; font-weight:bold; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-size:16px; margin-left: -10px; margin-left: auto; margin-right: 0;">Go</button>
+</div>
+<div id="infoBoxes" style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px;">
+
+<script>
+function searchIdInPartners() {
+  const idInput = document.getElementById("searchIdInput").value.trim();
+  if (!idInput || isNaN(idInput)) {
+    alert("Please enter a valid ID number");
+    return;
+  }
+
+  // ID number valid hai → redirect
+  window.location.href = "/ref/" + idInput;
+}
+</script>
+
+<div id="searchResult"></div>
+</div>
+<div class="stats-container">
+<!-- All Partners -->
+<div class="stat-box" style="padding: 20px; margin: 10px; border-radius: 15px;
+    border: 4px solid; border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+    box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime; color: white;">
+  <div class="stat-title" style="padding: 10px; margin: 10px;">All Partners</div>
+  <div class="stat-value" id="allPartnersCount">0</div>
+</div>
+
+<!-- 24 Hours Partners -->
+<div class="stat-box" style="padding: 20px; margin: 10px; border-radius: 15px;
+    border: 4px solid; border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+    box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime; color: white;">
+  <div class="stat-title" style="padding: 10px; margin: 10px;">24 Hours Partners</div>
+  <div class="stat-value" id="partners24hCount" style="color: limegreen;">0</div>
+</div>
+
+
+
+
+<!-- Total Earning -->
+<div class="stat-box" style="padding: 20px; margin: 10px; border-radius: 15px;
+    border: 4px solid; border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+    box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime; color: white;">
+  <div class="stat-title" style="padding: 10px; margin: 10px;">Total Earning</div>
+  <div class="stat-value" id="earningTotal">0</div>
+</div>
+
+<!-- 24 Hours Earning -->
+<div class="stat-box" style="padding: 20px; margin: 10px; border-radius: 15px;
+    border: 4px solid; border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+    box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime; color: white;">
+  <div class="stat-title" style="padding: 10px; margin: 10px;">24 Hours Earning</div>
+  <div class="stat-value" id="earning24h" style="color: limegreen;">0</div>
+</div>
+</div>
+
+
+<script type="module">
+import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+
+<script type="module">
+  import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+  const ethersProvider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org");
+  // Web3 ki zaroorat ab nahi hai, to isko hata sakte hain
+  // const web3 = new Web3("https://bsc.publicnode.com");
+
+  const REG_CONTRACT_ADDRESS = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+  const regAbi = [
+    { "inputs": [], "name": "totalUsers", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "users",
+      "outputs": [
+        { "internalType": "uint256", "name": "id", "type": "uint256" },
+        { "internalType": "address", "name": "wallet", "type": "address" },
+        { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+        { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+        { "internalType": "string", "name": "dp", "type": "string" },
+        { "internalType": "string", "name": "name", "type": "string" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  // --- YAHAN BADA BADLAV HUA HAI ---
+  // X3 ko alag se handle karne ki zaroorat nahi hai.
+  // Usko bhi PROGRAMS list mein daal dein.
+  const PROGRAMS = [
+    {
+      name: "X1",
+      address: "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1"
+    },
+    {
+      name: "X2",
+      address: "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4"
+    },
+    {
+      name: "X3",
+      address: "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E"
+    },
+    {
+      name: "X4",
+      address: "0x427226D5D018C53cFD77634422A979675C779E80"
+    }
+  ];
+
+  // Yeh ABI sab programs (X1, X2, X3, X4) ke liye kaam karega
+  const XN_ABI = [
+    {
+      "inputs": [],
+      "name": "getSystem24hEarnings",
+      "outputs": [
+        {
+          "components": [
+            { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
+            { "internalType": "uint256", "name": "userId", "type": "uint256" },
+            { "internalType": "uint256", "name": "amount", "type": "uint256" },
+            { "internalType": "uint8", "name": "program", "type": "uint8" }
+          ],
+          "internalType": "struct X3Program.TxnHistory[]", // Naam se farq nahi parta, structure same hai
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSystemTxnHistory",
+      "outputs": [
+        {
+          "components": [
+            { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
+            { "internalType": "uint256", "name": "userId", "type": "uint256" },
+            { "internalType": "uint256", "name": "amount", "type": "uint256" },
+            { "internalType": "uint8", "name": "program", "type": "uint8" }
+          ],
+          "internalType": "struct X3Program.TxnHistory[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  async function loadDashboardStats() {
+    try {
+      const regContract = new ethers.Contract(REG_CONTRACT_ADDRESS, regAbi, ethersProvider);
+      const totalUsersPromise = regContract.totalUsers();
+
+      // --- YAHAN BHI BADA BADLAV HUA HAI ---
+      // Ab hum saare programs ko ek hi tareeqe se handle karenge
+      const programPromises = PROGRAMS.map(p => {
+        const contract = new ethers.Contract(p.address, XN_ABI, ethersProvider);
+        return Promise.all([
+          contract.getSystemTxnHistory(),
+          contract.getSystem24hEarnings()
+        ]);
+      });
+
+      // X3 ka alag promise hata diya gaya hai
+      const [totalUsers, ...programResults] = await Promise.all([
+        totalUsersPromise,
+        ...programPromises
+      ]);
+
+      const now = Math.floor(Date.now() / 1000);
+      const limit = Math.min(totalUsers.toNumber(), 200);
+      const userFetches = [];
+      for (let i = totalUsers.toNumber(); i > totalUsers.toNumber() - limit; i--) {
+        userFetches.push(regContract.users(i));
+      }
+      const users = await Promise.all(userFetches);
+      const last24h = users.filter(user => user.joinDate >= now - 86400).length;
+
+      document.getElementById("allPartnersCount").innerText = totalUsers.toString();
+      document.getElementById("partners24hCount").innerText = last24h;
+
+      // --- YAHAN BHI BADA BADLAV HUA HAI ---
+      // Ab totalLifetime aur total24h shuru mein 0 se start honge
+      let totalLifetime = ethers.BigNumber.from(0);
+      let total24h = ethers.BigNumber.from(0);
+
+      // Ab yeh loop X1, X2, X3, X4, sab ke liye chalega
+      for (const [allTxns, dayTxns] of programResults) {
+        let life = ethers.BigNumber.from(0);
+        for (const tx of allTxns) {
+            // Lifetime earning mein saare transactions jama honge
+            life = life.add(tx.amount);
+        }
+
+        let day = ethers.BigNumber.from(0);
+        for (const tx of dayTxns) {
+          // 24h earning mein sirf pichle 24 ghante wale jama honge
+          if (tx.timestamp >= now - 86400) {
+            day = day.add(tx.amount);
+          }
+        }
+
+        totalLifetime = totalLifetime.add(life);
+        total24h = total24h.add(day);
+      }
+
+      document.getElementById("earningTotal").innerText = `$${Number(ethers.utils.formatUnits(totalLifetime, 18)).toFixed(2)} USDT`;
+      document.getElementById("earning24h").innerText = `$${Number(ethers.utils.formatUnits(total24h, 18)).toFixed(2)} USDT`;
+
+    } catch (err) {
+      console.error("❌ Dashboard error:", err);
+      document.getElementById("earningTotal").innerText = "Error";
+      document.getElementById("earning24h").innerText = "Error";
+    }
+  }
+
+  loadDashboardStats();
+  setInterval(loadDashboardStats, 60000);
+</script>
+
+
+
+
+<script>
+async function searchIdInPartners() {
+  const input = document.getElementById("searchIdInput").value.trim();
+  const id = parseInt(input);
+  const userList = document.getElementById("userList");
+
+  if (isNaN(id) || id <= 0) {
+    alert("Please enter a valid numeric ID.");
+    return;
+  }
+
+  const web3 = new Web3("https://bsc-dataseed.binance.org");
+
+  // ✅ NEW contract address
+  const contractAddress = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+
+  // ✅ NEW ABI for full user system
+  const abi = [
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "users",
+      "outputs": [
+        { "internalType": "uint256", "name": "id", "type": "uint256" },
+        { "internalType": "address", "name": "wallet", "type": "address" },
+        { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+        { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+        { "internalType": "string", "name": "dp", "type": "string" },
+        { "internalType": "string", "name": "name", "type": "string" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  const contract = new web3.eth.Contract(abi, contractAddress);
+
+  try {
+    const user = await contract.methods.users(id).call();
+
+    if (user.wallet === "0x0000000000000000000000000000000000000000") {
+      alert("This ID is not registered.");
+    } else {
+      window.location.href = `/ref/${id}`;
+    }
+
+  } catch (err) {
+    console.error("❌ Smart contract error:", err);
+    alert("Something went wrong. Try again.");
+  }
+}
+</script>
+
+<script>
+async function searchIdInPartners() {
+  const input = document.getElementById("searchIdInput").value.trim();
+  const id = parseInt(input);
+  const userList = document.getElementById("userList");
+
+  if (isNaN(id) || id <= 0) {
+    alert("Please enter a valid numeric ID.");
+    return;
+  }
+
+  const web3 = new Web3("https://bsc-dataseed.binance.org");
+
+  // ✅ NEW contract address
+  const contractAddress = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+
+  // ✅ NEW ABI for full user system
+  const abi = [
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "users",
+      "outputs": [
+        { "internalType": "uint256", "name": "id", "type": "uint256" },
+        { "internalType": "address", "name": "wallet", "type": "address" },
+        { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+        { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+        { "internalType": "string", "name": "dp", "type": "string" },
+        { "internalType": "string", "name": "name", "type": "string" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  const contract = new web3.eth.Contract(abi, contractAddress);
+
+  try {
+    const user = await contract.methods.users(id).call();
+
+    if (user.wallet === "0x0000000000000000000000000000000000000000") {
+      alert("This ID is not registered.");
+    } else {
+      window.location.href = `/ref/${id}`;
+    }
+
+  } catch (err) {
+    console.error("❌ Smart contract error:", err);
+    alert("Something went wrong. Try again.");
+  }
+}
+</script>
+ <style>
+/* Centered container for the heading */
+.heading-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Professional gradient-bordered box */
+.heading-box {
+  padding: 15px 30px;
+  border: 4px solid transparent;
+  border-radius: 20px;
+  background-image: 
+    linear-gradient(#1a1a1a, #1a1a1a), 
+    linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  max-width: 90%;
+  text-align: center;
+}
+
+/* Text inside the box */
+.heading-box span {
+  color: #00ff00; /* Green color */
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+}
+</style>
+
+<!-- Professional heading in colorful bordered box -->
+<div class="heading-container">
+  <div class="heading-box">
+    <span>LifeChangeEasy.io Live Earning View Full Watch P2P Transaction Page</span>
+  </div>
+</div>
+<!-- 24‑Hour Transaction History Box -->
+<!-- 24‑Hour Transaction History Box -->
+<div id="transactionBox" style="margin-top: 30px; background-color: #1a1a1a; border: 2px solid #0f0; border-radius: 10px; padding: 20px; max-height: 450px; overflow-y: auto; border: 3px solid transparent; border-image: linear-gradient(to right, red, orange, yellow, green, skyblue, indigo, violet) 1; border-radius: 10px;">
+<h2 style="text-align: center; color: #0f0; margin-bottom: 20px;">Live P2P Transaction History earning record 3 dey data save 🔥</h2>
+<div id="transactionList" style="display: flex; flex-direction: column; gap: 15px;"></div>
+</div>
+
+
+
+
+<style>
+.transaction-box {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #999;
+  background: #1a1a1a;
+}
+.transaction-box::-webkit-scrollbar {
+  width: 6px;
+}
+.transaction-box::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #ff00cc, #3333ff);
+  border-radius: 10px;
+}
+.transaction {
+  border: 2px solid;
+  border-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet) 1;
+  border-radius: 16px;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: white;
+  background: #222;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 15px;
+}
+.transaction a {
+  color: #00ffae;
+  text-decoration: none;
+  font-weight: bold;
+}
+.more-button {
+  text-align: center;
+  margin-top: 10px;
+}
+.more-button button {
+  padding: 10px 20px;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  border: none;
+  color: white;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.more-button button:hover {
+  background: linear-gradient(to right, #0072ff, #00c6ff);
+}
+.no-transactions {
+  color: red;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+<script>
+const web3 = new Web3("https://bsc-dataseed1.binance.org/");
+
+// All program contract addresses
+const CONTRACTS = {
+  X1: "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1",
+  X2: "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4",
+  X3: "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E",
+  X4: "0x427226D5D018C53cFD77634422A979675C779E80",
+  JOIN: "0x3B52a5A3A90a5f14Db481809844A0cC520195521"
+};
+
+const ABI = [{
+  inputs: [],
+  name: "getSystemTxnHistory",
+  outputs: [{
+    components: [
+      { internalType: "uint256", name: "timestamp", type: "uint256" },
+      { internalType: "uint256", name: "userId", type: "uint256" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint8", name: "program", type: "uint8" }
+    ],
+    internalType: "struct TxnHistory[]",
+    name: "",
+    type: "tuple[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}];
+
+const JOIN_ABI = [{
+  inputs: [],
+  name: "getRecentHistory",
+  outputs: [
+    { internalType: "string[]", name: "", type: "string[]" },
+    { internalType: "uint256[]", name: "", type: "uint256[]" },
+    { internalType: "uint256[]", name: "", type: "uint256[]" },
+    { internalType: "uint256[]", name: "", type: "uint256[]" }
+  ],
+  stateMutability: "view",
+  type: "function"
+}];
+
+function formatTimeAgo(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const hrs = Math.floor(mins / 60);
+  const days = Math.floor(hrs / 24);
+  if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
+  if (hrs > 0) return `${hrs} hour${hrs > 1 ? "s" : ""} ago`;
+  if (mins > 0) return `${mins} minute${mins > 1 ? "s" : ""} ago`;
+  return `${seconds} sec ago`;
+}
+
+async function loadTransactionHistory() {
+  const container = document.getElementById("transactionList");
+  container.innerHTML = "⏳ Loading...";
+  const now = Math.floor(Date.now() / 1000);
+  const past = now - 3 * 24 * 60 * 60;
+  const combined = [];
+  const colors = ["#00ffff", "#ff00ff", "#00ff66", "#ffcc00", "#ff6600", "#33ccff", "#cc00ff", "#66ff66"];
+
+  // ✅ Join History
+  try {
+    const joinContract = new web3.eth.Contract(JOIN_ABI, CONTRACTS.JOIN);
+    const result = await joinContract.methods.getRecentHistory().call();
+    const userIds = result[1];
+    const timestamps = result[3];
+    for (let i = 0; i < userIds.length; i++) {
+      const uid = Number(userIds[i]);
+      const ts = Number(timestamps[i]);
+      if (ts >= past) {
+        combined.push({ userId: uid, timestamp: ts, program: 99, amount: 0 });
+      }
+    }
+  } catch (e) {
+    console.warn("Join load error", e);
+  }
+
+  // ✅ Function to fetch from contract
+  async function fetchTxns(contractAddress) {
+    const contract = new web3.eth.Contract(ABI, contractAddress);
+    const txns = await contract.methods.getSystemTxnHistory().call();
+    return txns.filter(t => Number(t.timestamp) >= past);
+  }
+
+  // ✅ Fetch data from all 4 contracts
+  try {
+    const [x1, x2, x3, x4] = await Promise.all([
+      fetchTxns(CONTRACTS.X1),
+      fetchTxns(CONTRACTS.X2),
+      fetchTxns(CONTRACTS.X3),
+      fetchTxns(CONTRACTS.X4)
+    ]);
+    combined.push(...x1, ...x2, ...x3, ...x4);
+  } catch (err) {
+    console.warn("Contract load error", err);
+  }
+
+  // ✅ Sort & Display
+  combined.sort((a, b) => b.timestamp - a.timestamp);
+  if (combined.length === 0) return (container.innerHTML = "No recent transactions.");
+
+  container.innerHTML = "";
+  combined.forEach((tx, i) => {
+    const div = document.createElement("div");
+    const uid = tx.userId;
+    const timeAgo = formatTimeAgo(now - Number(tx.timestamp));
+    const program = Number(tx.program);
+    const amount = Number(tx.amount);
+    const color = colors[i % colors.length];
+
+    div.style.cssText = `
+      padding:10px;
+      margin:10px 0;
+      border-radius:14px;
+      color:white;
+      background:#111;
+      border-left:6px solid ${color};
+      box-shadow:0 0 15px ${color}
+    `;
+
+    let html = "";
+    
+     if (program === 1) {
+      html = amount <= 50
+        ? `🟢 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> activated 
+             <span style='color:#66ff66;'>Box ${amount}</span> in X1 ✅ 
+             <span style='color:#ffffff;'>Allah aapko kamyab kare 🤲</span> 
+             ⏰ <span style='color:orange;'>${timeAgo}</span>`
+        : `💸 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> earned 
+             <span style='color:yellow;'>$${(amount / 1e18).toFixed(2)} USDT</span> in X1 
+             ⏰ <span style='color:orange;'>${timeAgo}</span>`;
+    } else if (program === 2) {
+      html = amount <= 50
+        ? `🟢 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> activated 
+             <span style='color:#66ff66;'>Box ${amount}</span> in X2 ✅ 
+             <span style='color:#ffffff;'>Allah aapko kamyab kare 🤲</span> 
+             ⏰ <span style='color:orange;'>${timeAgo}</span>`
+        : `💸 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> earned 
+             <span style='color:yellow;'>$${(amount / 1e18).toFixed(2)} USDT</span> in X2 
+             ⏰ <span style='color:orange;'>${timeAgo}</span>`;
+    } else if (program === 3) {
+      html = `💸 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> earned 
+              <span style='color:yellow;'>$${(amount / 1e18).toFixed(2)} USDT</span> in X4 
+              ⏰ <span style='color:orange;'>${timeAgo}</span>`;
+    } else if (program === 33) {
+      if (amount <= 50) {
+        html = `🟢 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> activated 
+                <span style='color:#66ff66;'>Box ${amount}</span> in X3 ✅ 
+                <span style='color:#ffffff;'>Allah aapko kamyab kare 🤲</span> 
+                ⏰ <span style='color:orange;'>${timeAgo}</span>`;
+      } else {
+        html = `💸 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> earned 
+                <span style='color:yellow;'>$${(amount / 1e18).toFixed(2)} USDT</span> in X3 
+                ⏰ <span style='color:orange;'>${timeAgo}</span>`;
+      }
+    } else if (program === 44) {
+      html = `🟢 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> activated 
+              <span style='color:#66ff66;'>Box ${amount}</span> in X4 ✅ 
+              <span style='color:#ffffff;'>Allah aapko kamyab kare 🤲</span> 
+              ⏰ <span style='color:orange;'>${timeAgo}</span>`;
+    } else if (program === 99) {
+      html = `👤 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> joined the system 🙋‍♂️ 
+              ⏰ <span style='color:orange;'>${timeAgo}</span>`;
+    }
+
+    if (html) {
+      div.innerHTML = html;
+      container.appendChild(div);
+    }
+  });
+}
+
+// ✅ Load on page
+loadTransactionHistory();
+</script>
+
+<div id="txnHistory" style="color:white; font-family:Arial, sans-serif; padding:10px; font-size:14px;"></div>
+
+<div id="transactionList" style="color:white; font-family:Arial; padding:10px;"></div>
+<!-- New Social Buttons Section -->
+<!-- Professional Text Box with Blue Background -->
+<div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 10px;">
+  <div style="
+    padding: 15px 30px;
+    border: 3px solid transparent;
+    border-radius: 50px; /* Gol (Pill) shape */
+    background-image: 
+      /* === YEH LINE BADLI GAYI HAI === */
+      linear-gradient(to right, #00c6ff, #0072ff), /* Naya Blue background */
+      linear-gradient(to right, #ff00ff, #00ff00, #ff0000); /* Border colors */
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.7); /* Shadow ka color bhi blue kar diya hai */
+    text-align: center;">
+    
+    <span style="
+      /* Text ka color white kar diya hai taake blue par saaf nazar aaye */
+      color: black; 
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Segoe UI', sans-serif;">
+      Life Change Easy Daily update WhatsApp Official Channel
+    </span>
+  </div>
+</div>
+
+
+<!-- Social Media Buttons -->
+<div style="margin-top:50px; text-align:center; padding:40px 20px; background:#111; border-top:2px solid #0f0;">
+  <!-- WhatsApp -->
+  <a href="https://whatsapp.com/channel/0029Vb673ShBfxo7zWIIHN3z" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#25D366; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #25D366;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/whatsapp.png" alt="WhatsApp Icon" style="width:24px; height:24px;">
+    Join WhatsApp Channel
+  </a>
+  <div style="color:#000000; font-size:0.9rem; margin-top:5px;">📢 WhatsApp Channel</div>
+
+  <!-- YouTube -->
+  <a href="https://www.youtube.com/@LifeChangeeasy" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#FF0000; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #FF0000;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/youtube-play.png" alt="YouTube Icon" style="width:24px; height:24px;">
+    Visit YouTube Channel
+  </a>
+  <div style="color:#FF0000; font-size:0.9rem; margin-top:5px;">🎥 YouTube Channel</div>
+
+  <!-- TikTok -->
+  <a href="https://www.tiktok.com/@life.change.easy.io?_t=ZS-8yOeInx3dEG&_r=1" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#1DA1F2; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #1DA1F2;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/tiktok--v1.png" alt="TikTok Icon" style="width:24px; height:24px;">
+    Follow TikTok Account
+  </a>
+  <div style="color:#1DA1F2; font-size:0.9rem; margin-top:5px;">🎶 TikTok Official</div>
+
+</div>
+
+
+</div>
+</body>
+</html>

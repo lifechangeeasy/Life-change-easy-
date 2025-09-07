@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeChangeEasy.io | Login to Your Account</title>
+
+<!-- SIRF WEB3.JS LIBRARY -->
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+
+<style>
+    /* Aapka poora CSS yahan hai (koi badlav nahi) */
+    body { margin: 0; font-family: Arial, sans-serif; background-color: #000; }
+    .top-bar { background-color: #000; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .top-bar h1 { color: #00ff00; font-size: 1.5rem; margin: 0; }
+    .connect-btn { background-color: #007bff; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+    .green-section { background-color: #00cc00; padding: 3rem 1rem; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+    .green-section .user-id { font-size: 0.9rem; font-weight: normal; color: #000; margin-bottom: 1rem; word-break: break-all; min-height: 1.2em; }
+    .action-btn { margin-top: 1rem; padding: 15px 30px; font-size: 1.2em; font-weight: bold; border-radius: 10px; cursor: pointer; transition: transform 0.2s, background-color 0.3s; display: block; width: 80%; margin-left: auto; margin-right: auto; }
+    .login-btn { background-color: #555; color: #aaa; cursor: not-allowed; border: 2px solid #888; }
+    .login-btn.active { background-color: #000; color: #fff; cursor: pointer; border: 2px solid #00ff00; }
+    .login-btn:hover.active { background-color: #00ff00; color: #000; }
+    .assistant-btn { background: linear-gradient(45deg, #555, #333); color: #aaa; box-shadow: none; border: none; cursor: not-allowed; }
+    .assistant-btn.active { background: linear-gradient(45deg, #002bff, #ff00de); color: white; box-shadow: 0 0 20px rgba(0,0,0,0.4); cursor: pointer; }
+    .assistant-btn:hover.active { transform: scale(1.05); }
+    .assistant-btn:disabled { background: linear-gradient(45deg, #555, #333) !important; cursor: not-allowed !important; transform: none !important; color: #aaa !important; }
+    .description { margin: 2rem 1rem 1rem 1rem; font-size: 1rem; font-weight: bold; text-align: center; background: linear-gradient(45deg, #ff0000, #007bff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .bottom-space { height: 300px; }
+    .custom-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; }
+    .custom-modal-content { background: black; padding: 25px; border-radius: 15px; box-shadow: 0 0 20px #fff, 0 0 40px #ff00de, 0 0 60px #002bff; width: 90%; max-width: 450px; text-align: center; animation: neonBorder 5s linear infinite; color: white; }
+    @keyframes neonBorder { 0% { box-shadow: 0 0 20px #7f0000, 0 0 40px #ff7300, 0 0 60px #fffb00; } 50% { box-shadow: 0 0 20px #00ff55, 0 0 40px #002bff, 0 0 60px #7a00ff; } 100% { box-shadow: 0 0 20px #ff00ab, 0 0 40px #ff0000, 0 0 60px #ff7300; } }
+    .custom-modal-content h2 { margin-top: 0; font-size: 1.5em; color: #ff4d4d; border-bottom: 1px solid #ff4d4d; padding-bottom: 10px; margin-bottom: 20px; }
+    .custom-modal-content #modalMessage { line-height: 1.8; text-align: left; font-size: 1.1em; }
+    .custom-modal-content #modalMessage b { color: #00ffd5; }
+    .modal-ok-btn { background: linear-gradient(45deg, #ff00de, #002bff); color: white; padding: 12px 40px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; font-size: 1.1em; margin-top: 25px; transition: transform 0.2s; }
+    .modal-ok-btn:hover { transform: scale(1.05); }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>LifeChangeEasy.io</h1>
+  <button id="connectBtn" class="connect-btn" onclick="connectWallet()">Connect Wallet</button>
+</div>
+
+<div class="green-section">
+  <div id="userId" class="user-id"></div>
+  <button id="loginBtn" class="action-btn login-btn" onclick="loginToAccount()" disabled>Login to your account</button>
+ <button id="yourAssistantBtn" class="action-btn assistant-btn" onclick="checkEligibility()" disabled>
+  Your Assistant
+</button>
+<button id="uplinePataBtn" class="action-btn assistant-btn" onclick="openUplinePata()">
+  Upline Pata
+</button>
+<br>
+
+
+
+<script>
+  function openUplinePata() {
+    // agar file naam me space hai to yeh kaam karega
+    window.location.href = 'upline pata.html';
+    // ya: window.location.href = encodeURI('upline pata.html');
+  }
+</script>
+</div>
+
+<div class="description">
+    Welcome to your own system. Yes, if you want to open your dashboard within your system, then click on Login to your account immediately. If you want to talk to your assistant, want to learn something, or want to assign him/her to do the work, he/she will guide you, build your team, you don't have to do any work, he/she will build your network, he/she will guide your downline, then click on the button on the assistant now, then you will find your assistant, you can talk to him/her. Thank you.
+</div>
+
+<div class="bottom-space"></div>
+
+<!-- Professional Error Popup ka HTML -->
+<div id="errorModal" class="custom-modal">
+  <div class="custom-modal-content">
+    <h2 id="modalTitle"></h2>
+    <div id="modalMessage"></div>
+    <button id="modalOkBtn" class="modal-ok-btn">OK</button>
+  </div>
+</div>
+
+
+<script>
+  // --- REGISTRATION CONTRACT SETUP (Aapka main contract) ---
+  const CONTRACT_ADDRESS = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+  const ABI = [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "uplineId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newUserId",
+				"type": "uint256"
+			}
+		],
+		"name": "DirectAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "upperUplineId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newUserId",
+				"type": "uint256"
+			}
+		],
+		"name": "IndirectAdded",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_uplineId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "dp",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "upperUplines",
+				"type": "uint256[]"
+			}
+		],
+		"name": "registerUser",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "updateEarnings",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "uplineId",
+				"type": "uint256"
+			}
+		],
+		"name": "UserRegistered",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "admin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "directTeam",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			}
+		],
+		"name": "get24hDirectTeam",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			}
+		],
+		"name": "get24hIndirectTeam",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			}
+		],
+		"name": "getDirectPartners",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "wallet",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "joiningTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalTeam",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalEarnings",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct UnifiedSystem.PartnerInfo[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRecentHistory",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			}
+		],
+		"name": "getTotalDirectTeam",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			}
+		],
+		"name": "getTotalIndirectTeam",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "uplineId",
+				"type": "uint256"
+			}
+		],
+		"name": "getUplineWallet",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			}
+		],
+		"name": "getUserDashboardInfo",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			}
+		],
+		"name": "getUserId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "idToAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "indirectTeam",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "isRegistered",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			}
+		],
+		"name": "isRegisteredUser",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "registrationFee",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalUsers",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "txEvents",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "eventType",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "userId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "userDirectPartners",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "userEarnings",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "userNotifications",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "fromUserId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "message",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "users",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "wallet",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "uplineId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "joinDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "dp",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "userTeamCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "walletToId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+  ];
+
+  // --- EARNINGS CONTRACTS SETUP (Yahan naya code add kiya gaya hai) ---
+  const earningPrograms = [
+    { name: "X1", contract: "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1" },
+    { name: "X2", contract: "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4" },
+    { name: "X3", contract: "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E" },
+    { name: "X4", contract: "0x427226D5D018C53cFD77634422A979675C779E80" }
+  ];
+
+  const EARNING_ABI = [
+    {
+      inputs: [{ internalType: "uint256", name: "userId", type: "uint256" }],
+      name: "getUserTotalEarnings",
+      outputs: [{
+        components: [
+          { internalType: "uint256", name: "timestamp", type: "uint256" },
+          { internalType: "uint256", name: "amount", type: "uint256" },
+          { internalType: "uint256", name: "fromId", type: "uint256" }
+        ],
+        internalType: "struct EarningRecord[]",
+        name: "",
+        type: "tuple[]"
+      }],
+      stateMutability: "view",
+      type: "function"
+    }
+  ];
+
+  // --- GLOBAL VARIABLES ---
+  let web3, userAddress, contract;
+  let currentUserId = 0;
+
+  // --- DOM ELEMENTS ---
+  const connectBtn = document.getElementById('connectBtn');
+  const loginBtn = document.getElementById('loginBtn');
+  const assistantBtn = document.getElementById('yourAssistantBtn');
+  const userIdDisplay = document.getElementById('userId');
+  const errorModal = document.getElementById('errorModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalMessage = document.getElementById('modalMessage');
+  const modalOkBtn = document.getElementById('modalOkBtn');
+
+  // --- MODAL FUNCTIONS ---
+  function showModal(title, message) {
+    modalTitle.textContent = title;
+    modalMessage.innerHTML = message;
+    errorModal.style.display = 'flex';
+  }
+  modalOkBtn.addEventListener('click', () => {
+    errorModal.style.display = 'none';
+  });
+
+  // --- WALLET & CONTRACT LOGIC ---
+  window.connectWallet = async function() {
+    if (typeof window.ethereum === 'undefined') {
+      return showModal("Error!", "Please install a wallet like MetaMask or Trust Wallet.");
+    }
+    try {
+      web3 = new Web3(window.ethereum);
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      userAddress = accounts[0];
+      // Yeh registration contract se connect karega
+      contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
+
+      connectBtn.textContent = `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`;
+      
+      const id = await contract.methods.walletToId(userAddress).call();
+      currentUserId = parseInt(id);
+
+      if (currentUserId > 0) {
+        userIdDisplay.textContent = `Your User ID: ${currentUserId}`;
+        loginBtn.disabled = false;
+        loginBtn.classList.add('active');
+        assistantBtn.disabled = false;
+        assistantBtn.classList.add('active');
+      } else {
+        userIdDisplay.textContent = "Wallet connected, but not registered.";
+        loginBtn.disabled = true;
+        loginBtn.classList.remove('active');
+        assistantBtn.disabled = true;
+        assistantBtn.classList.remove('active');
+      }
+    } catch (err) {
+      showModal("Error!", "Failed to connect wallet or fetch ID. Please try again.");
+      console.error(err);
+    }
+  }
+
+  // --- BUTTON CLICK HANDLERS ---
+  window.loginToAccount = function() {
+    if (currentUserId > 0) {
+      window.location.href = `/ref/${currentUserId}`;
+    } else {
+      showModal("Error!", "You are not registered. Please connect a registered wallet.");
+    }
+  }
+
+  // --- NEW HELPER FUNCTION (Naya function jo total earning calculate karega) ---
+  async function calculateTotalEarnings(userId) {
+    let totalEarnInWei = web3.utils.toBN(0); // BigNumber istemal karna behtar hai
+    for (const prog of earningPrograms) {
+        try {
+            const earningContract = new web3.eth.Contract(EARNING_ABI, prog.contract);
+            const earningsRecords = await earningContract.methods.getUserTotalEarnings(userId).call();
+            if (earningsRecords && earningsRecords.length > 0) {
+                const programTotal = earningsRecords.reduce((sum, record) => {
+                    return sum.add(web3.utils.toBN(record.amount));
+                }, web3.utils.toBN(0));
+                totalEarnInWei = totalEarnInWei.add(programTotal);
+            }
+        } catch (err) {
+            console.warn(`⚠️ Error fetching earnings from ${prog.name}:`, err);
+        }
+    }
+    return parseFloat(web3.utils.fromWei(totalEarnInWei, 'ether'));
+  }
+
+
+  // --- UPDATED ELIGIBILITY CHECK (Eligibility check karne wala function update kar diya gaya hai) ---
+  // === YEH NAYA, "MOTIVATIONAL" CHECKELIGIBILITY FUNCTION PASTE KARNA HAI ===
+
+window.checkEligibility = async function() {
+    if (!currentUserId || currentUserId === 0) {
+        return showModal("Error!", "Please connect a registered wallet first.");
+    }
+
+    assistantBtn.disabled = true;
+    assistantBtn.textContent = 'Checking...';
+
+    try {
+        const directTeam = await contract.methods.getTotalDirectTeam(currentUserId).call();
+        const indirectTeam = await contract.methods.getTotalIndirectTeam(currentUserId).call();
+        const earnings = await calculateTotalEarnings(currentUserId);
+        
+        const directCount = directTeam.length;
+        const indirectCount = indirectTeam.length;
+
+        const directRequirement = 30;
+        const indirectRequirement = 50;
+        const earningRequirement = 450;
+
+        if (directCount >= directRequirement && indirectCount >= indirectRequirement && earnings >= earningRequirement) {
+            showModal("Congratulations! 🥳", "You are eligible to post Ads.<br>Redirecting...");
+            setTimeout(() => {
+                window.location.href = 'jigarads.html'; // Yahan apne Ads page ka naam dein
+            }, 2000);
+        } else {
+            // === YAHAN HAI ASAL JADOO: NAYA, MOTIVATIONAL MESSAGE ===
+            
+            // Pehle user ki kami batao
+            let statusMessage = `<h3>Your Current Status:</h3>`;
+            statusMessage += `<p><b>Direct Joins:</b> ${directCount} / ${directRequirement}</p>`;
+            statusMessage += `<p><b>Indirect Joins:</b> ${indirectCount} / ${indirectRequirement}</p>`;
+            statusMessage += `<p><b>Total Earning:</b> $${earnings.toFixed(2)} / $${earningRequirement}</p>`;
+            
+            // Ab usko system ki khubsurti aur faide batao
+            let benefitsMessage = `
+                <hr style="margin: 15px 0; border-color: #444;">
+                <h3>Why Complete This Target? 🤔</h3>
+                <p style="font-size: 14px; color: #ccc; line-height: 1.6;">
+                    Once you meet these requirements, you unlock the true power of <b>Life Change Easy.io!</b> You will get:
+                </p>
+                <ul style="text-align: left; padding-left: 20px; font-size: 14px;">
+                    <li><b>✅ Auto-Joining:</b> New members will automatically join your team without your effort.</li>
+                    <li><b>✅ Auto-Earning:</b> Enjoy daily non-working income of <b>$30 to $40</b>.</li>
+                    <li><b>✅ Passive Income:</b> Your team will work, upgrade slots, and you will earn automatically!</li>
+                </ul>
+                <p style="font-weight: bold; color: #28a745; margin-top: 15px;">
+                    Keep working hard! You are very close to achieving financial freedom. 🚀
+                </p>
+            `;
+
+            // Dono messages ko mila kar dikhao
+            showModal("Keep Going! You're Almost There! 💪", statusMessage + benefitsMessage);
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+        let displayError = "An unexpected error occurred. Please check the console.";
+        if (error.message) {
+            displayError = error.message;
+        }
+        showModal("Error!", displayError);
+    } finally {
+        assistantBtn.disabled = false;
+        assistantBtn.textContent = 'Your Assistant';
+    }
+}
+
+
+  // --- AUTO-CONNECT LOGIC ---
+  window.addEventListener("load", async () => {
+    if (window.ethereum && window.ethereum.selectedAddress) {
+        connectWallet();
+    }
+  });
+
+</script>
+
+</body>
+</html>

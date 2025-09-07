@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Chat</title>
+    <style>
+        :root {
+            --background-color: #111B21;
+            --panel-color: #202C33;
+            --header-color: #202C33;
+            --text-primary: #E9EDEF;
+            --text-secondary: #8696A0;
+            --accent-green: #00A884;
+            --sent-bubble: #005C4B;
+            --received-bubble: #202C33;
+            --hover-color: #2A3942;
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+        .app-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        #chatListScreen {
+            transform: translateX(0);
+            background: var(--background-color);
+        }
+        #chatListScreen.hidden {
+            transform: translateX(-100%);
+        }
+        .list-header {
+            background: var(--header-color);
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .list-header h2 { margin: 0; font-size: 1.2em; }
+        .chat-list { flex: 1; overflow-y: auto; }
+        .chat-list-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(134, 150, 160, 0.15);
+        }
+        .chat-list-item:hover { background: var(--hover-color); }
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .chat-info { flex: 1; overflow: hidden; }
+        .chat-info .email { font-weight: 600; }
+        .chat-info .last-msg {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* --- YAHAN BADLAV KIYA GAYA HAI --- */
+        #chatWindowScreen {
+            transform: translateX(100%);
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-color: #0d1418;
+            /* display: flex; aur flex-direction: column; pehle se screen class mein hai */
+        }
+        #chatWindowScreen.visible {
+            transform: translateX(0);
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            background: var(--header-color);
+            padding: 10px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            /* Yeh zaroori nahi hai, isko hata sakte hain */
+            /* flex-shrink: 0; */
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .back-btn svg { width: 24px; height: 24px; fill: currentColor; }
+        .chat-header .profile-pic { width: 40px; height: 40px; font-size: 1.2em; }
+        .chat-header h2 { margin: 0; font-size: 1.1em; }
+        
+        /* Messages Area ko theek kiya gaya hai */
+        .messages-area {
+            flex: 1; /* Yeh isko bachi hui saari jagah de dega */
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse; /* Messages neeche se shuru honge */
+        }
+        
+        .message {
+            max-width: 75%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            word-wrap: break-word;
+            position: relative;
+        }
+        .message.sent { background: var(--sent-bubble); align-self: flex-end; }
+        .message.received { background: var(--received-bubble); align-self: flex-start; }
+        .message .timestamp {
+            font-size: 0.7em;
+            color: var(--text-secondary);
+            float: right;
+            margin-left: 10px;
+            margin-top: 5px;
+        }
+        .message img { max-width: 100%; border-radius: 8px; margin-top: 5px; }
+        
+        /* Input Area ko theek kiya gaya hai */
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--header-color); /* Thoda sa background de dein */
+            /* flex-shrink: 0; */ /* Yeh zaroori nahi hai */
+        }
+        #messageInput {
+            flex: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 25px;
+            background: var(--panel-color);
+            color: var(--text-primary);
+            font-size: 1em;
+        }
+        .action-btn {
+            background: none;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            margin-left: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-secondary);
+        }
+        .action-btn svg { width: 24px; height: 24px; fill: currentColor; }
+        .send-btn { background: var(--accent-green); color: white; }
+        #imageInput { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Screen 1: Chat List -->
+    <div id="chatListScreen" class="screen">
+        <header class="list-header">
+            <h2>Admin Chats</h2>
+        </header>
+        <div class="chat-list" id="chatList">
+            <!-- Chat list items will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Screen 2: Chat Window -->
+    <div id="chatWindowScreen" class="screen">
+        <header class="chat-header">
+            <button class="back-btn" id="backBtn">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+            </button>
+            <div class="profile-pic" id="chatHeaderPic"></div>
+            <h2 id="chattingWithEmail"></h2>
+        </header>
+        <div class="messages-area" id="messagesArea"></div>
+        <!-- Input Area ab header aur messages ke baad hai -->
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Message">
+            <label for="imageInput" class="action-btn">
+                <svg viewBox="0 0 24 24"><path d="M22 16V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-11-4l-3 4h12l-5-6.67z"></path></svg>
+            </label>
+            <input type="file" id="imageInput" accept="image/*">
+            <button class="action-btn send-btn" id="sendBtn">
+                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    // Aapka poora JavaScript code yahan waisa hi rahega jaisa pehle tha.
+    // Usmein koi badlav ki zaroorat nahi hai.
+    // ... (poora script yahan paste kar dein) ...
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+    import { getDatabase, ref, onValue, push, serverTimestamp, query, orderByChild, limitToLast } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+    import { getStorage, ref as storageRef, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyBFLTBJFMJAHNJs1XIWgRivwlAwPv2A5PQ",
+    authDomain: "life-change-easy.firebaseapp.com",
+    databaseURL: "https://life-change-easy-default-rtdb.firebaseio.com",
+    projectId: "life-change-easy",
+    storageBucket: "life-change-easy.firebasestorage.app",
+    messagingSenderId: "340480283671",
+    appId: "1:340480283671:web:fd4d1aeb5f2d9500d4b852",
+    measurementId: "G-WDC7ETRF8F"
+  };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    const storage = getStorage(app);
+
+    const ADMIN_EMAIL = "n03297871@gmail.com";
+    let adminUser;
+    let currentChatRef;
+    let currentChatUserId;
+    let messageListener;
+
+    const chatListScreen = document.getElementById('chatListScreen');
+    const chatWindowScreen = document.getElementById('chatWindowScreen');
+    const chatList = document.getElementById('chatList');
+    const messagesArea = document.getElementById('messagesArea');
+    const messageInput = document.getElementById('messageInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const imageInput = document.getElementById('imageInput');
+    const backBtn = document.getElementById('backBtn');
+    const chattingWithEmailEl = document.getElementById('chattingWithEmail');
+    const chatHeaderPic = document.getElementById('chatHeaderPic');
+
+    onAuthStateChanged(auth, (user) => {
+        if (user && user.email === ADMIN_EMAIL) {
+            adminUser = user;
+            loadChatList();
+        } else {
+            alert("Admin access only. Redirecting to login.");
+            window.location.href = './login.html';
+        }
+    });
+
+    function showChatWindow(userId, userEmail) {
+        chatListScreen.classList.add('hidden');
+        chatWindowScreen.classList.add('visible');
+        selectChat(userId, userEmail);
+    }
+
+    function showChatList() {
+        chatListScreen.classList.remove('hidden');
+        chatWindowScreen.classList.remove('visible');
+        if (messageListener) messageListener();
+        currentChatRef = null;
+    }
+
+    backBtn.addEventListener('click', showChatList);
+
+    function loadChatList() {
+        const chatsRef = ref(db, 'chats');
+        onValue(chatsRef, (snapshot) => {
+            chatList.innerHTML = '';
+            snapshot.forEach((childSnapshot) => {
+                const userId = childSnapshot.key;
+                const lastMessageQuery = query(childSnapshot.ref, orderByChild('timestamp'), limitToLast(1));
+                
+                onValue(lastMessageQuery, (msgSnapshot) => {
+                    if (!msgSnapshot.exists()) return;
+                    const lastMessage = Object.values(msgSnapshot.val())[0];
+                    const userEmail = childSnapshot.val().userEmail || userId;
+                    
+                    const item = document.createElement('div');
+                    item.className = 'chat-list-item';
+                    item.dataset.userId = userId;
+                    item.innerHTML = `
+                        <div class="profile-pic">${userEmail.charAt(0).toUpperCase()}</div>
+                        <div class="chat-info">
+                            <div class="email">${userEmail}</div>
+                            <div class="last-msg">${lastMessage.text || '📷 Image'}</div>
+                        </div>`;
+                    
+                    item.addEventListener('click', () => showChatWindow(userId, userEmail));
+                    
+                    const existingItem = chatList.querySelector(`[data-user-id="${userId}"]`);
+                    if (existingItem) existingItem.remove();
+                    
+                    chatList.prepend(item);
+                });
+            });
+        });
+    }
+
+    function selectChat(userId, userEmail) {
+        currentChatUserId = userId;
+        currentChatRef = ref(db, `chats/${userId}`);
+        
+        chattingWithEmailEl.textContent = userEmail;
+        chatHeaderPic.textContent = userEmail.charAt(0).toUpperCase();
+
+        loadMessages();
+    }
+
+    function loadMessages() {
+        if (messageListener) messageListener();
+        
+        messageListener = onValue(currentChatRef, (snapshot) => {
+            messagesArea.innerHTML = '';
+            snapshot.forEach((childSnapshot) => {
+                displayMessage(childSnapshot.val());
+            });
+        });
+    }
+
+    function displayMessage(message) {
+        const msgDiv = document.createElement('div');
+        const type = message.senderId === adminUser.uid ? 'sent' : 'received';
+        msgDiv.className = `message ${type}`;
+
+        let content = '';
+        if (message.text) content += `<p>${message.text}</p>`;
+        if (message.imageUrl) content += `<img src="${message.imageUrl}" alt="Image">`;
+        
+        const time = message.timestamp ? new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+        content += `<span class="timestamp">${time}</span>`;
+        
+        msgDiv.innerHTML = content;
+        messagesArea.prepend(msgDiv);
+    }
+
+    async function sendMessage(text, imageUrl = null) {
+        if ((!text && !imageUrl) || !currentChatRef) return;
+
+        const originalText = text;
+        messageInput.value = '';
+
+        try {
+            await push(currentChatRef, {
+                text: originalText,
+                imageUrl: imageUrl,
+                senderId: adminUser.uid,
+                senderEmail: adminUser.email,
+                timestamp: serverTimestamp()
+            });
+        } catch (error) {
+            console.error("Error sending message:", error);
+            alert("Failed to send message.");
+            messageInput.value = originalText;
+        }
+    }
+
+    sendBtn.addEventListener('click', () => sendMessage(messageInput.value.trim()));
+    messageInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') sendMessage(messageInput.value.trim());
+    });
+
+    imageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file || !currentChatUserId) return;
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            const dataUrl = event.target.result;
+            const sRef = storageRef(storage, `chat_images/${currentChatUserId}/${Date.now()}_${file.name}`);
+            try {
+                await uploadString(sRef, dataUrl, 'data_url');
+                const downloadURL = await getDownloadURL(sRef);
+                sendMessage(null, downloadURL);
+            } catch (error) {
+                console.error("Image upload failed:", error);
+                alert("Failed to upload image. Please check storage rules in Firebase.");
+            }
+        };
+        reader.readAsDataURL(file);
+        imageInput.value = '';
+    });
+</script>
+
+</body>
+</html>

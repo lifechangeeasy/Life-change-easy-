@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>X4 Program Box Registration</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #0a0a0a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+    }
+    .top-bar {
+      background-color: #00ff77;
+      padding: 10px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #000;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #1c1c1c;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,255,120,0.2);
+      text-align: center;
+    }
+    .heading {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      color: #00ffcc;
+    }
+    .description {
+      font-size: 1em;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    .wallet-address {
+      background: #222;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 20px;
+      color: #00ff77;
+      font-weight: bold;
+    }
+    .action-button, .approve-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .action-button {
+      background: #00ff77;
+      color: #000;
+    }
+    .action-button:disabled {
+      background: #444;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+    .approve-btn {
+      background: #0077ff;
+      color: white;
+    }
+    .approve-btn:disabled {
+      background: #444;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">Life Change Easy.io</div>
+<div class="container">
+  <div class="heading">X4 Program - Box Registration</div>
+  <div class="description">
+    Activate your income box in the X4 Program to begin your earnings journey.<br />
+    This is a lifetime registration using USDT only.
+  </div>
+
+  <div id="wallet" class="wallet-address">Connecting wallet...</div>
+
+  <button class="action-button" disabled id="approveBnbBtn">Approve USDT</button>
+
+  <div id="usdtProcessWrapper" style="display: none;">
+    <button class="approve-btn" id="approveFinalBtn" onclick="activate()">Activate with USDT</button>
+  </div>
+</div>
+  
+</div>
+  <div id="errorBox" style="display:none; background-color:#ff4d4d; color:white; padding:12px; text-align:center; font-weight:bold; position:fixed; top:0; left:0; width:100%; z-index:9999;"></div>
+  <script>  
+  const CONTRACT_ADDRESS = "0x427226D5D018C53cFD77634422A979675C779E80"; // X4  
+  const USDT_ADDRESS = "0x55d398326f99059fF775485246999027B3197955"; // USDT BSC  
+  
+  const ABI = [  
+    {
+    "inputs": [{ "internalType": "uint8", "name": "boxId", "type": "uint8" }],
+    "name": "activateBox",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint8", "name": "", "type": "uint8" }
+    ],
+    "name": "hasActivated",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+    "name": "boxPrices",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+    "name": "boxAdminFees",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]; 
+  
+  const USDT_ABI = [  
+    {  
+      "constant": false,  
+      "inputs": [  
+        { "name": "spender", "type": "address" },  
+        { "name": "value", "type": "uint256" }  
+      ],  
+      "name": "approve",  
+      "outputs": [{ "name": "", "type": "bool" }],  
+      "type": "function"  
+    },  
+    {  
+      "constant": true,  
+      "inputs": [  
+        { "name": "owner", "type": "address" },  
+        { "name": "spender", "type": "address" }  
+      ],  
+      "name": "allowance",  
+      "outputs": [{ "name": "", "type": "uint256" }],  
+      "type": "function"  
+    }  
+  ];  
+  
+  let userAddress, contract, usdtContract, selectedBoxId = 1;  
+  
+  window.addEventListener("DOMContentLoaded", async () => {  
+    if (!window.ethereum) return alert("⚠️ Please install MetaMask or Trust Wallet");  
+  
+    const web3 = new Web3(window.ethereum);  
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });  
+    userAddress = accounts[0];  
+    document.getElementById("wallet").textContent = `Connected: ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`;  
+  
+    contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);  
+    usdtContract = new web3.eth.Contract(USDT_ABI, USDT_ADDRESS);  
+  
+    const box = sessionStorage.getItem("activateIndex");  
+    selectedBoxId = box ? parseInt(box) : 1;  
+  
+    const alreadyActivated = await contract.methods.hasActivated(userAddress, selectedBoxId).call();  
+    const btn = document.getElementById("approveBnbBtn");  
+  
+    if (alreadyActivated) {  
+      btn.innerText = "Already Activated ✓";  
+      btn.disabled = true;  
+    } else {  
+      btn.disabled = false;  
+      btn.onclick = approveUSDT;  
+    }  
+  });  
+  
+  async function approveUSDT() {  
+    try {  
+      const price = await contract.methods.boxPrices(selectedBoxId).call();  
+      const adminFee = await contract.methods.boxAdminFees(selectedBoxId).call();  
+      const totalCost = BigInt(price) + BigInt(adminFee);  
+  
+      const allowance = await usdtContract.methods.allowance(userAddress, CONTRACT_ADDRESS).call();  
+      if (BigInt(allowance) < totalCost) {  
+        await usdtContract.methods.approve(CONTRACT_ADDRESS, totalCost.toString()).send({ from: userAddress });  
+      }  
+  
+      document.getElementById("approveBnbBtn").innerText = "Activating...";  
+      document.getElementById("approveBnbBtn").disabled = true;  
+  
+      const gas = await contract.methods.activateBox(selectedBoxId).estimateGas({ from: userAddress });  
+      await contract.methods.activateBox(selectedBoxId).send({ from: userAddress, gas });  
+  
+      alert("✅ Box Activated Successfully!");  
+      window.location.href = "dashboard.html";  
+  
+    } catch (err) {  
+      console.error("❌ Error in approval/activation", err);  
+      alert("❌ " + (err?.message || "Something went wrong"));  
+      document.getElementById("approveBnbBtn").innerText = "Approve USDT";  
+      document.getElementById("approveBnbBtn").disabled = false;  
+    }  
+  }  
+</script>
+</body>
+</html>
+

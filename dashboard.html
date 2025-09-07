@@ -1,0 +1,3372 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeChangeEasy Programs Full Final</title>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<style>
+body { background-color: black; color: white; font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+h2 { text-align: center; background-color: transparent; color: black; padding: 10px; margin-top: 30px;  }
+.book-container { border: 2px solid #00FF00; border-radius: 10px; padding: 20px; margin-top: 20px; text-align: center; }
+.book-circles { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 20px; }
+.book-circles .circle { width: 10px; height: 10px; background-color: white; border-radius: 50%; }
+.box-view-btn { background-color: #00FF00; color: black; border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; }
+.program-boxes { display: none; margin-top: 20px; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.program-box { background: #1c1c1c; border: 1px solid #00FF00; border-radius: 10px; padding: 15px; width: 120px; text-align: center; }
+.activate-btn { background: #00FF00; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-top: -10px; cursor: pointer; font-size: 12px; }
+.bubbles-container { margin-top: -10px; display: flex; justify-content: center; gap: 4px; }
+.bubble { width: 10px; height: 10px; background-color: white; border-radius: 50%; transition: all 0.5s ease; }
+.bubble.green { background-color: #00FF00; }
+.bubble.red { background-color: red; animation: jump 0.8s infinite alternate; }
+@keyframes jump {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+</style>
+<style>
+#dynamicName {
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+</style><style>
+@keyframes borderShift {
+  0% {
+    border-image-source: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+  }
+  50% {
+    border-image-source: linear-gradient(90deg, violet, indigo, blue, green, yellow, orange, red);
+  }
+  100% {
+    border-image-source: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+  }
+}
+</style><style>
+#userList > div {
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+</style>
+<style>
+.transaction-entry {
+  background-color: #111;
+  padding: 10px;
+  margin: 8px 0;
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet) 1;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 0 8px #0f0;
+}
+</style>
+<style>
+    body {
+  zoom: 1.05;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    header {
+      background-color: #111;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .menu-icon div {
+      width: 25px;
+      height: 3px;
+      background-color: #0f0;
+      margin: 4px 0;
+    }
+    .container {
+      padding: 1rem;
+    }
+    .section {
+      background-color: #111;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .section h2 {
+      margin-top: 0;
+      color: #0f0;
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: #0f0;
+      color: #000;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .box-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .box {
+      background-color: #222;
+      padding: 0.2rem;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 0.6rem;
+    }
+    .box p {
+      margin: 0.3rem 0;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+    }
+    .stat { 
+      background-color: #222;
+      padding: 0.5rem;
+      border-radius: 10px;
+      text-align: center;
+     font-size: 0.85rem;
+    .highlight {
+      color: #0f0;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .dp-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0f0;
+    }
+  </style>
+<style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
+<style>
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<style>
+  #dashboard-container { display: none; }
+  #welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #000;
+    color: #0f0;
+  }
+  .btn {
+    background-color: #0f0;
+    color: #000;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+<style>
+@media (max-width: 480px) {
+  .box-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .box {
+    padding: 0.4rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  .box p {
+    margin: 0.15rem 0 !important;
+  }
+
+  .btn {
+    padding: 0.35rem 0.5rem !important;
+    font-size: 0.65rem !important;
+  }
+}
+
+  .box {
+    padding: 0.1rem !important;
+    font-size: 0.4rem !important;
+    min-height: 80px !important;
+  }
+
+  .box p {
+    margin: 0.1rem 0 !important;
+    font-size: 0.85rem !important;
+    font-weight: bold;
+    color: #fff !important;
+  }
+
+  .btn {
+    padding: 0.2rem 0.4rem !important;
+    font-size: 0.45rem !important;
+  }
+}
+</style>
+<style>
+  .btn {
+    padding: 0.6rem 1.2rem !important;
+    font-size: 1rem !important;
+  }
+</style>
+<style>
+  .bubble {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #0f0;
+    animation: pulse 1.2s infinite ease-in-out alternate;
+  }
+  .bubble:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .bubble:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  .bubble:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.7); opacity: 0.6; }
+    100% { transform: scale(1.3); opacity: 1; }
+  }
+  </style>
+<style>
+.profile-img {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+</style>
+<style>
+.wallet-btn {
+  background-color: #007bff !important;  /* full blue */
+  color: #fff !important;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 999px;
+  cursor: pointer;
+  margin: 0 20px 0 0;
+}
+</style>
+
+<style>
+@keyframes rotateBorder {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+</style><style>
+#dynamicName {
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+</style><style>
+@keyframes borderShift {
+  0% {
+    border-image-source: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+  }
+  50% {
+    border-image-source: linear-gradient(90deg, violet, indigo, blue, green, yellow, orange, red);
+  }
+  100% {
+    border-image-source: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+  }
+}
+</style><style>
+#userList > div {
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+</style>
+<style>
+.transaction-entry {
+  background-color: #111;
+  padding: 10px;
+  margin: 8px 0;
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet) 1;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 0 8px #0f0;
+}
+</style>
+<style>
+.transaction-entry {
+  background-color: #111;
+  padding: 10px;
+  margin: 8px 0;
+  border: 3px solid transparent;
+  border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 0 8px lime;
+}
+</style><style>
+html, body {
+    overflow-x: hidden !important;
+}
+.section {
+    width: 100% !important;
+}
+</style><style>
+.section {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+</style><style>
+.section {
+    width: 100vw !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+}
+</style><style>
+.section {
+    padding-left: 1.5rem !important;
+}
+</style><style>
+.section {
+    width: 100vw !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    position: relative !important;
+    left: 0 !important;
+}
+</style><style>
+.section {
+    width: 100vw !important;
+    margin-left: -20px !important;
+    padding-left: 0 !important;
+    position: relative !important;
+    left: -10px !important;
+}
+</style><style>
+.section {
+    width: 100vw !important;
+    margin-left: -35px !important;
+    padding-left: 0 !important;
+    position: relative !important;
+    left: -20px !important;
+}
+</style><style>
+.section {
+    width: 100vw !important;
+    margin-left: -10px !important;
+    padding-left: 10px !important;
+    position: relative !important;
+    left: -5px !important;
+}
+</style><style>
+.circle {
+  background-color: red !important;
+}
+</style>
+<style>
+@keyframes rainbow-glow {
+  0% { box-shadow: 0 0 6px 3px red; }
+  20% { box-shadow: 0 0 6px 3px orange; }
+  40% { box-shadow: 0 0 6px 3px yellow; }
+  60% { box-shadow: 0 0 6px 3px green; }
+  80% { box-shadow: 0 0 6px 3px blue; }
+  100% { box-shadow: 0 0 6px 3px violet; }
+}
+
+.green-bubble {
+  background-color: #00FF00 !important;
+  animation: rainbow-glow 2s infinite;
+  transition: box-shadow 0.3s ease;
+  border-radius: 50%;
+}
+
+/* ================================================== */
+/* === NAYA ANIMATED GLOW + STATIC BORDER === */
+/* ================================================== */
+
+/* Yeh animation ab sirf "box-shadow" (glow) ko harkat dega */
+@keyframes animated-glow-only {
+  0%   { box-shadow: 0 0 30px #ff0000; }
+  14%  { box-shadow: 0 0 30px #ff7f00; }
+  28%  { box-shadow: 0 0 30px #ffff00; }
+  42%  { box-shadow: 0 0 30px #00ff00; }
+  57%  { box-shadow: 0 0 30px #0000ff; }
+  71%  { box-shadow: 0 0 30px #4b0082; }
+  85%  { box-shadow: 0 0 30px #ee82ee; }
+  100% { box-shadow: 0 0 30px #ff0000; }
+}
+
+/* Yeh style ab .stat class par apply hogi */
+.stat {
+  /* 1. Static Multi-Color Border (Yeh ab hamesha rahega) */
+  border-image-source: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #ee82ee);
+  
+  /* 2. Animated Glow (Yeh hamesha chalta rahega) */
+  animation: animated-glow-only 5s linear infinite;
+}
+
+
+</style>
+<style>
+.green-bubble { background-color: #00FF00 !important; }
+.red-bubble { background-color: #FF0000 !important; }
+
+
+
+/* ================================================== */
+/* === NAYI CLASS: SIRF CHALTI HUI PATTI KE LIYE === */
+/* ================================================== */
+
+/* Yeh animation banata hai jo SIRF border ke rangon ko ghumata hai */
+@keyframes animated-border-only {
+  0%   { border-image-source: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #ee82ee); }
+  25%  { border-image-source: linear-gradient(90deg, #ffff00, #00ff00, #0000ff, #4b0082, #ee82ee, #ff0000, #ff7f00); }
+  50%  { border-image-source: linear-gradient(90deg, #0000ff, #4b0082, #ee82ee, #ff0000, #ff7f00, #ffff00, #00ff00); }
+  75%  { border-image-source: linear-gradient(90deg, #ee82ee, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082); }
+  100% { border-image-source: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #ee82ee); }
+}
+
+/* Yeh nayi class hai jo hum istemal karenge */
+.animated-border-box {
+  /* Animation ka naam, uski speed, aur usko hamesha chalane ka hukum */
+  animation: animated-border-only 5s linear infinite;
+}
+
+
+/* ================================================== */
+/* === SHOW MORE BUTTON KE LIYE NAYA GLOW === */
+/* ================================================== */
+
+/* Yeh animation wahi purani hai, isko dobara likhne ki zaroorat nahi agar pehle se mojood hai */
+@keyframes animated-glow-only {
+  0%   { box-shadow: 0 0 20px #ff0000; } /* Thoda halka glow behtar lagega */
+  14%  { box-shadow: 0 0 20px #ff7f00; }
+  28%  { box-shadow: 0 0 20px #ffff00; }
+  42%  { box-shadow: 0 0 20px #00ff00; }
+  57%  { box-shadow: 0 0 20px #0000ff; }
+  71%  { box-shadow: 0 0 20px #4b0082; }
+  85%  { box-shadow: 0 0 20px #ee82ee; }
+  100% { box-shadow: 0 0 20px #ff0000; }
+}
+
+/* Yeh nayi class hai jo hum Show More button par lagayenge */
+.glowing-text-button {
+  /* 1. Border ko transparent rakhein taake sirf glow nazar aaye */
+  border: 1px solid transparent;
+  
+  /* 2. Animated Glow (Yeh hamesha chalta rahega) */
+  animation: animated-glow-only 5s linear infinite;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<script>
+function togglePartnerHistory() {
+    var box = document.getElementById('userHistoryBox');
+    if (box.style.display === 'none' || box.style.display === '') {
+        box.style.display = 'block';
+    } else {
+        box.style.display = 'none';
+    }
+}
+
+function togglePartnerHistory() {
+    var box = document.getElementById('userHistoryBox');
+    if (box.style.display === 'none' || box.style.display === '') {
+        box.style.display = 'block';
+        loadPartners();
+    } else {
+        box.style.display = 'none';
+    }
+}
+
+function loadPartners() {
+    const userList = document.getElementById('userList');
+    userList.innerHTML = ''; // clear previous
+    partners.forEach(partner => {
+        const div = document.createElement('div');
+        div.style.backgroundColor = '#333';
+        div.style.padding = '10px';
+        div.style.borderRadius = '5px';
+        div.style.marginBottom = '10px';
+        div.innerHTML = `
+            <div>
+                <span onclick="alert('Clicked on ${partner.id}')" style="color:#0f0; cursor:pointer; font-weight:bold;">${partner.id}</span><br>
+                Join Date: ${partner.joinDate}<br>
+                Total Earning: ${partner.earning}<br>
+                Total Partners: ${partner.totalPartners}
+            </div>
+        `;
+        userList.appendChild(div);
+    });
+}
+</script>
+<script>
+function activateBox(button, index) {
+  sessionStorage.setItem("activateIndex", index);
+  window.location.href = "registration_box.html";
+}
+</script>
+
+<header style="background-color:#0f0; color:#000; padding: 0.4rem 1rem; display:flex; justify-content:space-between; align-items:center; position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000; height: 50px;">
+<div id="professionalTitle" style="position: absolute; top: 16px; left: 12px; max-width: 200px; font-size: 20px; font-weight: bold; font-family: Arial, sans-serif; background: linear-gradient(to right, red, orange, green, blue, indigo, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; z-index: 1000;">  
+    LifeChangeEasy.io  
+<!-- ✅ Glowing Animated Gradient Setting Icon -->
+<style>
+@keyframes hueRotate {
+  0%   { filter: hue-rotate(0deg);   }
+  25%  { filter: hue-rotate(90deg);  }
+  50%  { filter: hue-rotate(180deg); }
+  75%  { filter: hue-rotate(270deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+#animatedSettingIcon {
+  animation: hueRotate 3s linear infinite;
+}
+</style>
+  <!-- Add this to your HTML file -->
+
+
+<div id="settingIconContainer" onclick="toggleProfileSettings()" style="      
+  position: fixed;      
+  top: 12px;      
+  right: 130px;      
+  z-index: 1000;      
+  width: 34px;      
+  height: 34px;      
+  border-radius: 50%;      
+  background: transparent;      
+  cursor: pointer;      
+  display: flex; /* always visible manually */     
+  align-items: center;      
+  justify-content: center;      
+">      
+  <svg id="animatedSettingIcon" width="26" height="26" viewBox="0 0 24 24" fill="none">      
+    <defs> 
+      <linearGradient id="settingGrad" x1="0%" y1="0%" x2="100%" y2="100%">      
+        <stop offset="0%" stop-color="#ff0000"/>      
+        <stop offset="25%" stop-color="#00ff00"/>      
+        <stop offset="50%" stop-color="#0000ff"/>      
+        <stop offset="75%" stop-color="#ffff00"/>      
+        <stop offset="100%" stop-color="#ff00ff"/>      
+      </linearGradient>      
+    </defs>      
+    <path fill="url(#settingGrad)" d="M12 1.75c-.69 0-1.25.56-1.25 1.25V4.1a7.05 7.05 0 0 0-1.28.53l-.89-1.54a1.25 1.25 0 1 0-2.16 1.25l.89 1.54c-.41.38-.76.81-1.03 1.28l-1.54-.89a1.25 1.25 0 1 0-1.25 2.16l1.54.89a7.05 7.05 0 0 0-.53 1.28H2.25c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25H4.1c.13.45.3.88.53 1.28l-1.54.89a1.25 1.25 0 1 0 1.25 2.16l1.54-.89c.27.47.62.9 1.03 1.28l-.89 1.54a1.25 1.25 0 1 0 2.16 1.25l.89-1.54c.41.23.84.4 1.28.53v1.15c0 .69.56 1.25 1.25 1.25s1.25-.56 1.25-1.25V19.9c.45-.13.88-.3 1.28-.53l.89 1.54a1.25 1.25 0 0 0 2.16-1.25l-.89-1.54c.41-.38.76-.81 1.03-1.28l1.54.89a1.25 1.25 0 1 0 1.25-2.16l-1.54-.89c.23-.41.4-.84.53-1.28h1.15c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25H19.9a7.05 7.05 0 0 0-.53-1.28l1.54-.89a1.25 1.25 0 1 0-1.25-2.16l-1.54.89a7.05 7.05 0 0 0-1.03-1.28l.89-1.54a1.25 1.25 0 0 0-2.16-1.25l-.89 1.54a7.05 7.05 0 0 0-1.28-.53V3c0-.69-.56-1.25-1.25-1.25Z"/>      
+  </svg>      
+</div>
+
+
+</body>
+</html>
+<lineargradient id="multiColorNew" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="red"></stop>
+<stop offset="20%" stop-color="orange"></stop>
+<stop offset="40%" stop-color="yellow"></stop>
+<stop offset="60%" stop-color="green"></stop>
+<stop offset="80%" stop-color="blue"></stop>
+<stop offset="100%" stop-color="violet"></stop>
+</lineargradient>
+</defs>
+<path d="M19.14,12.94c0.04,-0.3 0.06,-0.61 0.06,-0.94c0,-0.33 -0.02,-0.64 -0.06,-0.94l2.03,-1.58
+    c0.18,-0.14 0.23,-0.41 0.12,-0.62l-1.92,-3.32c-0.11,-0.2 -0.36,-0.28 -0.57,-0.22l-2.39,0.96c-0.5,-0.38 -1.04,-0.7 -1.64,-0.94
+    l-0.36,-2.54c-0.03,-0.22 -0.22,-0.39 -0.45,-0.39h-3.84c-0.22,0 -0.42,0.16 -0.45,0.39l-0.36,2.54c-0.6,0.24 -1.14,0.56
+    -1.64,0.94l-2.39,-0.96c-0.21,-0.06 -0.46,0.02 -0.57,0.22l-1.92,3.32c-0.11,0.21 -0.06,0.48 0.12,0.62l2.03,1.58
+    c-0.04,0.3 -0.06,0.61 -0.06,0.94c0,0.33 0.02,0.64 0.06,0.94l-2.03,1.58c-0.18,0.14 -0.23,0.41 -0.12,0.62l1.92,3.32
+    c0.11,0.2 0.36,0.28 0.57,0.22l2.39,-0.96c0.5,0.38 1.04,0.7 1.64,0.94l0.36,2.54c0.03,0.22 0.22,0.39 0.45,0.39h3.84
+    c0.22,0 0.42,-0.16 0.45,-0.39l0.36,-2.54c0.6,-0.24 1.14,-0.56 1.64,-0.94l2.39,0.96c0.21,0.06 0.46,-0.02
+    0.57,-0.22l1.92,-3.32c0.11,-0.21 0.06,-0.48 -0.12,-0.62l-2.03,-1.58Z" fill="url(#multiColorNew)"></path>
+</svg>
+</div>  
+
+<button class="wallet-btn" id="walletConnectBtn" onclick="connectWallet()" style="
+  padding: 4px 10px;  
+  font-size: 10.5px;  
+  font-weight: bold;  
+  border: none;  
+  border-radius: 6px;  
+  color: white;  
+  position: absolute;  
+  right: 20px;  
+  top: 18px;  
+  background: linear-gradient(to right, red, orange, green, blue, indigo, violet);">  
+  Wallet Connect  
+</button>
+
+<!-- Settings Popup Modal -->
+<script>
+function editName() {
+    var current = document.querySelector('.user-name').textContent;
+    var newName = prompt('Enter your Name:', current);
+    if (newName !== null && newName.trim() !== '') {
+        document.querySelector('.user-name').textContent = newName;
+
+        // ✅ Save name to localStorage so it's permanent
+        localStorage.setItem("userName", newName);
+
+        alert('Name updated successfully!');
+    }
+}
+
+// ✅ Auto-load saved name when page loads (even without wallet)
+window.addEventListener("DOMContentLoaded", function () {
+    const savedName = localStorage.getItem("userName");
+    if (savedName) {
+        document.querySelector('.user-name').textContent = savedName;
+    }
+});
+</script>
+</header>
+<div class="container" style="padding-top: 0px;">
+<div class="section" style="margin-top: 0px; padding-top: 20px; padding-bottom: 80px;">
+<div class="profile-header" style="margin-top: 4rem; display: flex; align-items: center; gap: 10px;; display:flex; align-items:center; justify-content:space-between;">
+<div style="margin-left:20px; display: flex; align-items: center; gap: 10px;">
+<img alt="DP" class="profile-img" id="mainProfileImage" src="https://i.ibb.co/gFbD3Jx/profile-icon.png" style="position: absolute; left: 0px; top: 50px; width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: block;border: 5px solid transparent;background: conic-gradient(red, orange, yellow, green, blue, indigo, violet);background-clip: border-box;animation: rotateBorder 3s linear infinite;pointer-events: none; cursor: default;"/>
+
+<!-- 🔔 Notification Button (HIDDEN by default) -->
+<span id="currentUserId" style="display:none;">25</span>  <!-- Yeh 25 dynamic hona chahiye -->
+<div id="notificationContainer" onclick="toggleNotificationBox()" style="
+  display: block;
+  position: absolute;
+  top: 1px;
+  right: 150px;
+  cursor: pointer;
+  z-index: 1000;">
+  <svg fill="#FF0000" height="22" viewBox="0 0 24 24" width="22">
+    <path d="M12 24c1.1 0 1.99-.9 1.99-2H10c0 1.1.89 2 2 2zm6.36-6c-.59-.59-1.41-1-2.36-1H8c-.95 0-1.77.41-2.36 1C4.41 18.59 4 19.41 4 20.36V21h16v-.64c0-.95-.41-1.77-1.64-2.36zM18 16V9c0-3.07-1.63-5.64-4.5-6.32V2c0-.83-.67-1.5-1.5-1.5S10.5 1.17 10.5 2v.68C7.63 3.36 6 5.92 6 9v7l-1.29 1.29c-.18.18-.29.43-.29.71v.5h16v-.5c0-.28-.11-.53-.29-.71L18 16z"/>
+  </svg>
+</div>
+
+<!-- 🔔 Notification Box -->
+<div id="notificationBox" style="
+  display: none;
+  position: absolute;
+  top: 100px;
+  right: 115px;
+  width: 220px;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: #111;
+  color: white;
+  border: 4px solid;
+  border-image: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet) 1;
+  animation: borderShift 5s linear infinite;
+  border-radius: 19px;
+  box-shadow: 0 0 10px #0f0;
+  padding: 10px;
+  font-size: 14px;
+  z-index: 9999;">
+  <!-- example user ID -->
+  <div id="notificationContent" style="color:white; font-size: 14px;">Today no notification</div>
+</div>
+
+
+<!-- ✅ Gradient Animation -->
+<style>
+@keyframes borderShift {
+  0% { border-image-source: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet); }
+  100% { border-image-source: linear-gradient(270deg, violet, indigo, blue, green, yellow, orange, red); }
+}
+</style>
+<div id="userIdDisplay" style="position: absolute; left: 115px; top: 60px; font-size: 1.2rem; color: #00ff00; font-weight: bold;">ID: <span id="userIdOnly"></span></div>
+</div><div id="dynamicName" style="position: absolute; left: 170px; top: 95px; font-size: 1.2rem; color: white; font-weight: bold;"></div><div style="position:  absolute; left: calc(100% - 60px); top:  135px; font-size:  1.2rem; font-weight:  bold; color:  white; display:  flex; align-items:  center; gap:  6px">
+</div><div style="
+  font-weight: bold;
+  font-size: 13px;
+  position: absolute;
+  left: 30px;
+  top: 170px;
+  background: linear-gradient(to right, red, orange, green, skyblue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+">
+  Joining date<br/>
+<span id="joinDateBox">loading...</span>
+</div>
+</div>
+<divdiv style="margin-top: 10px; text-align: left; margin-left: auto; margin-right: 16;">
+<div id="uplineInfo" style="display:none; color:white; text-align:center; font-weight:bold; font-size:14px; margin-top:50px;">
+  Upline ID: <span id="uplineIdShow" style="color:#00ff00; text-decoration:underline; cursor:pointer;"></span>
+</div>
+<!-- Show More Button (with Animated Glow) -->
+<button 
+    onclick="toggleUpline()" 
+    class="glowing-text-button" 
+    style="
+        background: none; 
+        background-clip: text; 
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent; 
+        background-image: linear-gradient(to right, red, orange, green, skyblue, indigo, violet); 
+        padding: 5px 10px; 
+        font-size: 0.85rem; 
+        border-radius: 5px; 
+        font-weight: bold; 
+        cursor: pointer; 
+        display: block; 
+        margin: 0 auto; 
+        transform: translate(30px, 70px);
+">
+    Show More
+</button>
+<div id="uplineInfo" style="position: absolute; left: 130px; top: 1px; font-size: 1.2rem; color: white; font-weight: bold;; display: none;">
+             
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-start;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<div style="margin-top: 30px; float: right; text-align: right; text-align:left;"></div>
+<br/>
+</div>
+</div>
+</div>
+</div>
+<script>
+function copyWalletAddress() {
+  const copyText = document.getElementById("fullWalletAddress");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); 
+  document.execCommand("copy");
+  alert("Wallet address copied!");
+}
+</script>
+<div style="font-size: 0.75rem; color: #ccc; margin-top: 5px; margin-left: 10px; text-align: left;">
+</div>
+<div id="realWalletDisplay"></div>
+<div id="walletAddressDisplay" style="position: relative; top: -30px; z-index: 10;">
+<span id="userWalletAddress" onclick="copyFullAddress()" style="cursor:pointer; color:#0f0; font-weight:bold; font-size:10px;">
+  Loading wallet...
+</span>
+
+<div id="referralLinkBox" onclick="copyReferralLink()" style="margin-top: -1px; padding: 10px 20px; background-color: #0f0; color: #000; font-weight: bold; text-align: center; border-radius: 40px; font-size: 12px; cursor: pointer;">
+   <span id="referralLinkText">Referral Link:Loading...</span>
+</div>
+
+
+
+
+<!-- ================================================== -->
+<!-- === FINAL ANIMATED STATS BOXES (WITH PATTI) === -->
+<!-- ================================================== -->
+<div class="stat-grid">
+    <div style="display: flex; gap: 10px;">
+        <!-- Left Column -->
+        <div style="width: 50%; display: flex; flex-direction: column; gap: 10px;">
+            <!-- Total Earnings Box -->
+            <div class="stat" style="background-color: #222; padding: 0.6rem; border-radius: 10px; text-align: center; font-size: 0.7rem; border: 2px solid transparent; border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;">
+                <div style="color:white; font-size:12px;">Total Earnings</div>
+                <p class="highlight" id="totalEarnings" style="color: white; font-weight: bold;"><span id="x1-total-earn">$0.00</span></p>
+            </div>
+            <!-- Total Direct Team Box -->
+            <div class="stat" style="background-color: #222; padding: 0.6rem; border-radius: 10px; text-align: center; font-size: 0.7rem; border: 2px solid transparent; border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;">
+                <div style="color:white; font-size:12px;">Total Direct Team</div>
+                <p class="highlight" id="totalDirects" style="color: white; font-weight: bold;">0</p>
+            </div>
+            <!-- Indirect Team Box -->
+            <div class="stat" style="background-color: #222; padding: 0.6rem; border-radius: 10px; text-align: center; font-size: 0.7rem; border: 2px solid transparent; border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;">
+                <div style="color:white; font-size:12px;">Indirect Team</div>
+                <p class="highlight" id="totalIndirects" style="color: white; font-weight: bold;">0</p>
+            </div>
+        </div>
+        <!-- Right Column -->
+        <div style="width: 50%; display: flex; flex-direction: column; gap: 10px;">
+            <!-- 24H Earnings Box -->
+            <div class="stat" style="background-color: #222; padding: 0.6rem; border-radius: 10px; text-align: center; font-size: 0.7rem; border: 2px solid transparent; border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;">
+                <div style="color:white; font-size:12px;">24H Earnings</div>
+                <p class="highlight" id="earnings24H" style="color: lime; font-weight: bold;">$0.00</p>
+            </div>
+            <!-- 24H Direct Team Box -->
+            <div class="stat" style="background-color: #222; padding: 0.6rem; border-radius: 10px; text-align: center; font-size: 0.7rem; border: 2px solid transparent; border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;">
+                <div style="color:white; font-size:12px;">24H Direct Team</div>
+                <p class="highlight" id="directs24HTimestamps" style="color: lime; font-weight: bold;">0</p>
+            </div>
+            <!-- 24H Indirect Team Box -->
+            <div class="stat" style="background-color: #222; padding: 0.6rem; border-radius: 10px; text-align: center; font-size: 0.7rem; border: 2px solid transparent; border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;">
+                <div style="color:white; font-size:12px;">24H Indirect Team</div>
+                <p class="highlight" id="indirects24HTimestamps" style="color: lime; font-weight: bold;">0</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- violet connect karane ka code 👇-->
+<script>
+const BNB_CHAIN_ID = '0x38'; // 56 decimal = BNB Smart Chain Mainnet
+
+async function connectWallet() {
+  if (window.ethereum) {
+    try {
+      // ✅ Check and switch to BNB Smart Chain if needed
+      const currentChainId = await ethereum.request({ method: 'eth_chainId' });
+      if (currentChainId !== BNB_CHAIN_ID) {
+        await ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: BNB_CHAIN_ID }]
+        });
+      }
+
+      // ✅ Connect wallet
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      if (accounts.length > 0) {
+        const short = accounts[0].slice(0, 6) + "..." + accounts[0].slice(-4);
+        document.getElementById("walletConnectBtn").innerText = short;
+        localStorage.setItem("walletConnected", "yes");
+      }
+    } catch (error) {
+      console.error("Connection error:", error);
+      alert("Wallet connection or network switch failed.");
+    }
+  } else {
+    alert("Please install MetaMask, Trust Wallet, or TokenPocket.");
+  }
+}
+
+// ✅ Auto load wallet if already connected & on BNB chain
+window.addEventListener("DOMContentLoaded", async () => {
+  if (window.ethereum) {
+    const chainId = await ethereum.request({ method: 'eth_chainId' });
+    if (chainId === BNB_CHAIN_ID) {
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+      if (accounts.length > 0) {
+        const short = accounts[0].slice(0, 6) + "..." + accounts[0].slice(-4);
+        document.getElementById("walletConnectBtn").innerText = short;
+      }
+    }
+  }
+});
+</script>
+<!-- All Digital Program Box (with .stat class for animation) -->
+<div class="stat" style="background-color: black; color: white; font-size: 20px; font-weight: bold; text-align: center; padding: 15px 10px; margin-top: 40px; border: 3px solid transparent; border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1; border-radius: 10px; ">
+    All Digital Program Working OR NON Working Plus X1 X2 Working Plus NON Working X3 X4 Totally NON Working
+</div>
+
+
+
+    
+    
+<!-- X1 program start (FINAL - Static Patti + Animated Glow) -->
+<div class="stat" style="
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #1a1a1a;
+    color: white; 
+    padding: 10px; 
+    margin-top: 30px; 
+    font-size: 22px; 
+    font-weight: bold; 
+    border: 3px solid transparent; 
+    
+    /* --- YEH PATTI WAPIS LAGA DI HAI --- */
+    border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1; 
+    
+    border-radius: 10px;
+">
+    <!-- Left Side: Program Name + 24H Box -->
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: white;">X1</span>
+        
+        <!-- 24H Earning Box -->
+        <div style="
+            background-color: rgba(0, 255, 0, 0.15);
+            border-radius: 5px;
+            padding: 2px 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: inset 0 0 3px rgba(0, 255, 0, 0.2);
+        ">
+            <span style="color: #00FF00; font-size: 12px; line-height: 1; font-weight: bold;">↑</span>
+            <span id="x1_24h_earn" style="color: #00FF00; font-size: 12px; font-weight: 600;">$0.00</span>
+        </div>
+    </div>
+
+    <!-- Right Side: Total Earning -->
+    <span id="x1TotalEarn" style="color: white;">$0.00 Earn</span>
+</div>
+
+<!-- Book Container (FINAL - Static Patti + Animated Glow) -->
+<div class="book-container stat" style="
+    border: 3px solid transparent; 
+    
+    /* --- YEH PATTI WAPIS LAGA DI HAI --- */
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1; 
+    
+    border-radius: 10px; 
+    padding: 20px; 
+    margin-top: 20px; 
+    text-align: center;
+">
+
+
+
+
+
+<div class="book-circles" data-program="X1" id="x1-status-circles">
+<div class="circle" data-index="1" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="2" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="3" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="4" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="5" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="6" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="7" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="8" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="9" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="10" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="11" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="12" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="13" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="14" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="15" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="16" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="17" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="18" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="19" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="20" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="21" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="22" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="23" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="24" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="25" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="26" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="27" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="28" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="29" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="30" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="31" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="32" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="33" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="34" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="35" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="36" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="37" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="38" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="39" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="40" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="41" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="42" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="43" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="44" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="45" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="46" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="47" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="48" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="49" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="50" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+
+  <a class="box-view-link" href="xajigar.html" style="text-decoration: none;">
+  <button class="box-view-btn" style="
+    background-color: #00FF00;
+    color: black;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  ">
+    Box View
+  </button>
+</a>
+
+
+
+</div>
+</div>
+</div>
+
+
+
+<!-- X2 program start (FINAL - Static Patti + Animated Glow) -->
+<div class="stat" style="
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #1a1a1a;
+    color: white; 
+    padding: 10px; 
+    margin-top: 30px; 
+    font-size: 22px; 
+    font-weight: bold; 
+    border: 3px solid transparent; 
+    border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1; 
+    border-radius: 10px;
+">
+    <!-- Left Side: Program Name + 24H Box -->
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: white;">X2</span>
+        
+        <!-- 24H Earning Box -->
+        <div style="
+            background-color: rgba(0, 255, 0, 0.15);
+            border-radius: 5px;
+            padding: 2px 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: inset 0 0 3px rgba(0, 255, 0, 0.2);
+        ">
+            <span style="color: #00FF00; font-size: 12px; line-height: 1; font-weight: bold;">↑</span>
+            <span id="x2_24h_earn" style="color: #00FF00; font-size: 12px; font-weight: 600;">$0.00</span>
+        </div>
+    </div>
+
+    <!-- Right Side: Total Earning -->
+    <span id="x2TotalEarn" style="color: white;">$0.00 Earn</span>
+</div>
+
+<!-- Book Container (FINAL - Static Patti + Animated Glow) -->
+<div class="book-container stat" style="
+    border: 3px solid transparent; 
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1; 
+    border-radius: 10px; 
+    padding: 20px; 
+    margin-top: 20px; 
+    text-align: center;
+">
+
+
+
+
+<div class="book-circles" data-program="X2" id="x2-status-circles">
+<div class="circle" data-index="1" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="2" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="3" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="4" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="5" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="6" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="7" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="8" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="9" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="10" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="11" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="12" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="13" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="14" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="15" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="16" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="17" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="18" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="19" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="20" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="21" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="22" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="23" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="24" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="25" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="26" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="27" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="28" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="29" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="30" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="31" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="32" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="33" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="34" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="35" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="36" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="37" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="38" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="39" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="40" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="41" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="42" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="43" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="44" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="45" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="46" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="47" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="48" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="49" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="50" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+
+
+  <a class="box-view-link" href="xbjigar.html" style="text-decoration: none;">
+  <button class="box-view-btn" style="
+    background-color: #00FF00;
+    color: black;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  ">
+    Box View
+  </button>
+</a>
+
+
+
+</div>
+</div>
+</div>
+
+
+<!-- X3 program start (FINAL - Static Patti + Animated Glow) -->
+<div class="stat" style="
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #1a1a1a;
+    color: white; 
+    padding: 10px; 
+    margin-top: 30px; 
+    font-size: 22px; 
+    font-weight: bold; 
+    border: 3px solid transparent; 
+    border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1; 
+    border-radius: 10px;
+">
+    <!-- Left Side: Program Name + 24H Box -->
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: white;">X3</span>
+        
+        <!-- 24H Earning Box -->
+        <div style="
+            background-color: rgba(0, 255, 0, 0.15);
+            border-radius: 5px;
+            padding: 2px 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: inset 0 0 3px rgba(0, 255, 0, 0.2);
+        ">
+            <span style="color: #00FF00; font-size: 12px; line-height: 1; font-weight: bold;">↑</span>
+            <span id="x3_24h_earn" style="color: #00FF00; font-size: 12px; font-weight: 600;">$0.00</span>
+        </div>
+    </div>
+
+    <!-- Right Side: Total Earning -->
+    <span id="x3TotalEarn" style="color: white;">$0.00 Earn</span>
+</div>
+
+<!-- Book Container (FINAL - Static Patti + Animated Glow) -->
+<div class="book-container stat" style="
+    border: 3px solid transparent; 
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1; 
+    border-radius: 10px; 
+    padding: 20px; 
+    margin-top: 20px; 
+    text-align: center;
+">
+
+
+
+<div class="book-circles" data-program="X3" id="x3-status-circles">
+<div class="circle" data-index="1" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="2" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="3" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="4" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="5" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="6" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="7" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="8" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="9" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="10" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="11" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="12" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="13" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="14" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="15" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="16" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="17" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="18" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="19" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="20" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="21" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="22" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="23" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="24" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="25" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="26" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="27" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="28" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="29" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="30" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="31" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="32" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="33" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="34" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="35" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="36" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="37" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="38" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="39" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="40" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="41" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="42" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="43" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="44" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="45" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="46" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="47" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="48" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="49" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="50" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+
+  <a class="box-view-link" href="xcjigar.html" style="text-decoration: none;">
+  <button class="box-view-btn" style="
+    background-color: #00FF00;
+    color: black;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  ">
+    Box View
+  </button>
+</a>
+
+
+</div>
+</div>
+
+<!-- X4 program start (FINAL - Static Patti + Animated Glow) -->
+<div class="stat" style="
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #1a1a1a;
+    color: white; 
+    padding: 10px; 
+    margin-top: 30px; 
+    font-size: 22px; 
+    font-weight: bold; 
+    border: 3px solid transparent; 
+    border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1; 
+    border-radius: 10px;
+">
+    <!-- Left Side: Program Name + 24H Box -->
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: white;">X4</span>
+        
+        <!-- 24H Earning Box -->
+        <div style="
+            background-color: rgba(0, 255, 0, 0.15);
+            border-radius: 5px;
+            padding: 2px 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            box-shadow: inset 0 0 3px rgba(0, 255, 0, 0.2);
+        ">
+            <span style="color: #00FF00; font-size: 12px; line-height: 1; font-weight: bold;">↑</span>
+            <span id="x4_24h_earn" style="color: #00FF00; font-size: 12px; font-weight: 600;">$0.00</span>
+        </div>
+    </div>
+
+    <!-- Right Side: Total Earning -->
+    <span id="x4TotalEarn" style="color: white;">$0.00 Earn</span>
+</div>
+
+<!-- Book Container (FINAL - Static Patti + Animated Glow) -->
+<div class="book-container stat" style="
+    border: 3px solid transparent; 
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1; 
+    border-radius: 10px; 
+    padding: 20px; 
+    margin-top: 20px; 
+    text-align: center;
+">
+
+
+ 
+
+
+<div class="book-circles" data-program="X4" id="x4-status-circles">
+<div class="circle" data-index="1" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="2" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="3" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="4" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="5" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="6" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="7" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="8" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="9" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="10" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="11" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="12" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="13" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="14" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="15" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="16" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="17" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="18" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="19" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="20" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="21" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="22" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="23" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="24" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="25" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="26" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="27" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="28" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="29" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="30" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="31" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="32" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="33" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="34" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="35" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="36" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="37" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="38" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="39" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="40" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="41" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="42" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="43" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="44" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="45" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="46" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="47" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="48" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="49" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+<div class="circle" data-index="50" style="width: 18px; height: 18px; background-color: red; border-radius: 50%; display: inline-block;"></div>
+
+  <a class="box-view-link" href="xdjigar.html" style="text-decoration: none;">
+  <button class="box-view-btn" style="
+  
+    background-color: #00FF00;
+    color: black;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  ">
+    Box View
+  </button>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/web3@1.7.5/dist/web3.min.js"></script> 
+<script>
+// =================================================================
+// === ALL PROGRAMS EARNING LOADER v8.0 (FULL FINAL & CORRECTED) ===
+// =================================================================
+document.addEventListener("DOMContentLoaded", async () => {
+    if (typeof Web3 === 'undefined') {
+        console.error("❌ Web3.js library not found.");
+        return;
+    }
+
+    console.log("🚀 All Programs Earning Loader Initialized (Full Final Version)...");
+
+    // --- 1. Zaroori Details ---
+    
+    // ✅ User Registration Contract (Ab Shamil Hai)
+    const REG_CONTRACT_ADDRESS = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+    const REG_ABI = [
+        {
+            "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+            "name": "users",
+            "outputs": [
+                // Humein sirf wallet address chahiye taake hum check kar sakein ke ID valid hai ya nahi
+                { "internalType": "address", "name": "wallet", "type": "address" }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+
+    // Sabhi programs ke addresses
+    const PROGRAMS = [
+        { name: "x1", contractAddress: "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1" },
+        { name: "x2", contractAddress: "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4" },
+        { name: "x3", contractAddress: "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E" },
+        { name: "x4", contractAddress: "0x427226D5D018C53cFD77634422A979675C779E80" }
+    ];
+    
+    // Universal ABI jo sabhi earning contracts ke liye kaam karega
+    const UNIVERSAL_EARNING_ABI = [
+        {
+            "inputs": [{ "internalType": "uint256", "name": "userId", "type": "uint256" }],
+            "name": "getUserTotalEarnings",
+            "outputs": [{
+                "components": [
+                    { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
+                    { "internalType": "uint256", "name": "amount", "type": "uint256" },
+                    { "internalType": "uint256", "name": "fromId", "type": "uint256" }
+                ],
+                "name": "",
+                "type": "tuple[]"
+            }],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
+
+    // --- 2. URL se User ID Nikalna ---
+    function getUserIdFromUrl() {
+        const path = window.location.pathname;
+        const match = path.match(/\/ref\/(\d+)/);
+        return match ? parseInt(match[1]) : null;
+    }
+
+    // --- 3. Earning Fetch Karne Wala Function ---
+    async function loadProgramEarning(program, userId, web3) {
+        const totalElement = document.getElementById(`${program.name}TotalEarn`);
+        const twentyFourHourElement = document.getElementById(`${program.name}_24h_earn`);
+
+        if (!totalElement || !twentyFourHourElement) {
+            console.error(`❌ Earning elements for ${program.name.toUpperCase()} not found.`);
+            return;
+        }
+
+        try {
+            const contract = new web3.eth.Contract(UNIVERSAL_EARNING_ABI, program.contractAddress);
+            const allEarnings = await contract.methods.getUserTotalEarnings(userId).call();
+
+            // Total Earning
+            let totalEarningWei = allEarnings.reduce((sum, record) => sum.add(web3.utils.toBN(record.amount)), web3.utils.toBN(0));
+            const totalEarningUSDT = web3.utils.fromWei(totalEarningWei, 'ether');
+            totalElement.textContent = `$${parseFloat(totalEarningUSDT).toFixed(2)} Earn`;
+
+            // 24H Earning
+            const cutoff = Math.floor(Date.now() / 1000) - 86400;
+            const recentEarnings = allEarnings.filter(record => Number(record.timestamp) >= cutoff);
+            let twentyFourHourEarningWei = recentEarnings.reduce((sum, record) => sum.add(web3.utils.toBN(record.amount)), web3.utils.toBN(0));
+            const twentyFourHourEarningUSDT = web3.utils.fromWei(twentyFourHourEarningWei, 'ether');
+            twentyFourHourElement.textContent = `$${parseFloat(twentyFourHourEarningUSDT).toFixed(2)}`;
+
+        } catch (error) {
+            console.error(`❌ Failed to fetch ${program.name.toUpperCase()} earnings for User ID ${userId}:`, error);
+            totalElement.textContent = "$0.00 Earn";
+            twentyFourHourElement.textContent = "$0.00";
+        }
+    }
+
+    // --- 4. Main Logic (Updated with Registration Check) ---
+    async function initialize() {
+        const userId = getUserIdFromUrl();
+        if (!userId) {
+            console.warn("⚠️ No User ID found in URL, skipping all earning loads.");
+            return;
+        }
+
+        const web3 = new Web3("https://bsc-dataseed.binance.org/");
+        
+        // ✅ Step 1: Check if User ID is valid
+        try {
+            const regContract = new web3.eth.Contract(REG_ABI, REG_CONTRACT_ADDRESS);
+            const userData = await regContract.methods.users(userId).call();
+            
+            // Agar wallet address 0x0... hai, to iska matlab hai ke ID register nahi hai
+            if (userData.wallet === "0x0000000000000000000000000000000000000000") {
+                console.error(`❌ User ID ${userId} is not registered.`);
+                // Aap yahan user ko message bhi dikha sakte hain
+                return;
+            }
+            console.log(`✅ User ID ${userId} is valid. Wallet: ${userData.wallet}`);
+
+        } catch (error) {
+            console.error(`❌ Error checking user ID ${userId}:`, error);
+            return;
+        }
+
+        // ✅ Step 2: Agar ID valid hai, to sabhi programs ki earning load karo
+        for (const program of PROGRAMS) {
+            loadProgramEarning(program, userId, web3);
+        }
+    }
+
+    initialize();
+});
+</script>
+
+<!--X1x2x3x4 ine sabhi program ki Box view button ko click karane wala code real tarike se 👇-->
+<script>
+  // ✅ Yeh function sabhi X1–X4 program buttons ke liye kaam karega
+  document.addEventListener("DOMContentLoaded", function () {
+    const allLinks = document.querySelectorAll("a[href*='program button.html']");
+
+    allLinks.forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault(); // Default jump se roke
+        const url = this.getAttribute("href");
+        window.location.href = url; // Forcefully same link par redirect kare
+      });
+    });
+  });
+</script>
+<script>
+  // ✅ Extract user ID from URL path like "/ref/1"
+  const pathParts = window.location.pathname.split("/");
+  const refIndex = pathParts.indexOf("ref");
+  const refId = refIndex !== -1 ? pathParts[refIndex + 1] : null;
+
+  if (refId) {
+    document.querySelectorAll("a.box-view-link").forEach(link => {
+      const baseHref = link.getAttribute("href").split('?')[0]; // remove old query
+      link.setAttribute("href", `${baseHref}?ref=${refId}`);
+    });
+  } else {
+    console.warn("⚠️ No /ref/ID found in URL");
+  }
+</script>
+<!--X1x2x3x4 ine sabhi program ki Box view button ko click karane wala code real tarike se 👆-->
+
+</div>
+</div>
+
+
+<!-- red gole ko green karne wala-->
+<style>
+
+.fully-green-with-glow {
+  background-color: #00FF00 !important;
+  border-radius: 50%;
+  animation: rainbowSideGlow 2s linear infinite;
+  box-shadow: 0 0 10px 4px lime;
+}
+
+@keyframes rainbowSideGlow {
+  0% { box-shadow: 0 0 8px 4px red; }
+  20% { box-shadow: 0 0 10px 4px orange; }
+  40% { box-shadow: 0 0 10px 4px yellow; }
+  60% { box-shadow: 0 0 10px 4px green; }
+  80% { box-shadow: 0 0 10px 4px blue; }
+  100% { box-shadow: 0 0 8px 4px violet; }
+}
+</style>
+
+<style>
+.fully-green-with-glow {
+  background-color: #00FF00 !important;
+  border-radius: 50%;
+  animation: rainbowSideGlow 2s linear infinite;
+  box-shadow: 0 0 10px 4px lime;
+}
+
+@keyframes rainbowSideGlow {
+  0% { box-shadow: 0 0 8px 4px red; }
+  20% { box-shadow: 0 0 10px 4px orange; }
+  40% { box-shadow: 0 0 10px 4px yellow; }
+  60% { box-shadow: 0 0 10px 4px green; }
+  80% { box-shadow: 0 0 10px 4px blue; }
+  100% { box-shadow: 0 0 8px 4px violet; }
+}
+</style>
+</body>
+</html>
+
+
+
+
+<script>
+    function toggleUpline() {
+        var x = document.getElementById('uplineInfo');
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+    }
+    </script>
+    
+<div id="settingsModal" style="
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); 
+    align-items: center; justify-content: center; 
+    z-index: 1000;
+    ">
+</div>
+<div id="teamHistoryPage" style="display:none; background-color:#111; color:white; padding:20px; min-height:100vh;"> <button onclick="goBack()" style="background-color:#0f0; border:none; padding:10px 20px; font-weight:bold; border-radius:5px; cursor:pointer;">Back</button>
+<div style="margin-top: 20px; text-align: center;">
+</div>
+</div>
+<div style="margin-top: 30px; text-align: center;"> 
+    <!-- Button with Animated Glowing Border -->
+    <button id="directPartnerBtn" onclick="togglePartnerHistory()" class="stat" style="
+        background-color: #00FF00; 
+        color: black; 
+        border: none; 
+        padding: 10px 20px; 
+        font-size: 0.85rem; 
+        font-weight: bold; 
+        cursor: pointer; 
+        border: 3px solid transparent; 
+        border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1; 
+        border-radius: 10px;
+    ">
+        My Direct Partner History
+    </button>
+    
+    <!-- History Box with Animated Glowing Border -->
+    <div id="userHistoryBox" class="stat" style="
+        display:none; 
+        margin-top:20px; 
+        background-color:#222; 
+        padding:20px; 
+        max-height:400px; 
+        overflow-y:auto;
+        border: 3px solid transparent; 
+        border-image: linear-gradient(to right, red, orange, lightgreen, skyblue, indigo, violet) 1; 
+        border-radius: 10px;
+    ">
+        <div id="userList" style="margin-top:20px; max-height:400px; overflow-y:auto; padding-right:10px;"></div>
+    </div>
+
+
+
+
+
+<style>
+  /* Aapki CSS yahan aayegi */
+  .partner-card {
+    background-color: #000; /* pure dark black */
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5); /* sharp glowing shadow */
+  }
+
+  .partner-card::before,
+  .partner-card::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+    z-index: 1;
+    animation: animateBorder 4s linear infinite;
+  }
+
+  .partner-card::before {
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+  }
+
+  .partner-card::after {
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+  }
+
+  .partner-card .side-left,
+  .partner-card .side-right {
+    content: '';
+    position: absolute;
+    background: linear-gradient(to bottom, red, orange, yellow, green, cyan, blue, violet);
+    width: 3px;
+    height: 100%;
+    top: 0;
+    z-index: 1;
+    animation: animateBorder 4s linear infinite;
+  }
+
+  .partner-card .side-left {
+    left: 0;
+  }
+
+  .partner-card .side-right {
+    right: 0;
+  }
+
+  @keyframes animateBorder {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(2); }
+    100% { filter: brightness(1); }
+  }
+
+  .partner-id {
+    color: #0f0;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 2;
+    position: relative;
+  }
+
+  .partner-earning {
+    color: #00ff00;
+    font-weight: bold;
+    z-index: 2;
+    position: relative;
+  }
+</style>
+
+
+<!-- Rainbow-Styled Real Working ID Search Section -->
+<div id="searchSection" style="
+  margin: 20px 0;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 3px solid transparent;
+  border-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet) 1;
+  border-radius: 12px;
+  background-color: #1a1a1a;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+">
+
+  <input id="searchIdInput"
+    placeholder="Enter ID"
+    type="text"
+    style="flex: 1; padding: 12px 15px; border: none; border-radius: 8px;
+           background-color: #2c2c2c; color: #fff; font-size: 16px;
+           box-shadow: inset 0 0 5px rgba(255,255,255,0.2);" />
+
+  <button id="goButton"
+    onclick="searchIdInPartners()"
+    style="background: linear-gradient(45deg, #00ff00, #00ffff); color: black;
+           font-weight: bold; padding: 12px 25px; border: none; border-radius: 8px;
+           cursor: pointer; font-size: 16px; box-shadow: 0 0 10px #0f0;">
+    Go
+  </button>
+</div>
+
+<div id="infoBoxes" style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px;"></div>
+
+
+
+</style>
+<!-- 24 Hours Partners -->
+<style>
+  .stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 20px;
+}
+
+.rainbow-border {
+  border: 4px solid;
+  border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime;
+  min-width: 200px;
+  text-align: center;
+}
+
+.stat-box {
+  padding: 10px;
+}
+
+.stat-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.green-text {
+  color: limegreen;
+}
+</div>
+</style>
+<!-- ✅ Real-Time Partner Stats Display -->
+<!-- All Partners -->
+<div class="stat-box" style="padding: 20px; margin: 10px; border-radius: 15px;
+    border: 4px solid; border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+    box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime; color: white;">
+  <div class="stat-title" style="padding: 10px; margin: 10px;">All Partners</div>
+  <div class="stat-value" id="allPartnersCount">0</div>
+</div>
+
+<!-- 24 Hours Partners -->
+<div class="stat-box" style="padding: 20px; margin: 10px; border-radius: 15px;
+    border: 4px solid; border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+    box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime; color: white;">
+  <div class="stat-title" style="padding: 10px; margin: 10px;">24 Hours Partners</div>
+  <div class="stat-value" id="partners24hCount" style="color: limegreen;">0</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+<!-- 2 pure system ke all partner  -->
+
+
+
+</div>
+</div>
+<!-- Total Earning -->
+<div class="stat-box" style="padding: 20px; margin: 10px; border-radius: 15px;
+  border: 4px solid;
+  border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+  box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime;
+  color: white; text-align: center;">
+  <div class="stat-title" style="padding: 10px; margin: 10px;">Total Earning</div>
+  <div class="stat-value" id="earningTotal">0</div>
+</div>
+
+<!-- 24 Hours Earning -->
+<div class="stat-box" style="padding: 20px; margin: 10px; border-radius: 15px;
+  border: 4px solid;
+  border-image: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta, red) 1;
+  box-shadow: 0 0 20px red, 0 0 25px yellow, 0 0 30px lime;
+  color: white; text-align: center;">
+  <div class="stat-title" style="padding: 10px; margin: 10px;">24 Hours Earning</div>
+  <div class="stat-value" id="earning24h" style="color: limegreen;">0</div>
+</div>
+</div>
+</div>
+
+
+<script type="module">
+  import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+  const ethersProvider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org");
+  // Web3 ki zaroorat ab nahi hai, to isko hata sakte hain
+  // const web3 = new Web3("https://bsc.publicnode.com");
+
+  const REG_CONTRACT_ADDRESS = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+  const regAbi = [
+    { "inputs": [], "name": "totalUsers", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "users",
+      "outputs": [
+        { "internalType": "uint256", "name": "id", "type": "uint256" },
+        { "internalType": "address", "name": "wallet", "type": "address" },
+        { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+        { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+        { "internalType": "string", "name": "dp", "type": "string" },
+        { "internalType": "string", "name": "name", "type": "string" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  // --- YAHAN BADA BADLAV HUA HAI ---
+  // X3 ko alag se handle karne ki zaroorat nahi hai.
+  // Usko bhi PROGRAMS list mein daal dein.
+  const PROGRAMS = [
+    {
+      name: "X1",
+      address: "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1"
+    },
+    {
+      name: "X2",
+      address: "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4"
+    },
+    {
+      name: "X3",
+      address: "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E"
+    },
+    {
+      name: "X4",
+      address: "0x427226D5D018C53cFD77634422A979675C779E80"
+    }
+  ];
+
+  // Yeh ABI sab programs (X1, X2, X3, X4) ke liye kaam karega
+  const XN_ABI = [
+    {
+      "inputs": [],
+      "name": "getSystem24hEarnings",
+      "outputs": [
+        {
+          "components": [
+            { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
+            { "internalType": "uint256", "name": "userId", "type": "uint256" },
+            { "internalType": "uint256", "name": "amount", "type": "uint256" },
+            { "internalType": "uint8", "name": "program", "type": "uint8" }
+          ],
+          "internalType": "struct X3Program.TxnHistory[]", // Naam se farq nahi parta, structure same hai
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSystemTxnHistory",
+      "outputs": [
+        {
+          "components": [
+            { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
+            { "internalType": "uint256", "name": "userId", "type": "uint256" },
+            { "internalType": "uint256", "name": "amount", "type": "uint256" },
+            { "internalType": "uint8", "name": "program", "type": "uint8" }
+          ],
+          "internalType": "struct X3Program.TxnHistory[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  async function loadDashboardStats() {
+    try {
+      const regContract = new ethers.Contract(REG_CONTRACT_ADDRESS, regAbi, ethersProvider);
+      const totalUsersPromise = regContract.totalUsers();
+
+      // --- YAHAN BHI BADA BADLAV HUA HAI ---
+      // Ab hum saare programs ko ek hi tareeqe se handle karenge
+      const programPromises = PROGRAMS.map(p => {
+        const contract = new ethers.Contract(p.address, XN_ABI, ethersProvider);
+        return Promise.all([
+          contract.getSystemTxnHistory(),
+          contract.getSystem24hEarnings()
+        ]);
+      });
+
+      // X3 ka alag promise hata diya gaya hai
+      const [totalUsers, ...programResults] = await Promise.all([
+        totalUsersPromise,
+        ...programPromises
+      ]);
+
+      const now = Math.floor(Date.now() / 1000);
+      const limit = Math.min(totalUsers.toNumber(), 200);
+      const userFetches = [];
+      for (let i = totalUsers.toNumber(); i > totalUsers.toNumber() - limit; i--) {
+        userFetches.push(regContract.users(i));
+      }
+      const users = await Promise.all(userFetches);
+      const last24h = users.filter(user => user.joinDate >= now - 86400).length;
+
+      document.getElementById("allPartnersCount").innerText = totalUsers.toString();
+      document.getElementById("partners24hCount").innerText = last24h;
+
+      // --- YAHAN BHI BADA BADLAV HUA HAI ---
+      // Ab totalLifetime aur total24h shuru mein 0 se start honge
+      let totalLifetime = ethers.BigNumber.from(0);
+      let total24h = ethers.BigNumber.from(0);
+
+      // Ab yeh loop X1, X2, X3, X4, sab ke liye chalega
+      for (const [allTxns, dayTxns] of programResults) {
+        let life = ethers.BigNumber.from(0);
+        for (const tx of allTxns) {
+            // Lifetime earning mein saare transactions jama honge
+            life = life.add(tx.amount);
+        }
+
+        let day = ethers.BigNumber.from(0);
+        for (const tx of dayTxns) {
+          // 24h earning mein sirf pichle 24 ghante wale jama honge
+          if (tx.timestamp >= now - 86400) {
+            day = day.add(tx.amount);
+          }
+        }
+
+        totalLifetime = totalLifetime.add(life);
+        total24h = total24h.add(day);
+      }
+
+      document.getElementById("earningTotal").innerText = `$${Number(ethers.utils.formatUnits(totalLifetime, 18)).toFixed(2)} USDT`;
+      document.getElementById("earning24h").innerText = `$${Number(ethers.utils.formatUnits(total24h, 18)).toFixed(2)} USDT`;
+
+    } catch (err) {
+      console.error("❌ Dashboard error:", err);
+      document.getElementById("earningTotal").innerText = "Error";
+      document.getElementById("earning24h").innerText = "Error";
+    }
+  }
+
+  loadDashboardStats();
+  setInterval(loadDashboardStats, 60000);
+</script>
+
+
+
+
+<div id="transactionBox" style="
+    margin-top: 30px; 
+    background-color: #1a1a1a; 
+    /* border: 2px solid #0f0; <-- Iski ab zaroorat nahi kyunki border-image istemal ho raha hai */
+    border-radius: 10px; 
+    padding: 20px; 
+    max-height: 450px; 
+    overflow-y: auto; 
+    border: 3px solid transparent; 
+    border-image: linear-gradient(to right, red, orange, yellow, green, skyblue, indigo, violet) 1; 
+    border-radius: 10px;
+    
+    /* --- YEH NAYI LINE ADD KI HAI --- */
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.8), 0 0 15px rgba(255, 0, 0, 0.7);
+">
+  <h2 style="text-align: center; color: #0f0; margin-bottom: 20px;"> Live P2P Transaction History earning record 3 dey data save 🔥🙋</h2>
+  <div id="transactionList" style="display: flex; flex-direction: column; gap: 15px;"></div>
+</div>
+
+
+<!-- Profile Settings Modal -->
+<div id="profileSettingsBox" style="display: none; position: fixed; top: 80px; right: 20px; background: #111; padding: 15px; border-radius: 10px; z-index: 999;">  
+  <label style="color:white;">Upload DP:</label><br>  
+  <input type="file" id="dpInput"><br><br>  
+  <label style="color:white;">Your Name:</label><br>  
+  <input type="text" id="nameInput" placeholder="Enter your name"><br><br>  
+  <button onclick="saveProfile()">Save</button>
+</div>
+<!-- Add this to your script section -->
+<script>
+  async function checkWalletConnection() {
+    if (typeof window.ethereum !== 'undefined') {
+      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      if (accounts.length > 0) {
+        // Wallet is connected
+        
+      } else {
+        // Wallet not connected
+        document.getElementById('settingIconContainer').style.display = 'none';
+      }
+    }
+  }
+
+  // Run on page load
+  window.addEventListener('load', checkWalletConnection);
+
+  // Optional: Recheck on wallet change
+  if (window.ethereum) {
+    window.ethereum.on('accountsChanged', checkWalletConnection);
+  }
+
+  function toggleProfileSettings() {
+    // Your existing logic for opening the settings menu
+    alert("Settings toggled!");
+  }
+</script>
+<!-- Social Media Buttons -->
+<div style="margin-top:50px; text-align:center; padding:40px 20px; background:#111; border-top:2px solid #0f0;">
+
+  <!-- WhatsApp -->
+  <a href="https://whatsapp.com/channel/0029Vb673ShBfxo7zWIIHN3z" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#25D366; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #25D366;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/whatsapp.png" alt="WhatsApp Icon" style="width:24px; height:24px;">
+    Join WhatsApp Channel
+  </a>
+  <div style="color:#25D366; font-size:0.9rem; margin-top:5px;">📢 WhatsApp Channel</div>
+
+  <!-- YouTube -->
+  <a href="https://www.youtube.com/@LifeChangeeasy" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#FF0000; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #FF0000;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/youtube-play.png" alt="YouTube Icon" style="width:24px; height:24px;">
+    Visit YouTube Channel
+  </a>
+  <div style="color:#FF0000; font-size:0.9rem; margin-top:5px;">🎥 YouTube Channel</div>
+
+  <!-- TikTok -->
+  <a href="https://www.tiktok.com/@life.change.easy.io?_t=ZS-8yOeInx3dEG&_r=1" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#1DA1F2; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #1DA1F2;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/tiktok--v1.png" alt="TikTok Icon" style="width:24px; height:24px;">
+    Follow TikTok Account
+  </a>
+  <div style="color:#1DA1F2; font-size:0.9rem; margin-top:5px;">🎶 TikTok Official</div>
+
+</div>
+
+<script>
+function searchUserId() {
+  var enteredId = document.getElementById('searchInput').value.trim();
+  if (enteredId) {
+    alert('Searching for ID: ' + enteredId + ' (Smart Contract connection will be added later)');
+  } else {
+    alert('Please enter an ID to search!');
+  }
+}
+</script>
+<script>
+function searchIdInPartners() {
+  var enteredId = document.getElementById('searchIdInput').value.trim();
+  if (enteredId) {
+    alert('Searching for Partner ID: ' + enteredId);
+    // Add actual search logic here if needed
+  } else {
+    alert('Please enter an ID to search!');
+  }
+}
+</script>
+
+
+
+
+<!-- DP your name ko sev karne ka professional code AVN start 👇-->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+  import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+  import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+
+  // ✅ ✅ UPDATED Firebase config (New one you provided)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCFXqH3brlo0o4YaWE2Fl4EVDuYMDUXcIc",
+    authDomain: "life-change-easy-9cbdd.firebaseapp.com",
+    databaseURL: "https://life-change-easy-9cbdd-default-rtdb.firebaseio.com",
+    projectId: "life-change-easy-9cbdd",
+    storageBucket: "life-change-easy-9cbdd.firebasestorage.app",
+    messagingSenderId: "53152048297",
+    appId: "1:53152048297:web:ba892e7d1734bcb47ab5b8",
+    measurementId: "G-TQBYKLWGC7"
+  };
+
+  // ✅ Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const contractAddress = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+  const abi = [
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "users",
+      "outputs": [
+        { "internalType": "uint256", "name": "id", "type": "uint256" },
+        { "internalType": "address", "name": "wallet", "type": "address" },
+        { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+        { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+        { "internalType": "string", "name": "dp", "type": "string" },
+        { "internalType": "string", "name": "name", "type": "string" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  async function getWalletAddress() {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    return accounts[0].toLowerCase();
+  }
+
+  window.saveProfile = async function () {
+    const name = document.getElementById("nameInput").value.trim();
+    const dpInput = document.getElementById("dpInput");
+    const box = document.getElementById('profileSettingsBox');
+    if (box) box.style.display = 'none';
+
+    if (name.length > 15) {
+      alert("❌ Name must be 15 characters or less.");
+      return;
+    }
+
+    const wallet = (await getWalletAddress()).toLowerCase();
+
+    const snapshot = await get(ref(db, 'users'));
+    if (snapshot.exists()) {
+      const users = snapshot.val();
+      for (const key in users) {
+        if (
+          users[key].name &&
+          users[key].name.toLowerCase() === name.toLowerCase() &&
+          key !== wallet
+        ) {
+          alert("❌ This name is already taken. Please choose another.");
+          return;
+        }
+      }
+    }
+
+    const nameTarget = document.getElementById("dynamicName");
+    if (nameTarget) nameTarget.textContent = name;
+
+    if (dpInput && dpInput.files && dpInput.files[0]) {
+      try {
+        const file = dpInput.files[0];
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const dpUrl = reader.result;
+          const img = document.getElementById("mainProfileImage");
+          if (img) img.src = dpUrl;
+
+          await set(ref(db, 'users/' + wallet), {
+            name: name,
+            dp: dpUrl
+          });
+          localStorage.setItem("myProfileWallet", wallet);
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        console.error("❌ Error saving profile image:", error);
+      }
+    } else {
+      try {
+        await set(ref(db, 'users/' + wallet), { name: name });
+        localStorage.setItem("myProfileWallet", wallet);
+      } catch (error) {
+        console.error("❌ Error saving name:", error);
+      }
+    }
+  };
+
+  window.loadProfile = async function (walletAddress) {
+    try {
+      const snapshot = await get(ref(db, 'users/' + walletAddress.toLowerCase()));
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        if (data.name) document.getElementById("dynamicName").textContent = data.name;
+        if (data.dp) document.getElementById("mainProfileImage").src = data.dp;
+      }
+    } catch (error) {
+      console.error("❌ Failed to load profile:", error);
+    }
+  };
+
+  window.addEventListener("load", async () => {
+    const pathParts = window.location.pathname.split("/ref/");
+    const userIdFromRef = pathParts.length > 1 ? pathParts[1] : null;
+
+    if (userIdFromRef) {
+      try {
+        const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org/");
+        const contract = new ethers.Contract(contractAddress, abi, provider);
+        const userData = await contract.users(userIdFromRef);
+        const wallet = userData.wallet.toLowerCase();
+        loadProfile(wallet);
+      } catch (err) {
+        console.error("❌ Error loading wallet from contract using ID:", err);
+      }
+    } else {
+      const savedWallet = localStorage.getItem("myProfileWallet");
+      if (savedWallet) {
+        loadProfile(savedWallet);
+      } else {
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+          if (accounts.length > 0) {
+            loadProfile(accounts[0].toLowerCase());
+          }
+        } catch (err) {
+          console.warn("Wallet not connected.");
+        }
+      }
+    }
+  });
+</script>
+
+
+
+
+<script type="module">
+import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+
+const contractAddress = "0x3B52a5A3A90a5f14Db481809844A0cC520195521"; // ✅ New contract address
+
+const abi = [
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "users",
+    "outputs": [
+      { "internalType": "uint256", "name": "id", "type": "uint256" },
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+      { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+      { "internalType": "string", "name": "dp", "type": "string" },
+      { "internalType": "string", "name": "name", "type": "string" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+// ✅ Copy Wallet Function
+window.copyFullAddress = function () {
+  const el = document.getElementById("userWalletAddress");
+  const address = el?.getAttribute("data-full");
+  if (address) {
+    navigator.clipboard.writeText(address).then(() => {
+      alert("✅ Wallet address copied!");
+    });
+  }
+};
+
+// ✅ On Page Load
+window.addEventListener("load", async () => {
+  const match = window.location.href.match(/\/ref\/(\d+)/);
+  const userId = match ? parseInt(match[1]) : 1;
+  const baseURL = "https://lifechangeeasy.io/register/ref/";
+  const finalLink = baseURL + userId;
+
+  try {
+    const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org/");
+    const contract = new ethers.Contract(contractAddress, abi, provider);
+    const user = await contract.users(userId);
+    const wallet = user.wallet.toLowerCase();
+
+    // Referral Link
+    const linkBox = document.getElementById("referralLinkText");
+    linkBox.textContent = wallet === "0x0000000000000000000000000000000000000000" ? "Invalid ID" : finalLink;
+
+    // Wallet Display
+    const walletEl = document.getElementById("userWalletAddress");
+    if (wallet && walletEl) {
+      const short = wallet.slice(0, 6) + "..." + wallet.slice(-4);
+      walletEl.innerText = short;
+      walletEl.setAttribute("data-full", wallet);
+    }
+
+    // User ID
+    document.getElementById("userIdOnly").innerText = user.id;
+
+    // Join Date
+    const d = new Date(user.joinDate * 1000);
+    document.getElementById("joinDateBox").innerText =
+      `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+
+    // Upline ID
+    const uplineEl = document.getElementById("uplineIdShow");
+    uplineEl.innerText = user.uplineId;
+    uplineEl.style.cursor = "pointer";
+    uplineEl.style.textDecoration = "underline";
+    uplineEl.style.color = "#00ff00";
+    uplineEl.onclick = () => window.location.href = "/ref/" + user.uplineId;
+
+  } catch (err) {
+    console.error("❌ Smart contract error:", err);
+    document.getElementById("referralLinkText").textContent = "Error loading user";
+  }
+});
+</script>
+
+<script>
+async function searchIdInPartners() {
+  const input = document.getElementById("searchIdInput").value.trim();
+  const id = parseInt(input);
+  const userList = document.getElementById("userList");
+
+  if (isNaN(id) || id <= 0) {
+    alert("Please enter a valid numeric ID.");
+    return;
+  }
+
+  const web3 = new Web3("https://bsc-dataseed.binance.org");
+
+  // ✅ NEW contract address
+  const contractAddress = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+
+  // ✅ NEW ABI for full user system
+  const abi = [
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "users",
+      "outputs": [
+        { "internalType": "uint256", "name": "id", "type": "uint256" },
+        { "internalType": "address", "name": "wallet", "type": "address" },
+        { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+        { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+        { "internalType": "string", "name": "dp", "type": "string" },
+        { "internalType": "string", "name": "name", "type": "string" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  const contract = new web3.eth.Contract(abi, contractAddress);
+
+  try {
+    const user = await contract.methods.users(id).call();
+
+    if (user.wallet === "0x0000000000000000000000000000000000000000") {
+      alert("This ID is not registered.");
+    } else {
+      window.location.href = `/ref/${id}`;
+    }
+
+  } catch (err) {
+    console.error("❌ Smart contract error:", err);
+    alert("Something went wrong. Try again.");
+  }
+}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/web3@1.7.5/dist/web3.min.js"></script>  <script>  
+  const programs = [  
+    { name: "X1", contract: "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1" },  
+    { name: "X2", contract: "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4" },  
+    { name: "X3", contract: "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E" },  
+    { name: "X4", contract: "0x427226D5D018C53cFD77634422A979675C779E80" }  
+  ];  
+  
+  const EARNING_ABI = [  
+    {  
+      inputs: [{ internalType: "uint256", name: "userId", type: "uint256" }],  
+      name: "getUserTotalEarnings",  
+      outputs: [{  
+        components: [  
+          { internalType: "uint256", name: "timestamp", type: "uint256" },  
+          { internalType: "uint256", name: "amount", type: "uint256" },  
+          { internalType: "uint256", name: "fromId", type: "uint256" }  
+        ],  
+        internalType: "struct EarningRecord[]",  
+        name: "",  
+        type: "tuple[]"  
+      }],  
+      stateMutability: "view",  
+      type: "function"  
+    }  
+  ];  
+  
+  const TEAM_CONTRACT_ADDRESS = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";  
+  const TEAM_ABI = [  
+    { inputs: [{ internalType: "uint256", name: "userId", type: "uint256" }], name: "getTotalDirectTeam", outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }], stateMutability: "view", type: "function" },  
+    { inputs: [{ internalType: "uint256", name: "userId", type: "uint256" }], name: "getTotalIndirectTeam", outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }], stateMutability: "view", type: "function" },  
+    { inputs: [{ internalType: "uint256", name: "userId", type: "uint256" }], name: "get24hDirectTeam", outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }], stateMutability: "view", type: "function" },  
+    { inputs: [{ internalType: "uint256", name: "userId", type: "uint256" }], name: "get24hIndirectTeam", outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }], stateMutability: "view", type: "function" }  
+  ];  
+  
+  const REG_CONTRACT_ADDRESS = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";  
+  const REG_ABI = [  
+    {  
+      inputs: [{ internalType: "uint256", name: "", type: "uint256" }],  
+      name: "users",  
+      outputs: [  
+        { internalType: "uint256", name: "id", type: "uint256" },  
+        { internalType: "address", name: "wallet", type: "address" },  
+        { internalType: "uint256", name: "uplineId", type: "uint256" },  
+        { internalType: "uint256", name: "joinDate", type: "uint256" },  
+        { internalType: "string", name: "dp", type: "string" },  
+        { internalType: "string", name: "name", type: "string" }  
+      ],  
+      stateMutability: "view",  
+      type: "function"  
+    }  
+  ];  
+  
+  // --- Unified Web3 Instance ---  
+  const web3 = new Web3("https://bsc-dataseed.binance.org/");  
+  
+  function getUserIdFromUrl() {  
+    const path = window.location.pathname;  
+    const refMatch = path.match(/\/ref\/(\d+)$/) || path.match(/\/register\/ref\/(\d+)$/);  
+    return refMatch ? parseInt(refMatch[1]) : null;  
+  }  
+  
+  async function loadAllEarnings(userId) {  
+    const cutoff = Math.floor(Date.now() / 1000) - 86400; // 24h ago  
+  
+    let totalEarn = 0;  
+    let total24h = 0;  
+  
+    for (const prog of programs) {  
+      const contract = new web3.eth.Contract(EARNING_ABI, prog.contract);  
+      try {  
+        const totalData = await contract.methods.getUserTotalEarnings(userId).call();  
+  
+        const progTotal = totalData.reduce((sum, e) => sum + Number(e.amount), 0);  
+        const prog24h = totalData  
+          .filter(e => Number(e.timestamp) >= cutoff)  
+          .reduce((sum, e) => sum + Number(e.amount), 0);  
+  
+        totalEarn += progTotal;  
+        total24h += prog24h;  
+      } catch (err) {  
+        console.warn(`⚠️ ${prog.name} earnings error`, err);  
+      }  
+    }  
+  
+    const totalEarningsElement = document.getElementById("totalEarnings");  
+    const earnings24HElement = document.getElementById("earnings24H");  
+  
+    if (totalEarningsElement) {  
+      totalEarningsElement.innerText = "$" + (totalEarn / 1e18).toFixed(2);  
+    }  
+    if (earnings24HElement) {  
+      earnings24HElement.innerText = "$" + (total24h / 1e18).toFixed(2);  
+    }  
+  }  
+  
+  async function loadTeamData(userId) {  
+    const team = new web3.eth.Contract(TEAM_ABI, TEAM_CONTRACT_ADDRESS);  
+  
+    try {  
+      const [td, ti, d24, i24] = await Promise.all([  
+        team.methods.getTotalDirectTeam(userId).call(),  
+        team.methods.getTotalIndirectTeam(userId).call(),  
+        team.methods.get24hDirectTeam(userId).call(),  
+        team.methods.get24hIndirectTeam(userId).call()  
+      ]);  
+  
+      const totalDirectsElement = document.getElementById("totalDirects");  
+      const totalIndirectsElement = document.getElementById("totalIndirects");  
+      const directs24HTimestampsElement = document.getElementById("directs24HTimestamps");  
+      const indirects24HTimestampsElement = document.getElementById("indirects24HTimestamps");  
+  
+      if (totalDirectsElement) {  
+        totalDirectsElement.innerText = td.length;  
+      }  
+      if (totalIndirectsElement) {  
+        totalIndirectsElement.innerText = ti.length;  
+      }  
+      if (directs24HTimestampsElement) {  
+        directs24HTimestampsElement.innerText = d24.length;  
+      }  
+      if (indirects24HTimestampsElement) {  
+        indirects24HTimestampsElement.innerText = i24.length;  
+      }  
+    } catch (err) {  
+      console.error("❌ Team load error:", err);  
+    }  
+  }  
+  
+  async function fetchTotalEarningForUser(userId) {  
+    let totalEarn = 0;  
+  
+    for (const prog of programs) {  
+      try {  
+        const contract = new web3.eth.Contract(EARNING_ABI, prog.contract);  
+        const earnings = await contract.methods.getUserTotalEarnings(userId).call();  
+        const total = earnings.reduce((sum, e) => sum + Number(e.amount), 0);  
+        totalEarn += total;  
+      } catch (err) {  
+        console.warn(`⚠️ ${prog.name} error for user ${userId}:`, err);  
+      }  
+    }  
+    return totalEarn / 1e18;  
+  }  
+  
+  async function loadPartners() {  
+    const userList = document.getElementById("userList");  
+    if (!userList) {  
+      console.error("Error: #userList element not found.");  
+      return;  
+    }  
+    userList.innerHTML = "";  
+  
+    const contractAddress = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";  
+    const contractABI = [  
+      {  
+        inputs: [{ internalType: "uint256", name: "userId", type: "uint256" }],  
+        name: "getDirectPartners",  
+        outputs: [{  
+          components: [  
+            { internalType: "uint256", name: "id", type: "uint256" },  
+            { internalType: "address", name: "wallet", type: "address" },  
+            { internalType: "uint256", name: "joiningTime", type: "uint256" },  
+            { internalType: "uint256", name: "totalTeam", type: "uint256" },  
+            { internalType: "uint256", name: "totalEarnings", type: "uint256" }  
+          ],  
+          internalType: "struct UnifiedSystem.PartnerInfo[]",  
+          name: "",  
+          type: "tuple[]"  
+        }],  
+        stateMutability: "view",  
+        type: "function"  
+      },  
+      {  
+        inputs: [{ internalType: "address", name: "user", type: "address" }],  
+        name: "walletToId",  
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],  
+        stateMutability: "view",  
+        type: "function"  
+      }  
+    ];  
+  
+    const contract = new web3.eth.Contract(contractABI, contractAddress);  
+  
+    let userId = getUserIdFromUrl(); // Use the unified function  
+  
+    if (!userId && window.ethereum) {  
+      try {  
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });  
+        const walletAddress = accounts[0];  
+        const resolvedId = await contract.methods.walletToId(walletAddress).call();  
+        userId = parseInt(resolvedId);  
+      } catch (e) {  
+        userList.innerHTML = "<div style='color:red;'>⚠️ Wallet not connected or ID not found</div>";  
+        return;  
+      }  
+    }  
+  
+    if (!userId || isNaN(userId)) {  
+      userList.innerHTML = "<div style='color:red;'>⚠️ Invalid or missing user ID</div>";  
+      return;  
+    }  
+  
+    try {  
+      const partners = await contract.methods.getDirectPartners(userId).call();  
+  
+      if (partners.length === 0) {  
+        userList.innerHTML = "<div style='color:white;'>No direct partners found.</div>";  
+        return;  
+      }  
+  
+      for (const partner of partners) {  
+        const totalEarn = await fetchTotalEarningForUser(partner.id); // Pass web3 instance  
+        const joinDate = new Date(partner.joiningTime * 1000).toLocaleDateString();  
+  
+        const div = document.createElement("div");  
+        div.className = "partner-card";  
+  
+        div.innerHTML = `  
+          <div class="side-left"></div>  
+          <div class="side-right"></div>  
+          <div class="partner-id" onclick="window.location.href='/ref/${partner.id}'">  
+            ID${partner.id}  
+          </div>  
+          <div>Join Date: ${joinDate}</div>  
+          <div>Total Earning: <span class="partner-earning">$${totalEarn.toFixed(2)}</span></div>  
+          <div>Total Partners: ${partner.totalTeam}</div>  
+        `;  
+  
+        userList.appendChild(div);  
+      }  
+  
+    } catch (err) {  
+      console.error("Error loading partners:", err);  
+      userList.innerHTML = "<div style='color:red;'>❌ Error loading partner history</div>";  
+    }  
+  }  
+  
+  window.addEventListener("DOMContentLoaded", async () => {  
+    const userId = getUserIdFromUrl();  
+    if (!userId || isNaN(userId)) {  
+      console.error("❌ Invalid user ID in URL.");  
+      // Optionally, if no userId from URL, try to connect wallet and get ID  
+      // This part can be refined based on your exact UX flow  
+      if (window.ethereum) {  
+        try {  
+          const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });  
+          const walletAddress = accounts[0];  
+          const regContract = new web3.eth.Contract(REG_ABI, REG_CONTRACT_ADDRESS);  
+          const resolvedId = await regContract.methods.walletToId(walletAddress).call();  
+          userId = parseInt(resolvedId);  
+          if (!userId || isNaN(userId)) {  
+            console.error("❌ Could not resolve user ID from connected wallet.");  
+            return;  
+          }  
+        } catch (e) {  
+          console.error("⚠️ Wallet connection or ID resolution failed:", e);  
+          return;  
+        }  
+      } else {  
+        return;  
+      }  
+    }  
+  
+    // Execute both functionalities sequentially  
+    await loadAllEarnings(userId);  
+    await loadTeamData(userId);  
+    await loadPartners(); // This will also use the userId obtained above  
+  });  
+</script>
+
+
+<!-- notification ke button per click karna option show karana setting option per click karna option show karana yah Court start ho raha hai 👇-->
+<script src="https://cdn.jsdelivr.net/npm/web3@1.7.5/dist/web3.min.js"></script>
+<script>
+const REGISTRATION_CONTRACT = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+const X1_CONTRACT = "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1";
+const X2_CONTRACT = "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4";
+const X3_CONTRACT = "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E";
+const X4_CONTRACT = "0x427226D5D018C53cFD77634422A979675C779E80";
+
+const REGISTRATION_ABI = [{
+  inputs: [
+    { internalType: "address", name: "", type: "address" },
+    { internalType: "uint256", name: "", type: "uint256" }
+  ],
+  name: "userNotifications",
+  outputs: [
+    { internalType: "uint256", name: "fromUserId", type: "uint256" },
+    { internalType: "string", name: "message", type: "string" },
+    { internalType: "uint256", name: "timestamp", type: "uint256" }
+  ],
+  stateMutability: "view",
+  type: "function"
+}];
+
+const X_VIEW_ABI = [{
+  inputs: [
+    { internalType: "address", name: "", type: "address" },
+    { internalType: "uint256", name: "", type: "uint256" }
+  ],
+  name: "earningNotifications",
+  outputs: [
+    { internalType: "uint256", name: "senderId", type: "uint256" },
+    { internalType: "uint256", name: "amount", type: "uint256" },
+    { internalType: "uint256", name: "timestamp", type: "uint256" }
+  ],
+  stateMutability: "view",
+  type: "function"
+}];
+
+const PROGRAMS = [
+  { name: "X1", address: X1_CONTRACT, abi: X_VIEW_ABI },
+  { name: "X2", address: X2_CONTRACT, abi: X_VIEW_ABI },
+  { name: "X3", address: X3_CONTRACT, abi: X_VIEW_ABI },
+  { name: "X4", address: X4_CONTRACT, abi: X_VIEW_ABI }
+];
+
+async function loadNotifications(myWallet, myId) {
+  const web3 = new Web3("https://bsc-dataseed.binance.org/");
+  const container = document.getElementById("notificationContent");
+  container.innerHTML = "⏳ Loading...";
+  const now = Math.floor(Date.now() / 1000);
+  const sevenDaysAgo = now - (7 * 24 * 60 * 60);
+  const allNotifications = [];
+
+  // 📦 Parallel Earning Notifications
+  const earningPromises = PROGRAMS.map(async (prog) => {
+    const contract = new web3.eth.Contract(prog.abi, prog.address);
+    const calls = Array.from({ length: 30 }, (_, i) =>
+      contract.methods.earningNotifications(myWallet, i).call().catch(() => null)
+    );
+    const results = await Promise.all(calls);
+    results.forEach(notif => {
+      if (notif && Number(notif.timestamp) >= sevenDaysAgo && Number(notif.amount) > 0) {
+        allNotifications.push({
+          timestamp: Number(notif.timestamp),
+          html: createEarningHtml(prog.name, notif.senderId, notif.amount, notif.timestamp, now)
+        });
+      }
+    });
+  });
+
+  // 📥 Parallel Join Notifications
+  const regContract = new web3.eth.Contract(REGISTRATION_ABI, REGISTRATION_CONTRACT);
+  const joinCalls = Array.from({ length: 30 }, (_, i) =>
+    regContract.methods.userNotifications(myWallet, i).call().catch(() => null)
+  );
+  const joinResultsPromise = Promise.all(joinCalls);
+
+  // Wait for all
+  await Promise.all([...earningPromises, joinResultsPromise]);
+
+  // Process Join
+  const joinResults = await joinResultsPromise;
+  joinResults.forEach(notif => {
+    if (notif && Number(notif.timestamp) >= sevenDaysAgo && Number(notif.fromUserId) > 0) {
+      allNotifications.push({
+        timestamp: Number(notif.timestamp),
+        html: createJoinHtml(notif.fromUserId, notif.message, notif.timestamp, now)
+      });
+    }
+  });
+
+  // Final render
+  allNotifications.sort((a, b) => b.timestamp - a.timestamp);
+  const lines = allNotifications.map(n => n.html);
+  container.innerHTML = lines.length > 0
+    ? lines.join("<hr style='border:1px dashed #555;margin:10px 0;'>")
+    : "<div style='color:#ccc;'>📭 No new notifications in last 7 days.</div>";
+}
+
+// 📢 Styled Earning
+function createEarningHtml(programName, fromId, amount, timestamp, now) {
+  const usdt = (Number(amount) / 1e18).toFixed(2);
+  const timeAgo = formatTimeAgo(now - timestamp);
+  return `
+    <div style="margin-bottom:10px;font-size:15px;line-height:1.5;color:white;">
+      <b style="color:skyblue;">${programName} Box activate</b>  
+      <span style="color:#0f0;">ID ${fromId}</span><br/>
+      <span style="color:#FFD700;">🎉 Mubarak ho aapko</span> 
+      <span style="color:#00ffff;">$${usdt} USDT</span> 
+      <span style="color:#ff69b4;">receive</span> 
+      <span style="color:orange;">${timeAgo}</span>
+    </div>`;
+}
+
+// 🆕 Styled Join
+function createJoinHtml(fromUserId, message, timestamp, now) {
+  const timeAgo = formatTimeAgo(now - timestamp);
+  return `
+    <div style="margin-bottom:10px;font-size:15px;line-height:1.5;color:white;">
+      <span style="color:#32CD32;">Are wa kya baat hai!</span><br/>
+      🥳 <b style="color:gold;">New joining ID</b> 
+      <span style="color:lime;">${fromUserId}</span><br/>
+      <span style="color:#FF8C00;">${message}</span> 
+      <span style="color:orange;">(${timeAgo})</span>
+    </div>`;
+}
+
+// ⏱️ Time Format
+function formatTimeAgo(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const hrs = Math.floor(mins / 60);
+  const days = Math.floor(hrs / 24);
+  if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
+  if (hrs > 0) return `${hrs} hour${hrs > 1 ? "s" : ""} ago`;
+  if (mins > 0) return `${mins} minute${mins > 1 ? "s" : ""} ago`;
+  return `just now`;
+}
+
+// 🔌 Wallet Loader
+window.addEventListener("DOMContentLoaded", async () => {
+  if (window.ethereum) {
+    const web3 = new Web3(window.ethereum);
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const myWallet = accounts[0];
+      const regContract = new web3.eth.Contract([{
+        "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+        "name": "walletToId",
+        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "stateMutability": "view",
+        "type": "function"
+      }], REGISTRATION_CONTRACT);
+      const myId = await regContract.methods.walletToId(myWallet).call();
+      if (myId > 0) {
+        loadNotifications(myWallet, myId);
+      } else {
+        document.getElementById("notificationContent").innerHTML = "❌ User not registered.";
+      }
+    } catch (err) {
+      console.error("Wallet connect fail", err);
+      document.getElementById("notificationContent").innerHTML = "❌ Wallet connection failed.";
+    }
+  } else {
+    document.getElementById("notificationContent").innerHTML = "🦊 Please install MetaMask.";
+  }
+});
+</script>
+
+<script>
+function toggleNotificationBox() {
+  const box = document.getElementById("notificationBox");
+  if (box) {
+    box.style.display = box.style.display === "none" ? "block" : "none";
+  } else {
+    alert("❗ Notification box not found.");
+  }
+}
+</script>
+<script>
+function toggleProfileSettings() {  
+  const box = document.getElementById("profileSettingsBox");  
+  box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";  
+}  
+  
+function saveProfile() {  
+  const name = document.getElementById("nameInput").value.trim();  
+  const dpInput = document.getElementById("dpInput");  
+  const box = document.getElementById('profileSettingsBox');  
+  
+  if (box) box.style.display = 'none';  
+  localStorage.setItem("userName", name);  
+  
+  const nameTarget = document.getElementById("dynamicName");  
+  if (nameTarget) nameTarget.textContent = name;  
+  
+  if (dpInput && dpInput.files && dpInput.files[0]) {  
+    const reader = new FileReader();  
+    reader.onload = function (e) {  
+      const dpUrl = e.target.result;  
+      localStorage.setItem("userDP", dpUrl);  
+      const img = document.getElementById("mainProfileImage");  
+      if (img) img.src = dpUrl;  
+    };  
+    reader.readAsDataURL(dpInput.files[0]);  
+  }  
+}  
+</script>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.7.5/dist/web3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+
+<script>
+(() => {
+  const web3 = new Web3("https://bsc-dataseed1.binance.org/");
+
+  const CONTRACTS = {
+    X1: "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1",
+    X2: "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4",
+    X3: "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E",
+    X4: "0x427226D5D018C53cFD77634422A979675C779E80",
+    JOIN: "0x3B52a5A3A90a5f14Db481809844A0cC520195521"
+  };
+
+  const ABI = [{
+    inputs: [],
+    name: "getSystemTxnHistory",
+    outputs: [{
+      components: [
+        { internalType: "uint256", name: "timestamp", type: "uint256" },
+        { internalType: "uint256", name: "userId", type: "uint256" },
+        { internalType: "uint256", name: "amount", type: "uint256" },
+        { internalType: "uint8", name: "program", type: "uint8" }
+      ],
+      internalType: "struct TxnHistory[]",
+      name: "",
+      type: "tuple[]"
+    }],
+    stateMutability: "view",
+    type: "function"
+  }];
+
+  const JOIN_ABI = [{
+    inputs: [],
+    name: "getRecentHistory",
+    outputs: [
+      { internalType: "string[]", name: "", type: "string[]" },
+      { internalType: "uint256[]", name: "", type: "uint256[]" },
+      { internalType: "uint256[]", name: "", type: "uint256[]" },
+      { internalType: "uint256[]", name: "", type: "uint256[]" }
+    ],
+    stateMutability: "view",
+    type: "function"
+  }];
+
+  function formatTimeAgo(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const hrs = Math.floor(mins / 60);
+    const days = Math.floor(hrs / 24);
+    if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
+    if (hrs > 0) return `${hrs} hour${hrs > 1 ? "s" : ""} ago`;
+    if (mins > 0) return `${mins} minute${mins > 1 ? "s" : ""} ago`;
+    return `${seconds} sec ago`;
+  }
+
+  async function loadTransactionHistory() {
+    const container = document.getElementById("transactionList");
+    if (!container) return;
+
+    container.innerHTML = "⏳ Loading...";
+    const now = Math.floor(Date.now() / 1000);
+    const past = now - 3 * 24 * 60 * 60;
+    const combined = [];
+    const colors = ["#00ffff", "#ff00ff", "#00ff66", "#ffcc00", "#ff6600", "#33ccff", "#cc00ff", "#66ff66"];
+
+    // Join history
+    try {
+      const joinContract = new web3.eth.Contract(JOIN_ABI, CONTRACTS.JOIN);
+      const result = await joinContract.methods.getRecentHistory().call();
+      const userIds = result[1];
+      const timestamps = result[3];
+      for (let i = 0; i < userIds.length; i++) {
+        const uid = Number(userIds[i]);
+        const ts = Number(timestamps[i]);
+        if (ts >= past) {
+          combined.push({ userId: uid, timestamp: ts, program: 99, amount: 0 });
+        }
+      }
+    } catch (e) {
+      console.warn("Join load error", e);
+    }
+
+    // Program history
+    async function fetchTxns(contractAddress) {
+      const contract = new web3.eth.Contract(ABI, contractAddress);
+      const txns = await contract.methods.getSystemTxnHistory().call();
+      return txns.filter(t => Number(t.timestamp) >= past);
+    }
+
+    try {
+      const [x1, x2, x3, x4] = await Promise.all([
+        fetchTxns(CONTRACTS.X1),
+        fetchTxns(CONTRACTS.X2),
+        fetchTxns(CONTRACTS.X3),
+        fetchTxns(CONTRACTS.X4)
+      ]);
+      combined.push(...x1, ...x2, ...x3, ...x4);
+    } catch (err) {
+      console.warn("Contract load error", err);
+    }
+
+    // Display sorted transactions
+    combined.sort((a, b) => b.timestamp - a.timestamp);
+    if (combined.length === 0) return (container.innerHTML = "No recent transactions.");
+
+    container.innerHTML = "";
+    combined.forEach((tx, i) => {
+      const div = document.createElement("div");
+      const uid = tx.userId;
+      const timeAgo = formatTimeAgo(now - Number(tx.timestamp));
+      const program = Number(tx.program);
+      const amount = Number(tx.amount);
+      const color = colors[i % colors.length];
+
+      div.style.cssText = `
+        padding:10px;
+        margin:10px 0;
+        border-radius:14px;
+        color:white;
+        background:#111;
+        border-left:6px solid ${color};
+        box-shadow:0 0 15px ${color}
+      `;
+
+      let html = "";
+      if (program === 1) {
+        html = amount <= 50
+          ? `🟢 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> activated Box ${amount} in X1 ✅ <span style='color:#ffffff;'>Allah aapko kamyab kare 🤲</span> ⏰ ${timeAgo}`
+          : `💸 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> earned $${(amount / 1e18).toFixed(2)} USDT in X1 ⏰ ${timeAgo}`;
+      } else if (program === 2) {
+        html = amount <= 50
+          ? `🟢 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> activated Box ${amount} in X2 ✅ <span style='color:#ffffff;'>Allah aapko kamyab kare 🤲</span> ⏰ ${timeAgo}`
+          : `💸 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> earned $${(amount / 1e18).toFixed(2)} USDT in X2 ⏰ ${timeAgo}`;
+      } else if (program === 3) {
+        html = `💸 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> earned $${(amount / 1e18).toFixed(2)} USDT in X4 ⏰ ${timeAgo}`;
+      } else if (program === 33) {
+        html = amount <= 50
+          ? `🟢 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> activated Box ${amount} in X3 ✅ <span style='color:#ffffff;'>Allah aapko kamyab kare 🤲</span> ⏰ ${timeAgo}`
+          : `💸 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> earned $${(amount / 1e18).toFixed(2)} USDT in X3 ⏰ ${timeAgo}`;
+      } else if (program === 44) {
+        html = `🟢 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> activated Box ${amount} in X4 ✅ <span style='color:#ffffff;'>Allah aapko kamyab kare 🤲</span> ⏰ ${timeAgo}`;
+      } else if (program === 99) {
+        html = `👤 <a href='/ref/${uid}' style='color:${color};font-weight:bold;'>ID: ${uid}</a> joined the system 🙋‍♂️ ⏰ ${timeAgo}`;
+      }
+
+      if (html) {
+        div.innerHTML = html;
+        container.appendChild(div);
+      }
+    });
+  }
+
+  window.TransactionModule = {
+    init: loadTransactionHistory
+  };
+
+  // Automatically load on page load
+  window.addEventListener("DOMContentLoaded", () => {
+    window.TransactionModule.init();
+  });
+})();
+</script>
+<!-- ✅ Display Box -->
+<div id="transactionList" style="padding: 15px; font-family: Arial; color: white; background-color: #111; border-radius: 10px;"></div>
+<div id="txnHistory" style="color:white; font-family:Arial, sans-serif; padding:10px; font-size:14px;"></div>
+
+<div id="transactionList" style="color:white; font-family:Arial; padding:10px;"></div>
+
+
+
+<!-- user ki total team 24 ghanta TV total earning 24 ghanta arning total direct indirect -->
+
+
+
+
+
+
+
+<!--👇 starting info notification info per click karna option show karana real code-->
+<script type="module">
+import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+
+// ✅ Your registration contract
+const REG_CONTRACT = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+const REG_ABI = [
+  {
+    "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
+    "name": "walletToId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+// ✅ Get dashboardId from both ?ref= and /ref/
+let dashboardId = null;
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has("ref")) {
+  dashboardId = parseInt(urlParams.get("ref"));
+} else {
+  const path = window.location.pathname;
+  if (path.includes("/ref/")) {
+    const parts = path.split("/ref/");
+    if (parts[1]) {
+      dashboardId = parseInt(parts[1]);
+    }
+  }
+}
+
+// ✅ Make toggleNotificationBox global & secure
+window.toggleNotificationBox = async function () {
+  if (!dashboardId || isNaN(dashboardId)) {
+    alert("❌ Missing or invalid dashboard ID in URL.");
+    return;
+  }
+
+  if (!window.ethereum) {
+    alert("❌ Wallet not detected.");
+    return;
+  }
+
+  try {
+    // Connect wallet
+    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+    const userWallet = accounts[0];
+
+    // Get user ID from wallet
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const reg = new ethers.Contract(REG_CONTRACT, REG_ABI, provider);
+    const registeredId = await reg.walletToId(userWallet);
+
+    if (registeredId.toString() !== dashboardId.toString()) {
+      alert("❌ Only your own dashboard notifications can be opened.");
+      return;
+    }
+
+    // ✅ Toggle the notification box
+    const box = document.getElementById("notificationBox");
+    if (box) {
+      box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
+    } else {
+      alert("❗ Notification box not found.");
+    }
+
+  } catch (err) {
+    console.error("⚠️ Notification toggle error:", err);
+    alert("❌ Something went wrong.");
+  }
+};
+</script>
+<script type="module">
+import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+
+// ✅ Registration Contract
+const REG_CONTRACT = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+const REG_ABI = [
+  {
+    "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
+    "name": "walletToId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+// ✅ Handle both ?ref=ID and /ref/ID formats
+let dashboardId = null;
+const searchParams = new URLSearchParams(window.location.search);
+if (searchParams.has("ref")) {
+  dashboardId = parseInt(searchParams.get("ref"));
+} else {
+  const path = window.location.pathname;
+  if (path.includes("/ref/")) {
+    const parts = path.split("/ref/");
+    if (parts[1]) {
+      dashboardId = parseInt(parts[1]);
+    }
+  }
+}
+
+// ✅ Modified toggle function with real wallet check
+window.toggleProfileSettings = async function () {
+  if (!dashboardId || isNaN(dashboardId)) {
+    alert("❌ Missing or invalid dashboard ID in URL.");
+    return;
+  }
+
+  if (!window.ethereum) {
+    alert("❌ Wallet not available.");
+    return;
+  }
+
+  try {
+    // Connect wallet
+    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+    const connectedWallet = accounts[0];
+
+    // Init provider & contract
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const reg = new ethers.Contract(REG_CONTRACT, REG_ABI, provider);
+
+    const registeredId = await reg.walletToId(connectedWallet);
+
+    // ✅ Allow only if user is owner
+    if (registeredId.toString() !== dashboardId.toString()) {
+      alert("❌ You can only access settings on your own dashboard.");
+      return;
+    }
+
+    // ✅ Show settings box
+    const box = document.getElementById("profileSettingsBox");
+    if (box) {
+      box.style.display = (box.style.display === "none" || box.style.display === "") ? "block" : "none";
+    }
+
+  } catch (err) {
+    console.error("⚠️ Wallet or ID match error:", err);
+    alert("❌ Something went wrong.");
+  }
+};
+</script>
+
+<script type="module">
+import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+
+// ✅ Global Configurations
+const REG_CONTRACT = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+
+const PROGRAMS = [
+  {
+    name: "x1",
+    contract: "0xA3F23103cc68aD949eC7838100148bB4c22Ea9E1",
+    selectorPrefix: "#x1-status-circles"
+  },
+  {
+    name: "x2",
+    contract: "0xee7772B7F70e78efB7100cCA5Eb48b728b2259c4",
+    selectorPrefix: "#x2-status-circles"
+  },
+  {
+    name: "x3",
+    contract: "0xC89D23Aa0301aa47e9d7b17eDED672D87C9Ae54E",
+    selectorPrefix: "#x3-status-circles"
+  },
+  {
+    name: "x4",
+    contract: "0x427226D5D018C53cFD77634422A979675C779E80",
+    selectorPrefix: "#x4-status-circles"
+  }
+];
+
+// ✅ Common ABIs
+const REG_ABI = [
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "users",
+    "outputs": [
+      { "internalType": "uint256", "name": "id", "type": "uint256" },
+      { "internalType": "address", "name": "wallet", "type": "address" },
+      { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+      { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+      { "internalType": "string", "name": "dp", "type": "string" },
+      { "internalType": "string", "name": "name", "type": "string" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+const COMMON_ABI = [
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" },
+      { "internalType": "uint8", "name": "boxId", "type": "uint8" }
+    ],
+    "name": "hasActivated",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+// ✅ Toast for Error Display
+function showError(msg) {
+  const div = document.createElement("div");
+  div.textContent = msg;
+  div.style.position = "fixed";
+  div.style.top = "10px";
+  div.style.left = "50%";
+  div.style.transform = "translateX(-50%)";
+  div.style.background = "#ffeaea";
+  div.style.color = "#cc0000";
+  div.style.border = "1px solid #cc0000";
+  div.style.padding = "10px 18px";
+  div.style.borderRadius = "6px";
+  div.style.fontWeight = "600";
+  div.style.fontFamily = "Arial, sans-serif";
+  div.style.zIndex = "9999";
+  div.style.boxShadow = "0 3px 6px rgba(0,0,0,0.2)";
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 4500);
+}
+
+// ✅ Get wallet address from userId
+async function getWalletFromUserId(userId) {
+  const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org/");
+  const reg = new ethers.Contract(REG_CONTRACT, REG_ABI, provider);
+  try {
+    const user = await reg.users(userId);
+    return user.wallet !== "0x0000000000000000000000000000000000000000" ? user.wallet : null;
+  } catch (err) {
+    showError("❌ Error fetching wallet: " + err.message);
+    return null;
+  }
+}
+
+// ✅ Main loader function per program
+async function loadGlowForProgram(wallet, program) {
+  const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org/");
+  const contract = new ethers.Contract(program.contract, COMMON_ABI, provider);
+  const checks = [];
+
+  for (let i = 1; i <= 50; i++) {
+    checks.push(
+      contract.hasActivated(wallet, i)
+        .then(active => ({ index: i, active }))
+        .catch(() => ({ index: i, active: false }))
+    );
+  }
+
+  const results = await Promise.all(checks);
+
+  results.forEach(({ index, active }) => {
+    if (active) {
+      const circle = document.querySelector(`${program.selectorPrefix} .circle[data-index="${index}"]`);
+      if (circle) circle.classList.add("fully-green-with-glow");
+    }
+  });
+}
+
+// ✅ Auto Start
+window.addEventListener("DOMContentLoaded", async () => {
+  const path = window.location.pathname;
+  const userId = path.includes("/ref/") ? path.split("/ref/")[1] : null;
+
+  if (!userId || isNaN(userId)) {
+    showError("⚠️ Missing or invalid referral ID in URL.");
+    return;
+  }
+
+  const wallet = await getWalletFromUserId(userId);
+  if (!wallet) {
+    showError("⚠️ Wallet not found for this ID.");
+    return;
+  }
+
+  // ✅ Load all programs: X1, X2, X3, X4
+  await Promise.all(
+    PROGRAMS.map(program => loadGlowForProgram(wallet, program))
+  );
+});
+</script>
+<!-- x4 program box ke color change karta hai exactly jitne box user ke open hote Hain utna ke rate gole green kar deta hai yah code 👆-->
+
+
+
+  </body>
+  </html>

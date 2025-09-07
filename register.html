@@ -1,0 +1,406 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+  <title>LifeChangeEasy - Register</title>  
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>  <style>
+ body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+}
+
+/* 🔝 Header Bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #00ff88, #00ccff);
+  padding: 15px 25px;
+  box-shadow: 0 0 20px rgba(0,255,200,0.3);
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#walletStatus {
+  background: #000;
+  border: 2px solid #00ffcc;
+  padding: 10px 16px;
+  border-radius: 10px;
+  color: #00ffcc;
+  font-size: 0.95rem;
+  box-shadow: 0 0 10px #00ffcc;
+}
+
+/* 🔲 Main Registration Container with Glowing Border */
+.container {
+  position: relative;
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 35px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 20px;
+  text-align: center;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: linear-gradient(
+    45deg,
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+  background-size: 400%;
+  border-radius: 22px;
+  animation: rainbowBorder 10s linear infinite;
+}
+
+@keyframes rainbowBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 📝 Description Text */
+.description {
+  font-size: 1.05rem;
+  margin-bottom: 25px;
+  color: #111;
+}
+
+/* 👤 Upline Box */
+#uplineBox {
+  margin: 30px 0;
+}
+
+#uplineBox .label {
+  font-size: 1rem;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+#referralInfo {
+  display: inline-block;
+  padding: 14px 26px;
+  background: #111;
+  border: 2px solid #00ffcc;
+  border-radius: 14px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #00ffcc;
+  box-shadow: 0 0 10px #00ffcc88;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  background: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet, red);
+  background-size: 1600% 1600%;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(0, 255, 150, 0.8);
+  animation: animatedGradient 8s ease infinite;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.9);
+}
+
+@keyframes animatedGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ⚠️ Error Message */
+#errorBox {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #ff4444;
+  text-align: center;
+}
+</style>
+</head>  
+<body>  
+  
+  <!-- Topbar with title and wallet button -->  
+  <div class="topbar">  
+    <h1>LifeChangeEasy.io</h1>  
+    <div id="walletStatus">🔌 Connect Wallet</div>  
+  </div>  
+  
+  <div class="container">  
+    <div class="description">  
+      ✨ Welcome to the official registration page of LifeChangeEasy.io<br>  
+      Please connect your wallet and register using a valid referral link. ✨  
+    </div>  
+  
+    <!-- Upline Referral ID Display -->  
+    <div id="uplineBox">  
+      <div class="label">Upline ID</div>  
+      <div id="referralInfo">Checking...</div>  
+    </div>  
+  
+    <!-- Register Button -->  
+    <button id="registerBtn">🚀 Register Now</button>  
+  </div>  
+  <div id="errorBox" style="text-align:center; margin-top:20px; font-weight:bold;"></div>
+  <style>
+  .message-container {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #111;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    color: #00ffcc;
+    font-size: 1rem;
+    line-height: 1.7;
+    box-shadow: 0 0 25px #00ffcc;
+  }
+
+  .message-border {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(270deg, red, orange, yellow, green,  blue,  red);
+    background-size: 1400% 1400%;
+    animation: rainbow 8s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .message-content {
+    position: relative;
+    z-index: 1;
+    white-space: pre-wrap;
+    color: #111;
+    font-weight: 500;
+  }
+</style>
+
+<div class="message-container">
+  <div class="message-border"></div>
+  <div id="animatedMessage" class="message-content"></div>
+</div>
+
+<script>
+  const messageText = `
+🆓 Registration process Joining fee $0.001BNB wallet requirement $0.0022 BNB PKR mein 500 mein aapka safar shuru hota hai – bina kisi hidden fee ke.
+
+💎 LifeChangeEasy ek 100% decentralized system hai jo Blockchain technology par based hai. Koi admin nahi, koi manipulation nahi – sirf real smart contract rules.
+
+🌍 Is project ko banaya hai Jigar Shahzad ne – Pakistan ke khoobsurat sheher Bahawalpur se. Unka mission hai gareeb logon ko financial freedom dena ek aise system ke zariye jo sabke liye equal ho.
+
+🚀 Yahaan kam karne par bhi earning hoti hai aur bina kaam ke bhi system se fayda milta hai. Network marketing ki duniya mein ek revolutionary plan – jahan se zindagi sach mein badal sakti hai.
+
+✨ Aaj hi join karein, zindagi ka naye daur shuru karne ke liye! ✨
+  `;
+
+  const animatedElement = document.getElementById("animatedMessage");
+  let index = 0;
+  const totalTime = 30000; // 30 seconds
+  const interval = totalTime / messageText.length;
+
+  function typeMessage() {
+    if (index < messageText.length) {
+      animatedElement.innerHTML += messageText.charAt(index);
+      index++;
+      setTimeout(typeMessage, interval);
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    typeMessage();
+  });
+</script>
+<script type="module">
+  import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.esm.min.js";
+
+  // ✅ Smart Contract Info
+  const contractAddress = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+  const abi = [
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "_uplineId", "type": "uint256" },
+        { "internalType": "string", "name": "dp", "type": "string" },
+        { "internalType": "string", "name": "name", "type": "string" },
+        { "internalType": "uint256[]", "name": "upperUplines", "type": "uint256[]" }
+      ],
+      "name": "registerUser",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "registrationFee",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
+      "name": "getUserDashboardInfo",
+      "outputs": [
+        { "internalType": "uint256", "name": "", "type": "uint256" },
+        { "internalType": "address", "name": "", "type": "address" },
+        { "internalType": "uint256", "name": "", "type": "uint256" },
+        { "internalType": "uint256", "name": "", "type": "uint256" },
+        { "internalType": "string", "name": "", "type": "string" },
+        { "internalType": "string", "name": "", "type": "string" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "idToAddress",
+      "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  let provider, signer, contract, userWallet;
+  let uplineId = 1;
+
+  // ✅ Get referral ID from ?ref=5 or /ref/5
+  function getReferralId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryRef = parseInt(urlParams.get("ref"));
+    if (!isNaN(queryRef) && queryRef > 0) return queryRef;
+
+    const pathParts = window.location.pathname.split("/");
+    const refIndex = pathParts.indexOf("ref");
+    const pathRef = refIndex !== -1 ? parseInt(pathParts[refIndex + 1]) : null;
+    if (!isNaN(pathRef) && pathRef > 0) return pathRef;
+
+    return 1;
+  }
+
+  // ✅ Wallet & Contract Setup
+  window.addEventListener("load", async () => {
+    try {
+      uplineId = getReferralId();
+
+      const refBox = document.getElementById("referralInfo");
+      if (refBox) refBox.innerText = `Referral ID: ${uplineId}`;
+
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+      signer = provider.getSigner();
+      contract = new ethers.Contract(contractAddress, abi, signer);
+
+      const accounts = await provider.send("eth_requestAccounts", []);
+      userWallet = accounts[0];
+
+      const status = document.getElementById("walletStatus");
+      if (status) status.innerText = `🔗 ${userWallet.slice(0, 6)}...${userWallet.slice(-4)}`;
+    } catch (err) {
+      console.error("❌ Wallet connection failed:", err);
+      alert("❌ Wallet connection failed. Please try again.");
+    }
+  });
+
+  // ✅ Registration Button Click
+  document.getElementById("registerBtn").addEventListener("click", async () => {
+    try {
+      const name = document.getElementById("nameInput")?.value || "User";
+      const dpInput = document.getElementById("dpInput");
+      const fee = await contract.registrationFee();
+
+      // ✅ Auto collect all indirect uplines
+      const upperUplines = [];
+      let currentUplineId = uplineId;
+
+      while (currentUplineId > 0) {
+        const uplineWallet = await contract.idToAddress(currentUplineId);
+        const uplineInfo = await contract.getUserDashboardInfo(uplineWallet);
+        const nextUplineId = parseInt(uplineInfo[2]);
+
+        if (!upperUplines.includes(currentUplineId)) {
+          upperUplines.push(currentUplineId);
+        }
+
+        if (nextUplineId === 0 || upperUplines.length > 1000) break;
+        currentUplineId = nextUplineId;
+      }
+
+      // ✅ Prepare DP if uploaded
+      let dpUrl = "";
+      const proceedRegistration = async () => {
+        const tx = await contract.registerUser(uplineId, dpUrl, name, upperUplines, { value: fee });
+        await tx.wait();
+        const info = await contract.getUserDashboardInfo(userWallet);
+        const userId = info[0].toString();
+        window.location.href = "/ref/" + userId;
+      };
+
+      if (dpInput && dpInput.files && dpInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          dpUrl = reader.result;
+          await proceedRegistration();
+        };
+        reader.readAsDataURL(dpInput.files[0]);
+      } else {
+        await proceedRegistration();
+      }
+    } catch (err) {
+      console.error("❌ Registration failed:", err);
+      alert("❌ Registration failed: " + (err?.reason || err?.message || "Unknown error"));
+    }
+  });
+</script>
+

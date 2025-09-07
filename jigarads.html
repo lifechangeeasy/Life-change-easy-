@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Change Easy Market</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+      <style>
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #ffffff;
+    background: #000000;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+/* Header Styles - Mobile First */
+.header {
+    background: linear-gradient(135deg, #00ff88, #00cc6a);
+    border-bottom: 2px solid #00ff88;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 1rem;
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+.logo h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.nav {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 15px;
+    border: 2px solid #000000;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #000000;
+    font-size: 0.8rem;
+    flex: 1;
+    max-width: 150px;
+}
+
+.nav-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn.active {
+    background: #000000;
+    color: #00ff88;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Main Content - Mobile First */
+.main {
+    padding: 1.5rem 0;
+    min-height: calc(100vh - 150px);
+}
+
+.page {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.page-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #00ff88;
+}
+
+.page-header p {
+    font-size: 0.9rem;
+    color: #cccccc;
+    padding: 0 10px;
+}
+
+/* Referral Grid - Mobile First */
+.referral-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.referral-card {
+    background: #1a1a1a;
+    border: 2px solid #00ff88;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.2);
+    transition: all 0.3s ease;
+}
+
+.referral-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+    border-color: #00cc6a;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.referral-id {
+    background: #00ff88;
+    color: #000000;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.card-actions {
+    display: flex;
+    gap: 6px;
+}
+
+
+.referral-link {
+    background: #2a2a2a;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: #00ff88;
+    margin-bottom: 0.8rem;
+    word-break: break-all;
+    border-left: 3px solid #00ff88;
+}
+
+.referral-description {
+    color: #ffffff;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+}
+
+
+
+.timestamp {
+    color: #999999;
+    font-size: 0.7rem;
+}
+
+/* Empty State - Mobile First */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #ffffff;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #00ff88;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #00ff88;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #cccccc;
+}
+
+/* Dashboard Styles - Mobile First */
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-container {
+    background: #1a1a1a;
+    border: 2px solid #00ff88;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.2);
+}
+
+.preview-container {
+    background: #1a1a1a;
+    border: 2px solid #00ff88;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.2);
+}
+
+.preview-container h3 {
+    color: #00ff88;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+}
+
+.preview-card {
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Form Styles - Mobile First */
+.referral-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #00ff88;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #00ff88;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    background: #2a2a2a;
+}
+
+.input-group:focus-within {
+    border-color: #00cc6a;
+    box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+}
+
+.input-prefix {
+    background: #333333;
+    padding: 8px;
+    font-size: 0.7rem;
+    color: #00ff88;
+    border-bottom: 1px solid #00ff88;
+    text-align: center;
+}
+
+input[type="number"] {
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    outline: none;
+    background: #2a2a2a;
+    color: #ffffff;
+    text-align: center;
+}
+
+input[type="number"]::placeholder {
+    color: #999999;
+}
+
+textarea {
+    border: 2px solid #00ff88;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 0.9rem;
+    outline: none;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+    background: #2a2a2a;
+    color: #ffffff;
+}
+
+textarea::placeholder {
+    color: #999999;
+}
+
+textarea:focus {
+    border-color: #00cc6a;
+    box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+}
+
+.form-help {
+    color: #999999;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.char-counter {
+    text-align: right;
+    color: #999999;
+    font-size: 0.75rem;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+/* Button Styles - Mobile First */
+.btn-primary {
+    background: #00ff88;
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #00cc6a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #00ff88;
+    border: 2px solid #00ff88;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-secondary:hover {
+    background: #00ff88;
+    color: #000000;
+    transform: translateY(-2px);
+}
+
+/* Modal Styles - Mobile First */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1a1a1a;
+    border: 2px solid #00ff88;
+    border-radius: 10px;
+    padding: 1.5rem;
+    max-width: 350px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0, 255, 136, 0.3);
+}
+
+.modal-header {
+    margin-bottom: 1rem;
+}
+
+.modal-header i {
+    font-size: 2.5rem;
+    color: #00ff88;
+    margin-bottom: 0.5rem;
+}
+
+.modal-header h3 {
+    color: #00ff88;
+    font-size: 1.3rem;
+}
+
+.modal-body p {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* Footer - Mobile First */
+.footer {
+    background: #1a1a1a;
+    border-top: 2px solid #00ff88;
+    padding: 1rem 0;
+    text-align: center;
+    color: #cccccc;
+    margin-top: auto;
+}
+
+.footer p {
+    font-size: 0.8rem;
+    padding: 0 10px;
+}
+
+/* Copy Success Message - Mobile First */
+.copy-success {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00ff88;
+    color: #000000;
+    padding: 10px 15px;
+    border-radius: 6px;
+    z-index: 1001;
+    animation: slideUp 0.3s ease-out;
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.4);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Success Animation */
+.success-animation {
+    animation: successPulse 0.6s ease-in-out;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* My Referrals Section - Mobile First */
+.my-referrals-section {
+    background: #1a1a1a;
+    border: 2px solid #00ff88;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.2);
+    margin-top: 1.5rem;
+}
+
+.my-referrals-section h3 {
+    color: #00ff88;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+}
+
+.my-referrals-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.my-referral-card {
+    background: #2a2a2a;
+    border: 1px solid #00ff88;
+    border-radius: 8px;
+    padding: 1rem;
+    position: relative;
+}
+
+.my-referral-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.my-referral-card .card-actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+
+
+.empty-my-referrals {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #999999;
+}
+
+.empty-my-referrals i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #666666;
+}
+
+.empty-my-referrals p {
+    font-size: 0.9rem;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-around; /* Isko 'space-around' karein taake buttons ke beech barabar faasla aaye */
+  align-items: center;
+  padding-top: 0.8rem;
+  border-top: 1px solid #333;
+}
+
+
+
+.btn-danger {
+    background: #ff4444;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.btn-danger:hover {
+    background: #cc3333;
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    background: transparent;
+    color: #999999;
+    border: 2px solid #666666;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.btn-cancel:hover {
+    border-color: #999999;
+    color: #ffffff;
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-width: 320px) {
+    .my-referrals-section {
+        padding: 1rem;
+    }
+    
+    .my-referral-card {
+        padding: 0.8rem;
+    }
+    
+    .delete-modal-content {
+        padding: 1rem;
+    }
+}
+/* ===== START: NAYE PROFESSIONAL OVERLAYS CSS CODE ===== */
+
+/* My Referrals Section - Card Actions */
+.my-referral-card .card-actions {
+    position: relative; /* Zaroori hai menu ki positioning ke liye */
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.my-referral-card .copy-btn,
+.my-referral-card .menu-btn {
+    background: #3a3a3a;
+    color: #ffffff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.my-referral-card .copy-btn:hover,
+.my-referral-card .menu-btn:hover {
+    background: #4a4a4a;
+}
+
+/* 3-Dot Menu Dropdown */
+.delete-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-dropdown {
+    display: none; /* Sabse ahem: Shuru mein isko chupayein */
+    position: absolute;
+    right: 0;
+    top: 120%; /* Button ke thoda neeche show ho */
+    background-color: #2c2c2c;
+    border: 1px solid #00ff88;
+    border-radius: 8px;
+    min-width: 120px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    overflow: hidden; /* Taaki border-radius kaam kare */
+    padding: 5px 0;
+}
+
+.menu-dropdown.show {
+    display: block; /* 'show' class lagne par isko dikhayein */
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 15px;
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: #3a3a3a;
+}
+
+.menu-item i {
+    color: #00ff88;
+    width: 15px; /* Icon alignment ke liye */
+}
+
+.menu-item.delete:hover i {
+    color: #ff4444;
+}
+/* Profile Header Styles */
+.profile-header {
+  display: flex;
+  justify-content: space-between; /* Yeh Name aur Button ko alag-alag kono mein bhej dega */
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #333;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-dp {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #00ff88;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Copy Button ki nayi style */
+.copy-btn {
+  background: #00ff88; /* Green background */
+  color: #000000; /* Black text */
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px; /* Thoda sa size adjust kiya */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem; /* Thoda sa font chota kiya */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.copy-btn:hover {
+  background: #00cc6a; /* Hover par thoda dark green */
+  transform: scale(1.05); /* Thoda sa bada ho jayega */
+}
+
+/* Poster Image Styles */
+.referral-poster {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 1rem; /* Description se thoda faasla */
+  border: 1px solid #444;
+}
+
+/* --- Reaction System Styles --- */
+.card-engagement {
+  position: relative; /* Reaction panel ko iske hisab se position karenge */
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+}
+
+.reaction-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.like-btn {
+  background: transparent;
+  border: none;
+  color: #999;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+
+.like-btn:hover {
+  background: #2a2a2a;
+}
+
+.like-btn.reacted {
+  color: #00ff88; /* React karne ke baad green color */
+}
+
+.like-icon {
+  font-size: 1.1rem;
+}
+
+.reaction-panel {
+  position: absolute;
+  bottom: 100%; /* Like button ke upar show hoga */
+  left: 0;
+  background: #2a2a2a;
+  border: 1px solid #00ff88;
+  border-radius: 20px;
+  padding: 8px 12px;
+  display: flex;
+  gap: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transform: scale(0.8) translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-out;
+  z-index: 100;
+}
+
+.reaction-panel.show {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.emoji {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.emoji:hover {
+  transform: scale(1.3);
+}
+/* --- Reaction System Styles (Yeh pehle se mojood hai, isko nahi chedna) --- */
+.card-engagement { /* ... */ }
+.reaction-summary { /* ... */ }
+.like-btn { /* ... */ }
+/* ... baqi reaction system ki css ... */
+
+
+/* ================================================== */
+/* YAHAN SE NAYA AUR UPDATED CODE SHURU HOTA HAI */
+/* ================================================== */
+
+/* --- Comment Button ki Styling --- */
+.comment-btn {
+  background: transparent;
+  border: none;
+  color: #999; /* Like button jaisa default color */
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.comment-btn:hover {
+  background: #2a2a2a;
+  color: #00ff88; /* Hover par green ho jaye */
+}
+
+.comment-btn i {
+    font-size: 1.1rem; /* Icon ka size */
+}
+
+
+/* --- Comment Modal Styles (Updated) --- */
+.comment-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.comment-modal-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* BADLA GAYA: 85% se 100% kiya gaya */
+    background: #1a1a1a;
+    border-top-left-radius: 0; /* BADLA GAYA: 20px se 0 kiya gaya */
+    border-top-right-radius: 0; /* BADLA GAYA: 20px se 0 kiya gaya */
+    border-top: none; /* BADLA GAYA: border hata diya gaya */
+    box-shadow: 0 -10px 30px rgba(0, 255, 136, 0.2);
+    display: flex;
+    flex-direction: column;
+    animation: slideUpFromBottom 0.4s ease-out;
+}
+
+@keyframes slideUpFromBottom {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.comment-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #333;
+    background: #1f1f1f; /* Thoda sa alag background header ke liye */
+}
+
+.comment-modal-header h3 {
+    color: #00ff88;
+    margin: 0;
+}
+
+.close-comment-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.comment-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.comment-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.comment-item.user-comment {
+    flex-direction: row-reverse;
+}
+
+.comment-dp {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comment-bubble {
+    background: #2a2a2a;
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 80%;
+}
+
+.comment-item.user-comment .comment-bubble {
+    background: #005c3d;
+}
+
+.comment-name {
+    font-weight: 600;
+    color: #00ff88;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.comment-text {
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.comment-input-area {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid #333;
+    gap: 10px;
+    background: #1f1f1f; /* Thoda sa alag background input area ke liye */
+}
+
+#commentInput {
+    flex-grow: 1;
+    border: 2px solid #00ff88;
+    border-radius: 20px;
+    padding: 10px 15px;
+    background: #2a2a2a;
+    color: #fff;
+    outline: none;
+}
+
+#sendCommentBtn {
+    background: #00ff88;
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+#sendCommentBtn:hover {
+    transform: scale(1.1);
+}
+
+/* Readonly Textarea ki styling theek karne ke liye */
+textarea[readonly] {
+    background-color: #2a2a2a; /* Wahi background jo normal state mein hai */
+    color: #ffffff; /* Wahi text color */
+    cursor: not-allowed; /* Cursor badal jayega taake user ko pata chale ke yahan likh nahi sakte */
+    opacity: 0.8; /* Thoda sa halka dikhega */
+}
+
+
+        </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <h1>Life Change Easy Market</h1>
+                </div>
+                <nav class="nav">
+                    <button class="nav-btn active" id="homeBtn">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </button>
+                    <button class="nav-btn" id="dashboardBtn">
+                        <i class="fas fa-plus-circle"></i>
+                        User Dashboard
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Home Page Section -->
+            <section id="homePage" class="page active">
+                <div class="page-header">
+                    <h2><i class="fas fa-globe"></i> Public Referral Links</h2>
+                    <p>Discover and copy referral links shared by our community</p>
+                </div>
+                
+                <div class="referral-grid" id="referralGrid">
+                    <!-- Sample referral cards for demonstration -->
+                    <div class="referral-card">
+                        <div class="card-header">
+                            <div class="referral-id">ID: 123</div>
+                            <div class="card-actions">
+
+                            </div>
+                        </div>
+                        <div class="referral-link">
+                            https://lifechangeeasy.io/register/ref/123
+                        </div>
+                        <div class="referral-description">
+                            This is a sample referral description. Join our amazing platform and start your journey towards financial freedom. Experience the power of decentralized systems and blockchain technology.
+                        </div>
+                        <div class="card-footer">
+                            <span class="timestamp">2 hours ago</span>
+                        </div>
+                    </div>
+
+                    <div class="referral-card">
+                        <div class="card-header">
+                            <div class="referral-id">ID: 456</div>
+                            <div class="card-actions">
+                                
+                            </div>
+                        </div>
+                        <div class="referral-link">
+                            https://lifechangeeasy.io/register/ref/456
+                        </div>
+                        <div class="referral-description">
+                            Another example of a referral description. This platform offers incredible opportunities for growth and success. Don't miss out on this chance to transform your life.
+                        </div>
+                        <div class="card-footer">
+                            <span class="timestamp">5 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No Referrals Yet</h3>
+                    <p>Be the first to share your referral link!</p>
+                    <button class="btn-primary" onclick="switchToPage('dashboard')">
+                        Add Your Referral
+                    </button>
+                </div>
+            </section>
+
+            <!-- Dashboard Page Section -->
+            <section id="dashboardPage" class="page">
+                <div class="page-header">
+                    <h2><i class="fas fa-user-cog"></i> User Dashboard</h2>
+                    <p>Share your referral link with the community</p>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="form-container">
+                        <form id="referralForm" class="referral-form">
+                            <div class="form-group">
+                                <label for="referralId">
+                                    <i class="fas fa-hashtag"></i>
+                                    Referral ID
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-prefix">https://lifechangeeasy.io/register/ref/</span>
+                                    <input 
+                                        type="number" 
+                                        id="referralId" 
+                                        name="referralId" 
+                                        placeholder="Enter your ID number"
+                                        min="1"
+                                        required
+                                    >
+                                </div>
+                                <small class="form-help">Enter only the ID number (e.g., 123, 456)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">
+                                    <i class="fas fa-edit"></i>
+                                    Description
+                                </label>
+                                <textarea 
+    id="description" 
+    name="description" 
+    placeholder="Enter your ID above to generate a description automatically"
+    maxlength="2000"
+    rows="6"
+    required
+    readonly 
+></textarea>
+
+                                <div class="char-counter">
+                                    <span id="charCount">0</span> / 2000 characters
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-rocket"></i>
+                                    Publish Referral
+                                </button>
+                                <button type="reset" class="btn-secondary">
+                                    <i class="fas fa-undo"></i>
+                                    Reset Form
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="preview-container">
+                        <h3><i class="fas fa-eye"></i> Live Preview</h3>
+                        <div class="referral-card preview-card">
+                            <div class="card-header">
+                                <div class="referral-id" id="previewId">ID: ---</div>
+                                <div class="card-actions">
+                                    
+                                </div>
+                            </div>
+                            <div class="referral-link" id="previewLink">
+                                https://lifechangeeasy.io/register/ref/---
+                            </div>
+                            <div class="referral-description" id="previewDescription">
+                                Your description will appear here...
+                            </div>
+                            <div class="card-footer">
+                                <span class="timestamp">Just now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Referrals Section -->
+                <div class="my-referrals-section">
+                    <h3><i class="fas fa-list"></i> My Referrals</h3>
+                    <div class="my-referrals-grid" id="myReferralsGrid">
+                        <!-- User's own referrals will be displayed here -->
+                    </div>
+                    <div class="empty-my-referrals" id="emptyMyReferrals" style="display: none;">
+                        <i class="fas fa-inbox"></i>
+                        <p>You haven't published any referrals yet.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Life Change Easy Market. Empowering communities through shared opportunities.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle"></i>
+                <h3>Success!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Your referral link has been published successfully!</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="window.app.closeSuccessModal()">
+                    View on Home Page
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- YEH HISSA ADD KIYA GAYA HAI -->
+    <!-- ================================================== -->
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="delete-modal">
+        <div class="delete-modal-content">
+            <div class="delete-modal-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Delete Referral?</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this referral? This action cannot be undone.</p>
+            </div>
+            <div class="delete-modal-actions">
+                <button id="confirmDeleteBtn" class="btn-danger">
+                    Delete
+                </button>
+                <button class="btn-cancel" onclick="window.app.closeDeleteModal()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- ================================================== -->
+<!-- NAYA COMMENT BOX KA HTML -->
+<!-- ================================================== -->
+<div id="commentModal" class="comment-modal">
+    <div class="comment-modal-content">
+        <div class="comment-modal-header">
+            <h3>Comments</h3>
+            <button class="close-comment-btn" onclick="window.app.closeCommentModal()">&times;</button>
+        </div>
+        <div class="comment-list" id="commentList">
+            <!-- Comments yahan JavaScript se add honge -->
+        </div>
+        <div class="comment-input-area">
+            <input type="text" id="commentInput" placeholder="Write a comment...">
+            <button id="sendCommentBtn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== END: NAYE PROFESSIONAL OVERLAYS HTML CODE ===== -->
+ <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script type="module">
+// ✅ Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove, get, update } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+
+// ✅ Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyBFLTBJFMJAHNJs1XIWgRivwlAwPv2A5PQ",
+  authDomain: "life-change-easy.firebaseapp.com",
+  databaseURL: "https://life-change-easy-default-rtdb.firebaseio.com",
+  projectId: "life-change-easy",
+  storageBucket: "life-change-easy.firebasestorage.app",
+  messagingSenderId: "340480283671",
+  appId: "1:340480283671:web:fd4d1aeb5f2d9500d4b852",
+  measurementId: "G-WDC7ETRF8F"
+};
+
+// ✅ Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// === Global Variables & Constants ===
+const REFERRALS_PATH = "referrals";
+const USER_ID_KEY = "lifeChangeEasyUserId";
+let referralToDelete = null;
+let activeCardKeyForComment = null; // Naya variable
+
+// ==================================================
+// YEH NAYI, 100 PROFILES KI MUKAMMAL LIST HAI
+// ==================================================
+const fakeProfiles = [
+  { name: "Zunera khan", dp: "https://i.ibb.co/wN5TbNhT/real-girl-pic-photo-images38.webp", poster: "https://i.ibb.co/Q7c0pvjH/IMG-20250831-WA0035.jpg" },
+  { name: "Irhrat fatima", dp: "https://i.ibb.co/gMPhL9sC/real-girl-pic-photo-images37.webp", poster: "https://i.ibb.co/zWgNC2vN/IMG-20250831-WA0033.jpg" },
+  { name: "Ahmed Khan", dp: "https://i.ibb.co/fG8c8pKW/c11f6a9ee99385ef8f117aa073f3bbee.jpg", poster: "https://i.ibb.co/1f9jsSsg/IMG-20250820-WA0078.jpg" },
+  { name: "Fatima memon", dp: "https://i.ibb.co/9HXkKNHQ/real-girl-pic-photo-images34.webp", poster: "https://i.ibb.co/XkvshZv1/IMG-20250831-WA0032.jpg" },
+  { name: "Sehar khan", dp: "https://i.ibb.co/3mdtktXD/real-girl-pic-photo-images32.webp", poster: "https://i.ibb.co/2YNHPWCS/IMG-20250817-WA0125-1.jpg" },
+  { name: "Ali Raza", dp: "https://i.ibb.co/1GBW5Y2J/55b459b34e2146ba96b91dfc87dc3fba.jpg", poster: "https://i.ibb.co/xSXNT7K4/IMG-20250805-WA0001.jpg" },
+  { name: "Mahin khan", dp: "https://i.ibb.co/zWcY3VgZ/real-girl-pic-photo-images29.webp", poster: "https://i.ibb.co/C5fd1Rvg/IMG-20250821-WA0369.jpg" },
+  { name: "Farha memon", dp: "https://i.ibb.co/tTmNqtKg/real-girl-pic-photo-images27.webp", poster: "https://i.ibb.co/8g1mvQFH/IMG-20250831-WA0031.jpg" },
+  { name: "Hassan Qureshi", dp: "https://i.ibb.co/0jSnhpnc/aba391704d46110722379103dab39aa7.jpg", poster: "https://i.ibb.co/sJwbfqyd/IMG-20250820-WA0077.jpg" },
+  { name: "Zainab khan", dp: "https://i.ibb.co/vvJ4myYG/real-girl-pic-photo-images24.webp", poster: "https://i.ibb.co/bj9hfjcD/IMG-20250831-WA0034.jpg" },
+  { name: "Alina khan", dp: "https://i.ibb.co/svRGJCHT/real-girl-pic-photo-images23.webp", poster: "https://i.ibb.co/62ycdDk/IMG-20250821-WA0370.jpg" },
+  { name: "Hussain Malik", dp: "https://i.ibb.co/XkMJnNmL/9a6ab97c7cc373393886ca6107e59d2d.jpg", poster: "https://i.ibb.co/SwH37R15/IMG-20250820-WA0081.jpg" },
+  { name: "Isra memon", dp: "https://i.ibb.co/278cZT6q/real-girl-pic-photo-images2.webp", poster: "https://i.ibb.co/DHJhxPQ8/IMG-20250821-WA0368.jpg" },
+  { name: "Sana memon", dp: "https://i.ibb.co/7tBvgMGZ/real-girl-pic-photo-images18.webp", poster: "https://i.ibb.co/ksK9ky48/IMG-20250817-WA0123-1.jpg" },
+  { name: "Bilal Shah", dp: "https://i.ibb.co/Z1NLzLv5/d76b70b19f2400db1d3f60ab2f426cd5.jpg", poster: "https://i.ibb.co/SwH37R15/IMG-20250820-WA0081.jpg" },
+  { name: "Mehak memon", dp: "https://i.ibb.co/QFSsKs2h/real-girl-pic-photo-images17.webp", poster: "https://i.ibb.co/wNdk7Fm9/IMG-20250817-WA0269-1.jpg" },
+  { name: "Alya khan", dp: "https://i.ibb.co/GrrQVhN/real-girl-pic-photo-images110.webp", poster: "https://i.ibb.co/5gL3Nb3F/IMG-20250820-WA0080.jpg" },
+  { name: "Saad Ahmed", dp: "https://i.ibb.co/7tBMtr7K/8c65a3c52727b41b5bb9922cdcaecc27.jpg", poster: "https://i.ibb.co/wZmw1Dm4/IMG-20250820-WA0082.jpg" },
+  { name: "Isra Khan", dp: "https://i.ibb.co/x9LbK7W/real-girl-pic-photo-images109.webp", poster: "https://i.ibb.co/0jR0krpR/IMG-20250816-WA0164.jpg" },
+  { name: "Alisha khan", dp: "https://i.ibb.co/ZzGdSVwg/real-girl-pic-photo-images108.webp", poster: "https://i.ibb.co/xT8MCdk/IMG-20250808-WA0145.jpg" },
+  { name: "Hamza Sheikh", dp: "https://i.ibb.co/XxDdFrrh/c3b2907ae1654d204f4ef4791172689e.jpg", poster: "https://i.ibb.co/WvkDmzLb/IMG-20250820-WA0079.jpg" },
+  { name: "Alisha khan", dp: "https://i.ibb.co/XZyCxVNT/real-girl-pic-photo-images105-1.webp", poster: "https://i.ibb.co/sJKy1GCC/20250828-172701.jpg" },
+  { name: "Zara", dp: "https://i.ibb.co/Y7dGcRyb/real-girl-pic-photo-images107-1.webp", poster: "https://i.ibb.co/BKHCsmxj/IMG-20250831-175509-COLLAGE.jpg" },
+  { name: "Usman Farooq", dp: "https://i.ibb.co/990wgZnb/5fc19edb79cacdbbe99881063ea24f61.jpg", poster: "https://i.ibb.co/vCByct21/IMG-20250818-WA0000-1.jpg" },
+  { name: "Zara khan", dp: "https://i.ibb.co/ksLvrPDV/real-girl-pic-photo-images101.webp", poster: "https://i.ibb.co/B5dXchkF/IMG-20250831-175448-COLLAGE.jpg" },
+  { name: "Zuneraa khan", dp: "https://i.ibb.co/Y7dGcRyb/real-girl-pic-photo-images107-1.webp", poster: "https://i.ibb.co/20rStfXg/IMG-20250831-175409-COLLAGE.jpg" },
+  { name: "Abdullah Siddiqui", dp: "https://i.ibb.co/5xkxmBgy/c3a02ef62a08c98ac58856132957a3b3.jpg", poster: "https://i.ibb.co/C5y6h6MW/IMG-20250817-WA0283-2.jpg" },
+  { name: "Sadia mogal", dp: "https://i.ibb.co/ksLvrPDV/real-girl-pic-photo-images101.webp", poster: "https://i.ibb.co/35jvQFMW/IMG-20250831-175319-COLLAGE.jpg" },
+  { name: "Haya khan", dp: "https://i.ibb.co/wN5TbNhT/real-girl-pic-photo-images38.webp", poster: "https://i.ibb.co/bPosterZ/IMG-20250831-175353-COLLAGE.jpg" },
+  { name: "Salman Abbas", dp: "https://i.ibb.co/gb0rf8HJ/4cf6505194255ffce95161fc9768a400.jpg", poster: "https://i.ibb.co/84DbhbcN/IMG-20250820-WA0096.jpg" },
+  { name: "Saba khan", dp: "https://i.ibb.co/gMPhL9sC/real-girl-pic-photo-images37.webp", poster: "https://i.ibb.co/zWgNC2vN/IMG-20250831-WA0033.jpg" },
+  { name: "Maleha mogal", dp: "https://i.ibb.co/9HXkKNHQ/real-girl-pic-photo-images34.webp", poster: "https://i.ibb.co/Q7c0pvjH/IMG-20250831-WA0035.jpg" },
+  { name: "Talha Iqbal", dp: "https://i.ibb.co/JbsH9f7/84c87703d99dc22478673b137510c218.jpg", poster: "https://i.ibb.co/2L8cLGc/IMG-20250820-WA0095.jpg" },
+  { name: "Zoya khan", dp: "https://i.ibb.co/3mdtktXD/real-girl-pic-photo-images32.webp", poster: "https://i.ibb.co/bj9hfjcD/IMG-20250831-WA0034.jpg" },
+  { name: "Mehak moghal", dp: "https://i.ibb.co/zWcY3VgZ/real-girl-pic-photo-images29.webp", poster: "https://i.ibb.co/XkvshZv1/IMG-20250831-WA0032.jpg" },
+  { name: "Zain Khan", dp: "https://i.ibb.co/JwHsYQ4q/8e32e6d8b755bbeac406bf1d88a2853f.jpg", poster: "https://i.ibb.co/Fk16Gqxr/IMG-20250820-WA0094.jpg" },
+  { name: "Dua moghal", dp: "https://i.ibb.co/vvJ4myYG/real-girl-pic-photo-images24.webp", poster: "https://i.ibb.co/8g1mvQFH/IMG-20250831-WA0031.jpg" },
+  { name: "Sidraa khan", dp: "https://i.ibb.co/svRGJCHT/real-girl-pic-photo-images23.webp", poster: "https://i.ibb.co/SDMpDSMn/IMG-20250820-WA0093.jpg" },
+  { name: "Imran Aslam", dp: "https://i.ibb.co/PvmqpTXm/b972e5865fd2f08925c36b697f095852.jpg", poster: "https://i.ibb.co/Csb7hkWn/IMG-20250818-WA0057.jpg" },
+  { name: "Iqra khan", dp: "https://i.ibb.co/278cZT6q/real-girl-pic-photo-images2.webp", poster: "https://i.ibb.co/MxxmGkCp/IMG-20250831-191748-COLLAGE.jpg" },
+  { name: "Zainab", dp: "https://i.ibb.co/7tBvgMGZ/real-girl-pic-photo-images18.webp", poster: "https://i.ibb.co/xT8MCdk/IMG-20250808-WA0145.jpg" },
+  { name: "Daniyal Javed", dp: "https://i.ibb.co/YBd3W9Lw/dba0bab8ac105ca4ed918cde99ca181d.jpg", poster: "https://i.ibb.co/B2qjmMRD/IMG-20250827-WA0231.jpg" },
+  { name: "Tayaba Khan", dp: "https://i.ibb.co/QFSsKs2h/real-girl-pic-photo-images17.webp", poster: "https://i.ibb.co/QjFPCTrp/IMG-20250831-191845-COLLAGE.jpg" },
+  { name: "Ayesha Khan", dp: "https://i.ibb.co/GrrQVhN/real-girl-pic-photo-images110.webp", poster: "https://i.ibb.co/5gL3Nb3F/IMG-20250820-WA0080.jpg" },
+  { name: "Shahzaib Ali", dp: "https://i.ibb.co/xSq3yZS8/b6cae55b22f2712d77557a6634b7e008.jpg", poster: "https://i.ibb.co/KcLq9kDH/20250828-171343.jpg" },
+  { name: "Mahnoor khan", dp: "https://i.ibb.co/x9LbK7W/real-girl-pic-photo-images109.webp", poster: "https://i.ibb.co/DHJhxPQ8/IMG-20250821-WA0368.jpg" },
+  { name: "Fiza ali", dp: "https://i.ibb.co/ZzGdSVwg/real-girl-pic-photo-images108.webp", poster: "https://i.ibb.co/jkSdnQyT/20250828-180116.jpg" },
+  { name: "Moiz Khan", dp: "https://i.ibb.co/Kz55f4jH/13e9e60a10d983a89631d16b27137559.jpg", poster: "https://i.ibb.co/1J66NDTv/IMG-20250831-WA0053.jpg" },
+  { name: "Sonya", dp: "https://i.ibb.co/XZyCxVNT/real-girl-pic-photo-images105-1.webp", poster: "https://i.ibb.co/hJWJBFCm/IMG-20250831-WA0048.jpg" },
+  { name: "Sana khan", dp: "https://i.ibb.co/Y7dGcRyb/real-girl-pic-photo-images107-1.webp", poster: "https://i.ibb.co/fdcdmL2X/IMG-20250831-WA0046.jpg" },
+  { name: "Waqas Ahmed", dp: "https://i.ibb.co/3mqSYDkw/bcf142c9a137a042f1c0f8e8c9ee66df.jpg", poster: "https://i.ibb.co/NnbcwnsV/IMG-20250831-WA0055.jpg" },
+  { name: "Ayesha c.h.o", dp: "https://i.ibb.co/ksLvrPDV/real-girl-pic-photo-images101.webp", poster: "https://i.ibb.co/FkgNVFdK/IMG-20250831-WA0045.jpg" },
+  { name: "Fatima memon", dp: "https://i.ibb.co/VYTLX1ZK/real-girl-pic-photo-images100.webp", poster: "https://i.ibb.co/j9msjpWQ/IMG-20250831-WA0044.jpg" },
+  { name: "Fahad Raza", dp: "https://i.ibb.co/ym23g0xW/46029656d7a261e567723d073d94967b.jpg", poster: "https://i.ibb.co/4vvHY5X/IMG-20250831-WA0056.jpg" },
+  { name: "Ayesha Khan", dp: "https://i.ibb.co/JwmxRWx/5f08631b4814f96764579de6641a50c0.jpg", poster: "https://i.ibb.co/HDw1WyY3/IMG-20250831-WA0043.jpg" },
+  { name: "Fatima Malik", dp: "https://i.ibb.co/GfVhSBLV/f476179bc399d9adfe22b01a504bfe05.jpg", poster: "https://i.ibb.co/5gVTdTYM/IMG-20250831-WA0042.jpg" },
+  { name: "Asad Qureshi", dp: "https://i.ibb.co/GvzNR7bG/a476c5177831175ea49a367dc7500d7b.jpg", poster: "https://i.ibb.co/fG1KJrgm/IMG-20250831-WA0060.jpg" },
+  { name: "Maryam Sheikh", dp: "https://i.ibb.co/0yb3YmT6/b0cfa2b7d92bd96135520874ecbe6047.jpg", poster: "https://i.ibb.co/cSsgfmJR/IMG-20250831-WA0041.jpg" },
+  { name: "Zainab Ali", dp: "https://i.ibb.co/VWXB79kX/e9764876885fc9c0893493a676ee15ba.jpg", poster: "https://i.ibb.co/7JpQc28w/IMG-20250831-WA0050.jpg" },
+  { name: "Nouman Shah", dp: "https://i.ibb.co/0jzwc0fk/088d04b04b33282fb9aef22724afa477.jpg", poster: "https://i.ibb.co/359fmgfq/IMG-20250831-WA0062.jpg" },
+  { name: "Hina Khan", dp: "https://i.ibb.co/FkRtm6sv/d1a6f9c5ddf9d210bf5c0049de8adad9.jpg", poster: "https://i.ibb.co/C5sh8cwW/IMG-20250831-WA0039.jpg" },
+  { name: "Sara Qureshi", dp: "https://i.ibb.co/XrC9WFZD/dac5e176b2bb36d40d98ac06548a82fb.jpg", poster: "https://i.ibb.co/mFNbfqJb/IMG-20250831-WA0040.jpg" },
+  { name: "Anum Raza", dp: "https://i.ibb.co/YSnHjm3/2ca4af83aab1e11f1dc4b589e90478ea.jpg", poster: "https://i.ibb.co/v48Knyk0/IMG-20250831-211314-COLLAGE.jpg" },
+  { name: "Hoorain Shah", dp: "https://i.ibb.co/Jwp6Grjg/5a6b8803830f670479905c551cdfdfe5.jpg", poster: "https://i.ibb.co/xKpDZPbs/IMG-20250831-WA0065.jpg" },
+  { name: "Dua Shazadi", dp: "https://i.ibb.co/Wv8M3xsq/0fbc915d2394e4ea837167f8f4ae4af6.jpg", poster: "https://i.ibb.co/7JPbgSRz/IMG-20250831-211235-COLLAGE.jpg" },
+  { name: "Aiman Khan", dp: "https://i.ibb.co/4nsmWvyb/dc633b6205b787ead6a211af1b8cd2e6.jpg", poster: "https://i.ibb.co/HpkGTCm5/IMG-20250831-211207-COLLAGE.jpg" },
+  { name: "Manahil Abbas", dp: "https://i.ibb.co/gbM9zsfB/73d7dfae6835ffd9904eb792b30e76c9.jpg", poster: "https://i.ibb.co/Qj6vJdXh/IMG-20250831-211154-COLLAGE.jpg" },
+  { name: "Noreen Javed", dp: "https://i.ibb.co/nsWxWxSM/2e36d8e40174739659c2f90338ab574d.jpg", poster: "https://i.ibb.co/qLzJW6HT/IMG-20250831-WA0064.jpg" },
+  { name: "Kashaf Iqbal", dp: "https://i.ibb.co/QvMnhmD5/ec73aa9e1c0c4b975b6c19cc0eec3043.jpg", poster: "https://i.ibb.co/kgZd6zTk/IMG-20250831-WA0066.jpg" },
+  { name: "Rimsha Khan", dp: "https://i.ibb.co/cKBGmtgH/fd443e3c4043b2b628bf1ca993b49951.jpg", poster: "https://i.ibb.co/XrwHqrpr/IMG-20250831-WA0063.jpg" },
+  { name: "Rabia Siddiqui", dp: "https://i.ibb.co/hFyHSH4b/2b79b4f82cfa3b1dd1f6060bd2371a4c.jpg", poster: "https://i.ibb.co/35jvQFMW/IMG-20250831-175319-COLLAGE.jpg" },
+  { name: "Sidra Ahmed", dp: "https://i.ibb.co/bjpVp78x/364de7b46e434ddbd7e66f51d097b6dd.jpg", poster: "https://i.ibb.co/20rStfXg/IMG-20250831-175409-COLLAGE.jpg" },
+  { name: "Aleesha Khan", dp: "https://i.ibb.co/c01m4ZQ/b603fc3d8c5cbdb295f3447e7a880b8d.jpg", poster: "https://i.ibb.co/sJKy1GCC/20250828-172701.jpg" },
+  { name: "Haleema Aslam", dp: "https://i.ibb.co/Zz6GLYfq/29ecf8ce89506db5f99b05de2e57f2cf.jpg", poster: "https://i.ibb.co/84mB0QW2/IMG-20250831-WA0069.jpg" },
+  { name: "Nida Farooq", dp: "https://i.ibb.co/SwKWx1jw/6cdef4b8e822f9327ef7fee2b72ae367.jpg", poster: "https://i.ibb.co/M59yNxvG/IMG-20250831-WA0081.jpg" },
+  { name: "Nimra Khan", dp: "https://i.ibb.co/dsHBcCfs/d2164c43f344a6415aa9ba5ac3accd5f.jpg", poster: "https://i.ibb.co/0jwPtm9M/IMG-20250831-WA0080.jpg" }
+];
+
+
+// ==================================================
+// YEH NAYI, 80 POWERFUL COMMENTS KI MUKAMMAL LIST HAI
+// ==================================================
+const fakeComments = [
+    // Pehle 20 Comments (Original + Behtar)
+    "Masha'Allah, Life Change Easy.io ne meri zindagi badal di! Is se behtar kuch nahi.",
+    "Alhamdulillah, main is system se mahana 2 lakh tak kama rahi hoon. Shukriya Jigar Shahzad bhai.",
+    "Agar kamyab hona hai to bas is system ko join karlo. 100% real aur trusted platform.",
+    "JazakAllah Jigar bhai, aapne to kamaal kar diya. Aisa transparent system kabhi nahi dekha.",
+    "Main pehle berozgar tha, ab Alhamdulillah apni family ko support kar raha hoon. Working aur non-working, dono zabardast hain.",
+    "Allah aapko aur taraqqi de Jigar Shahzad bhai. Aap ne hazaron gharon ke choolhe jala diye.",
+    "Meri to life set ho gayi hai. Daily withdrawal milta hai, is se bara saboot kya hoga?",
+    "Jo log abhi bhi soch rahe hain, woh apna qeemti time zaya kar rahe hain. Golden opportunity hai!",
+    "Sir Jigar Shahzad is a man with a golden heart. Best support system, seniors hamesha help karte hain.",
+    "Non-working income ka concept to lajawab hai! Pakistan ka number 1 online earning platform!",
+    "Main ek student tha, sochta tha degree ke baad naukri dhoondhunga. Ab is system se itna kamata hoon ke naukri ki zaroorat hi nahi.",
+    "Sabzi ki dukaan par kaam karta tha. Din raat ki mehnat ke baad bhi guzara mushkil tha. Is system ne meri aur mere khandaan ki life change kar di.",
+    "I LOVE YOU Jigar Shahzad! Aap ne hum jaise ghareebon ke liye socha, aaj hum apne system ke malik hain.",
+    "Life Change Easy.io sirf naam nahi, waqai zindagi badalne wala jadoo hai. Iski khubsurti iski sadaqat mein hai.",
+    "Alhamdulillah! Jo posters mein dekha tha, us se kai guna zyada kamaya hai is system se. Yeh 100% sach hai.",
+    "Main mahana 3 lakh kama raha hoon aur abhi to shuruaat hai. Yeh system to samandar hai!",
+    "Daily ka 10,000 se 15,000 nikalna ab mamooli baat lagti hai. Power of Life Change Easy!",
+    "Degree hath mein thi par naukri nahi. Is system ne mujhe us kabil banaya ke ab main doosron ko rozgar de sakta hoon.",
+    "Log kehte hain online kaam fraud hota hai. Unko kaho ek baar Jigar Shahzad ka system dekh lein, aqal thikane aa jayegi.",
+    "Lifetime ke liye tension free. Na boss ki jhirkiyan, na salary ka intezar. Hum hi malik, hum hi naukar.",
+
+    // Naye 60 Powerful Comments
+    "Subhan'Allah! Is system ki non-working income ne to kamaal kar diya. Bina kaam ke aisi earning!",
+    "Main ek housewife hoon, ghar baithe itna kama rahi hoon ke apne shohar se zyada meri income hai. Shukriya Jigar Bhai!",
+    "Har din profit, har din khushiyan. Life Change Easy.io jaisa koi nahi.",
+    "Pehle main qarz mein dooba hua tha. Is system ne na sirf qarz utara balke ab main saving kar raha hoon.",
+    "Iske founder Jigar Shahzad ki soch ko salaam hai. Unhone ek poora ecosystem banaya hai, sirf ek website nahi.",
+    "Log puchte hain ke yeh kaise mumkin hai? Main kehta hoon, join karke dekho, khud jaan jao ge.",
+    "Alhamdulillah, mahana 6 lakh ka target bhi poora ho gaya. Next target 10 lakh hai Insha'Allah.",
+    "Is platform ki community bohat supportive hai. Har koi ek doosre ki madad karta hai.",
+    "Maine is system se apni dream bike khareedi hai. Agla hadaf gaari hai!",
+    "Aapki aqal dang reh jayegi jab aap iski earning potential dekhenge. Yeh sach hai!",
+    "Jigar Shahzad ne sirf ek system nahi, ek umeed di hai hum sabko.",
+    "Main mahana 7 lakh kama raha hoon. Jo kehta hai yeh jhoot hai, woh aa kar meri bank statement dekh le.",
+    "Daily withdrawal proof! Is se zyada kya saboot chahiye ke system real hai?",
+    "Meri poori university is system par kaam kar rahi hai. Hum sab students ab financially independent hain.",
+    "Is system ne mujhe sikhaya ke smart work, hard work se behtar hai.",
+    "Life Change Easy.io Zindabad! Jigar Shahzad Paindabad!",
+    "Main to kehta hoon yeh 8th wonder of the world hai. Aathwan ajooba!",
+    "Ghareebon ka sahara, berozgaron ka Maseeha. Shukriya Jigar bhai.",
+    "Ismein invest karna meri zindagi ka sabse behtareen faisla tha.",
+    "Har roz subah uthta hoon to account mein profit dekh kar dil khush ho jaata hai.",
+    "Alhamdulillah, ab main apne maa baap ko har khushi de sakta hoon jo woh deserve karte hain.",
+    "Yeh system nahi, ek ATM machine hai. Jab chaho, paise nikalo.",
+    "Logon ne bohat roka tha, kaha tha fraud hai. Aaj wohi log mujhse join karne ka poochte hain.",
+    "Is system ki power ka andaza bahar se nahi ho sakta. Andar aao, toofan dekho.",
+    "Jigar Shahzad bhai, aapke liye dil se dua nikalti hai. Allah aapko salamat rakhe.",
+    "Main mahana 4 lakh kama rahi hoon, aur woh bhi sirf non-working se. Power of this system!",
+    "Life is beautiful with Life Change Easy.io. Thank you for everything.",
+    "Ab main apne kharche khud uthata hoon, ghar walon se maangne ki zaroorat nahi padti.",
+    "Is system ne mujhe izzat aur daulat, dono di hain. Alhamdulillah.",
+    "Join karne se pehle main bohat dara hua tha. Ab sochta hoon, pehle kyun nahi join kiya.",
+    "Har Pakistani ko yeh system join karna chahiye. Yeh Pakistan ki economy ko badal sakta hai.",
+    "Masha'Allah, Masha'Allah! Kya system banaya hai. Dil khush kar diya.",
+    "Main daily 20,000+ kama raha hoon. Yeh koi khwaab nahi, haqeeqat hai.",
+    "Jigar bhai, aap farishta ban kar aaye hain humari zindagi mein.",
+    "Is system mein 100% transparency hai. Ek ek transaction blockchain par record hoti hai.",
+    "Ab mujhe future ki koi fikar nahi. Mera future Life Change Easy ke saath secure hai.",
+    "Log job dhoondhte hain, yahan log financial freedom enjoy karte hain.",
+    "Main is system se itna mutasir hoon ke ab main isko full-time kar raha hoon.",
+    "Alhamdulillah for this life-changing opportunity.",
+    "Agar aap bhi meri tarah apni zindagi badalna chahte hain, to aaj hi join karein.",
+    "Main mahana 5 lakh kama raha hoon. Yeh sab Sir Jigar Shahzad ki badaulat hai.",
+    "Is system ne mujhe sikhaya ke agar neeyat saaf ho to Allah bhi madad karta hai.",
+    "Life Change Easy.io is not just a platform, it's a revolution!",
+    "Har referral par direct commission. Itna instant reward kahin nahi dekha.",
+    "Main ne is se apne ghar ka loan clear kiya hai. Main hamesha aapka shukraguzar rahunga.",
+    "Yeh system un sab logon ke munh par tamacha hai jo kehte the 'tum kuch nahi kar sakte'.",
+    "Jigar bhai, aapne to poori industry hila kar rakh di hai. Salute to you!",
+    "Main daily 12,000 se 18,000 kama raha hoon. Aur yeh to sirf trailer hai.",
+    "Is system ki training aur support lajawab hai. Aapko kabhi akela nahi chhoda jaata.",
+    "Alhamdulillah, ab main apni family ke saath quality time guzar sakta hoon, paise ki fikar kiye bina.",
+    "Main mahana 8 lakh kama raha hoon. Believe it or not, it's true!",
+    "Yeh system itna aasan hai ke kam parha likha banda bhi is se kama sakta hai.",
+    "Jigar Shahzad, aap is sadi ke hero hain. Aapne logon ko jeena sikhaya hai.",
+    "Main ne is system se apni pehli car khareedi hai. My dream came true!",
+    "Ab har khwahish poori hoti hai. Shukriya Life Change Easy.io.",
+    "Logon ki baaton mein mat aao, apni aankhon par yaqeen karo. Join karo aur dekho.",
+    "Is system ka security level top-notch hai. Fund 100% mehfooz rehta hai.",
+    "Main is platform ko 10/10 rate karta hoon. Har cheez perfect hai.",
+    "JazakAllah Khair Jigar bhai. Aapki wajah se aaj main apne pairon par khara hoon."
+];
+
+
+
+// ==================================================
+// YAHAN NAYI AUTO DESCRIPTIONS KI LIST ADD KAREIN
+// ==================================================
+const autoDescriptions = [
+    "Daily earning ka best plan – sirf kaam karo aur roz ki income hasil karo.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Weekly earning program – ek hafte mein stable aur secure profit.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Monthly earning package – har mahine guaranteed income stream.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Working plan – sirf kaam karna hai aur apni income double karni hai.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Non-working plan – bina kaam ke bhi earning possible hai.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Working + Non-working dono ka combo – double fayda ek hi system mein.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Roz thoda kaam aur unlimited daily earning – easy aur simple plan.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Ek hafte ka kaam, lifetime fayda – weekly growth plan.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Monthly stable income – apni zindagi ka har bill cover karo earning se.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Professional working plan – jitna kaam utni earning.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Passive income system – bina kaam ke bhi earning ka silsila jari rahega.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Smart working plan – chhota effort, badi earning.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Roz ki coffee se kam mehnat – roz ki earning zyada.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Har hafte naya profit – weekly earning program join karo.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Monthly salary se behtar monthly earning – sirf online system ke sath.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Jo kaam karega, woh paise banayega – simple working plan.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Bina kaam ke relax ho kar income lo – non-working benefit system.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Active + Passive dono earning ek hi system mein.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Har din apni earning check karo – daily income system.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Hafte ke andar apne goals achieve karo – weekly system join karo.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Rozgar ka naya tareeqa – monthly income plan.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Working plan ke sath apne sapne poore karo.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Non-working ka magic – join karo aur relax hote hue earning lo.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Smart kaam + smart system = Smart earning.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Daily se monthly tak har earning plan available hai.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Har din chhoti earning, hafte mein badi earning, mahine mein bada fayda.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Rozgar ki guarantee – sirf working aur non-working dono ke sath.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Online earning ka asli platform – daily aur weekly dono plans ke sath.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Working aur non-working ek hi jagah – choice aapki, earning pakki.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi.",
+    "Sirf ek click, aur aapki earning journey start – professional system join karo.\n👉 Agar aapane isi tarah kaam karna hai to is copy button per click karen, copy karen aapko referral mil jayegi."
+];
+
+// ... (yahan se aapka baqi code shuru hota hai)
+
+// === Core Functions ===
+async function saveReferral(data) {
+  try {
+    data.userId = getUserId(); data.timestamp = Date.now();
+    const dbRef = ref(db, REFERRALS_PATH); const snap = await get(dbRef);
+    const totalReferrals = snap.exists() ? Object.keys(snap.val()).length : 0;
+    const profileIndex = totalReferrals % fakeProfiles.length;
+    const assignedProfile = fakeProfiles[profileIndex];
+    data.profileName = assignedProfile.name; data.profileDp = assignedProfile.dp; data.posterUrl = assignedProfile.poster;
+    await push(dbRef, data); showSuccessModal(); return true;
+  } catch (e) { console.error(e); showMessage("Error saving.", "#ff4444", "#ffffff"); return false; }
+}
+async function updateReferral(key, data) {
+  try { await update(ref(db, `${REFERRALS_PATH}/${key}`), data); showMessage("Referral updated!", "#00ff88", "#000000"); return true; }
+  catch (e) { console.error(e); showMessage("Error updating.", "#ff4444", "#ffffff"); return false; }
+}
+async function deleteReferral(key) {
+  try { await remove(ref(db, `${REFERRALS_PATH}/${key}`)); showMessage("Referral deleted!", "#ff4444", "#ffffff"); return true; }
+  catch (e) { console.error(e); return false; }
+}
+
+// === UI Rendering Functions ===
+function loadAndDisplayReferrals() {
+  const grid = document.getElementById("referralGrid"), empty = document.getElementById("emptyState");
+  onValue(ref(db, REFERRALS_PATH), (s) => {
+    grid.innerHTML = "";
+    if (s.exists()) {
+      let refs = Object.entries(s.val()).map(([k, v]) => ({ key: k, ...v }));
+      grid.innerHTML = shuffleArray(refs).map(createReferralCard).join("");
+      grid.style.display = "flex"; empty.style.display = "none";
+      window.app.loadReactions();
+    } else { grid.style.display = "none"; empty.style.display = "block"; }
+  });
+}
+function loadMyReferrals() {
+  const grid = document.getElementById("myReferralsGrid"), empty = document.getElementById("emptyMyReferrals"), uid = getUserId();
+  onValue(ref(db, REFERRALS_PATH), (s) => {
+    grid.innerHTML = "";
+    if (s.exists()) {
+      const myRefs = Object.entries(s.val()).map(([k, v]) => ({ key: k, ...v })).filter(r => r.userId === uid);
+      if (myRefs.length > 0) { grid.innerHTML = myRefs.map(createMyReferralCard).join(""); grid.style.display = "flex"; empty.style.display = "none"; }
+      else { grid.style.display = "none"; empty.style.display = "block"; }
+    } else { grid.style.display = "none"; empty.style.display = "block"; }
+  });
+}
+
+// ==================================================
+// === UPDATED FUNCTION: SABKE LIYE EDIT/DELETE ===
+// ==================================================
+function createReferralCard(r) {
+  const profileName = r.profileName || "Community Member";
+  const profileDp = r.profileDp || "https://i.ibb.co/7j2S0zV/default-avatar.png";
+  const posterHtml = r.posterUrl ? `<img src="${r.posterUrl}" alt="Earning Proof" class="referral-poster">` : '';
+
+  // --- YAHAN TABDEELI HAI ---
+  // Ab menu har card par nazar aayega, koi condition nahi hai.
+  const menuHtml = `
+    <div class="delete-menu">
+      <button class="menu-btn" onclick="window.app.toggleMenu(event, '${r.key}')">
+        <i class="fas fa-ellipsis-v"></i>
+      </button>
+      <div class="menu-dropdown" id="menu-${r.key}">
+        <button class="menu-item" onclick="window.app.populateForm('${r.key}')">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+        <button class="menu-item delete" onclick="window.app.confirmDelete('${r.key}')">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  `;
+  // --- TABDEELI KHATAM ---
+
+  // --- LIKE COUNT KA LOGIC (Yeh waisa hi rahega) ---
+  let postStats = JSON.parse(localStorage.getItem('postStats') || '{}');
+  if (!postStats[r.key]) {
+    const initialLikes = Math.floor(Math.random() * (2500 - 1000 + 1)) + 1000;
+    const initialComments = Math.floor(Math.random() * (500 - 50 + 1)) + 50;
+    postStats[r.key] = { likes: initialLikes, comments: initialComments };
+  } else {
+    const increment = Math.floor(Math.random() * 3) + 1;
+    if (postStats[r.key].likes < 15000) {
+        postStats[r.key].likes += increment;
+    }
+  }
+  localStorage.setItem('postStats', JSON.stringify(postStats));
+  const fakeLikeCount = postStats[r.key].likes;
+  const fakeCommentCount = postStats[r.key].comments;
+
+  // --- FINAL HTML TEMPLATE ---
+  return `
+    <div class="referral-card" data-id="${r.key}">
+      <div class="profile-header">
+        <div class="profile-info">
+          <img src="${profileDp}" alt="${profileName}" class="profile-dp">
+          <span class="profile-name">${profileName}</span>
+        </div>
+        <div class="card-actions">
+          <button class="copy-btn" title="Copy Referral Link" onclick="window.app.copyLink(event, '${r.link}')">
+            <i class="fas fa-copy"></i> Copy Link
+          </button>
+          <!-- Yahan menu har user ko nazar aayega -->
+          ${menuHtml}
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="referral-description">${r.description}</div>
+        ${posterHtml}
+      </div>
+      <div class="card-engagement">
+        <div class="reaction-summary">
+          <span class="reactions-emojis">💞🔥🤩</span>
+          <span class="like-count">${formatLikeCount(fakeLikeCount)} Likes</span>
+        </div>
+        <div class="reaction-panel" id="panel-${r.key}">
+          <span class="emoji" onclick="window.app.react(event, '${r.key}', '🤗')">🤗</span>
+          <span class="emoji" onclick="window.app.react(event, '${r.key}', '😊')">😊</span>
+          <span class="emoji" onclick="window.app.react(event, '${r.key}', '👍')">👍</span>
+          <span class="emoji" onclick="window.app.react(event, '${r.key}', '🥰')">🥰</span>
+          <span class="emoji" onclick="window.app.react(event, '${r.key}', '🤩')">🤩</span>
+          <span class="emoji" onclick="window.app.react(event, '${r.key}', '🔥')">🔥</span>
+          <span class="emoji" onclick="window.app.react(event, '${r.key}', '💞')">💞</span>
+          <span class="emoji" onclick="window.app.react(event, '${r.key}', '🚀')">🚀</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="like-btn" id="like-btn-${r.key}" onclick="window.app.toggleReactionPanel(event, '${r.key}')">
+          <i class="far fa-thumbs-up"></i> Like
+        </button>
+        <button class="comment-btn" onclick="window.app.openCommentModal('${r.key}')">
+          <i class="far fa-comment"></i> Comment ${fakeCommentCount}
+        </button>
+      </div>
+    </div>`;
+}
+
+
+function createMyReferralCard(r) {
+  return `<div class="my-referral-card" data-id="${r.key}"><div class="card-header"><div class="referral-id">ID: ${r.id}</div><div class="card-actions"><button class="copy-btn" title="Copy Link" onclick="window.app.copyLink(event, '${r.link}')"><i class="fas fa-copy"></i></button><div class="delete-menu"><button class="menu-btn" onclick="window.app.toggleMenu(event, '${r.key}')"><i class="fas fa-ellipsis-v"></i></button><div class="menu-dropdown" id="menu-${r.key}"><button class="menu-item" onclick="window.app.populateForm('${r.key}')"><i class="fas fa-edit"></i> Edit</button><button class="menu-item delete" onclick="window.app.confirmDelete('${r.key}')"><i class="fas fa-trash"></i> Delete</button></div></div></div></div><div class="referral-link">${r.link}</div><div class="referral-description">${r.description}</div><div class="card-footer"><span class="timestamp">${getTimeAgo(r.timestamp)}</span></div></div>`;
+}
+
+// === Helper & Utility Functions ===
+// NAYA HELPER FUNCTION
+function formatLikeCount(num) {
+    if (num < 1000) {
+        return num; // 1000 se kam hai to poora number dikhao (e.g., 950)
+    }
+    // 1000 se zyada hai to 'k' format mein dikhao (e.g., 1.5k)
+    return (num / 1000).toFixed(1) + 'k';
+}
+
+function getUserId() { let id = localStorage.getItem(USER_ID_KEY); if (!id) { id = "user_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9); localStorage.setItem(USER_ID_KEY, id); } return id; }
+function shuffleArray(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }
+function getTimeAgo(ts) { const d = Math.floor((Date.now() - ts) / 1000); if (d < 60) return "Just now"; const m = Math.floor(d / 60); if (m < 60) return `${m}m ago`; const h = Math.floor(m / 60); if (h < 24) return `${h}h ago`; return `${Math.floor(h / 24)}d ago`; }
+function showMessage(t, bg, c) { const el = document.createElement("div"); el.className = "copy-success"; el.textContent = t; el.style.background = bg; el.style.color = c; document.body.appendChild(el); setTimeout(() => el.remove(), 3000); }
+function showSuccessModal() { document.getElementById("successModal").style.display = "block"; }
+
+// === Global App Object for Event Handlers ===
+window.app = {
+  confirmDelete: (key) => { referralToDelete = key; document.getElementById("deleteModal").style.display = "block"; },
+  executeDelete: async () => { if (referralToDelete) { await deleteReferral(referralToDelete); window.app.closeDeleteModal(); } },
+  closeDeleteModal: () => { document.getElementById("deleteModal").style.display = "none"; referralToDelete = null; },
+  closeSuccessModal: () => { document.getElementById("successModal").style.display = "none"; document.getElementById("homeBtn").click(); },
+  populateForm: async (key) => {
+    const snap = await get(ref(db, `${REFERRALS_PATH}/${key}`));
+    if (snap.exists()) {
+      const data = snap.val(), form = document.getElementById('referralForm');
+      form.querySelector('#referralId').value = data.id;
+      form.querySelector('#description').value = data.description;
+      form.querySelector('#referralId').disabled = true;
+      form.dataset.editMode = 'true'; form.dataset.editKey = key;
+      form.querySelector('button[type="submit"]').innerHTML = '<i class="fas fa-save"></i> Update Referral';
+      form.scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('.menu-dropdown.show').forEach(m => m.classList.remove('show'));
+    }
+  },
+  copyLink: (e, link) => { e.stopPropagation(); navigator.clipboard.writeText(link).then(() => showMessage("Link copied!", "#00ff88", "#000000")); },
+  toggleMenu: (e, key) => { e.stopPropagation(); const menu = document.getElementById(`menu-${key}`); const isShown = menu.classList.contains('show'); document.querySelectorAll('.menu-dropdown.show').forEach(m => m.classList.remove('show')); if (!isShown) menu.classList.add('show'); },
+  toggleReactionPanel: (e, key) => {
+    e.stopPropagation();
+    const panel = document.getElementById(`panel-${key}`);
+    const isShown = panel.classList.contains('show');
+    document.querySelectorAll('.reaction-panel.show').forEach(p => p.classList.remove('show'));
+    if (!isShown) panel.classList.add('show');
+  },
+  react: (e, key, emoji) => {
+    e.stopPropagation();
+    const card = document.querySelector(`.referral-card[data-id="${key}"]`);
+    if (!card) return;
+    const likeBtn = card.querySelector('.like-btn');
+    const summaryEmojis = card.querySelector('.reactions-emojis');
+    likeBtn.classList.add('reacted');
+    let currentEmojis = summaryEmojis.textContent.split('');
+    currentEmojis.unshift(emoji);
+    let uniqueEmojis = [...new Set(currentEmojis)];
+    summaryEmojis.textContent = uniqueEmojis.slice(0, 3).join('');
+    let reactions = JSON.parse(localStorage.getItem('cardReactions') || '{}');
+    reactions[key] = { myReaction: emoji, summary: summaryEmojis.textContent };
+    localStorage.setItem('cardReactions', JSON.stringify(reactions));
+    document.getElementById(`panel-${key}`).classList.remove('show');
+  },
+  loadReactions: () => {
+    let reactions = JSON.parse(localStorage.getItem('cardReactions') || '{}');
+    for (const key in reactions) {
+      const card = document.querySelector(`.referral-card[data-id="${key}"]`);
+      if (card) {
+        const likeBtn = card.querySelector('.like-btn');
+        const summaryEmojis = card.querySelector('.reactions-emojis');
+        if (reactions[key].myReaction) { likeBtn.classList.add('reacted'); }
+        if (reactions[key].summary) { summaryEmojis.textContent = reactions[key].summary; }
+      }
+    }
+  },
+  openCommentModal: (key) => {
+    activeCardKeyForComment = key;
+    const modal = document.getElementById('commentModal');
+    const commentList = document.getElementById('commentList');
+    commentList.innerHTML = '';
+    const shuffledComments = shuffleArray([...fakeComments]);
+    let commentsToDisplay = [];
+    for (let i = 0; i < shuffledComments.length; i++) {
+        const profile = fakeProfiles[i % fakeProfiles.length];
+        commentsToDisplay.push({ name: profile.name, dp: profile.dp, text: shuffledComments[i], isUser: false });
+    }
+    const allUserComments = JSON.parse(localStorage.getItem('userComments') || '{}');
+    const cardUserComments = allUserComments[key] || [];
+    cardUserComments.forEach(commentText => {
+        commentsToDisplay.push({ name: 'You', dp: 'https://i.ibb.co/7j2S0zV/default-avatar.png', text: commentText, isUser: true });
+    });
+    commentsToDisplay.forEach(comment => {
+        const commentEl = document.createElement('div');
+        commentEl.className = `comment-item ${comment.isUser ? 'user-comment' : ''}`;
+        commentEl.innerHTML = `<img src="${comment.dp}" alt="" class="comment-dp"><div class="comment-bubble"><div class="comment-name">${comment.name}</div><div class="comment-text">${comment.text}</div></div>`;
+        commentList.appendChild(commentEl);
+    });
+    modal.style.display = 'block';
+    commentList.scrollTop = commentList.scrollHeight;
+  },
+  closeCommentModal: () => {
+    document.getElementById('commentModal').style.display = 'none';
+    activeCardKeyForComment = null;
+  },
+  sendComment: () => {
+    const input = document.getElementById('commentInput');
+    const text = input.value.trim();
+    if (!text || !activeCardKeyForComment) return;
+    const allUserComments = JSON.parse(localStorage.getItem('userComments') || '{}');
+    if (!allUserComments[activeCardKeyForComment]) { allUserComments[activeCardKeyForComment] = []; }
+    allUserComments[activeCardKeyForComment].push(text);
+    localStorage.setItem('userComments', JSON.stringify(allUserComments));
+    const commentList = document.getElementById('commentList');
+    const commentEl = document.createElement('div');
+    commentEl.className = 'comment-item user-comment';
+    commentEl.innerHTML = `<img src="https://i.ibb.co/7j2S0zV/default-avatar.png" alt="" class="comment-dp"><div class="comment-bubble"><div class="comment-name">You</div><div class="comment-text">${text}</div></div>`;
+    commentList.appendChild(commentEl);
+    commentList.scrollTop = commentList.scrollHeight;
+    input.value = '';
+  }
+};
+
+// === Main Event Listener (DOMContentLoaded) ===
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("referralForm");
+  const homeBtn = document.getElementById("homeBtn");
+  const dashBtn = document.getElementById("dashboardBtn");
+  const referralIdInput = document.getElementById('referralId'); // Naya
+  const descriptionTextarea = document.getElementById('description'); // Naya
+
+  // --- NAYA EVENT LISTENER ---
+  // Jab user ID wale box mein type karega
+  referralIdInput.addEventListener('input', () => {
+    if (referralIdInput.value.trim() !== '') {
+      // Agar box khali nahi hai, to ek random description select karo
+      const randomIndex = Math.floor(Math.random() * autoDescriptions.length);
+      descriptionTextarea.value = autoDescriptions[randomIndex];
+    } else {
+      // Agar box khali hai, to description bhi khali kar do
+      descriptionTextarea.value = '';
+    }
+  });
+
+  const switchToPage = (page) => {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+    if (page === "home") { document.getElementById("homePage").classList.add("active"); homeBtn.classList.add("active"); loadAndDisplayReferrals(); }
+    else { document.getElementById("dashboardPage").classList.add("active"); dashBtn.classList.add("active"); loadMyReferrals(); }
+  };
+  homeBtn.addEventListener("click", () => switchToPage("home"));
+  dashBtn.addEventListener("click", () => switchToPage("dashboard"));
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    // Ab description ko textarea se hi lena hai
+    const desc = descriptionTextarea.value.trim(); 
+    if (!desc) { 
+      showMessage("Please enter a Referral ID to generate a description.", "#ff4444", "#ffffff"); 
+      return; 
+    }
+    
+    if (form.dataset.editMode === 'true') {
+      // Edit mode mein description update nahi hoga, kyunki woh readonly hai
+      showMessage("Description cannot be edited.", "#ffcc00", "#000000");
+      return;
+    } else {
+      const id = referralIdInput.value.trim();
+      if (!id || parseInt(id) <= 0) { showMessage("Please enter a valid ID.", "#ff4444", "#ffffff"); return; }
+      // saveReferral ko ab description bhi bhejna hai
+      if (await saveReferral({ id, link: `https://lifechangeeasy.io/register/ref/${id}`, description: desc })) {
+        form.reset();
+      }
+    }
+  });
+
+  form.addEventListener('reset', () => {
+    form.querySelector('#referralId').disabled = false;
+    form.querySelector('button[type="submit"]').innerHTML = '<i class="fas fa-rocket"></i> Publish Referral';
+    delete form.dataset.editMode; delete form.dataset.editKey;
+    descriptionTextarea.value = ''; // Reset par description saaf karo
+  });
+  
+  // Baqi saare event listeners waise hi rahenge
+  document.getElementById('confirmDeleteBtn').addEventListener('click', window.app.executeDelete);
+  document.getElementById('sendCommentBtn').addEventListener('click', window.app.sendComment);
+  document.getElementById('commentInput').addEventListener('keyup', (event) => { if (event.key === 'Enter') { window.app.sendComment(); } });
+  
+  const successModalButton = document.querySelector('#successModal .btn-primary');
+  if (successModalButton) successModalButton.onclick = window.app.closeSuccessModal;
+  
+  const cancelDeleteButton = document.querySelector('#deleteModal .btn-cancel');
+  if (cancelDeleteButton) cancelDeleteButton.onclick = window.app.closeDeleteModal;
+  
+  window.addEventListener('click', () => {
+    document.querySelectorAll('.menu-dropdown.show').forEach(m => m.classList.remove('show'));
+    document.querySelectorAll('.reaction-panel.show').forEach(p => p.classList.remove('show'));
+    document.querySelectorAll('.comment-panel.show').forEach(p => p.classList.remove('show'));
+  });
+  
+  switchToPage("home");
+});
+
+</script>
+
+</body>
+</html>
+
+
+  

@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>LifeChangeEasy.io</title>
+
+<style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      /* === TABDEELI #1: Purana background color hata kar naya multi-color background lagaya gaya hai === */
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      background-size: 400% 400%;
+      animation: rainbowBackground 15s ease infinite;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* === TABDEELI #2: Naye background ko chalanay ke liye animation add ki gayi hai === */
+    @keyframes rainbowBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      background-color: #111;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .participant-bar {
+      background: #222;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .participant-bar .number {
+      color: #0f0;
+      font-weight: bold;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #0f0;
+      margin-bottom: 1rem;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1rem auto;
+      width: 80%;
+      max-width: 300px;
+    }
+    .buttons button {
+      padding: 1rem;
+      font-size: 1.1rem;
+      background-color: #0f0;
+      border: none;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .new-description {
+      text-align: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+    .green { color: #0f0; font-weight: bold; }
+    .yellow { color: yellow; font-weight: bold; }
+    .purple { color: violet; font-weight: bold; }
+    .whatsapp-section {
+      margin-top: 4rem;
+      text-align: center;
+    }
+    .whatsapp-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: #0f0;
+      color: #000;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    /* Dashboard styles */
+    #dashboard-section {
+      display: none;
+      padding: 20px;
+    }
+    .back-button {
+      background-color: #1f1f1f;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+    .search-box {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px 0 0 6px;
+      background: #222;
+      color: white;
+    }
+    .search-box button {
+      padding: 10px;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 0 6px 6px 0;
+      cursor: pointer;
+    }
+    .stats, .transactions {
+      background-color: #111;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .stat-item {
+      margin: 8px 0;
+    }
+    .highlight-green {
+      color: #00ff00;
+    }
+    .transaction {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #333;
+    }
+    .transaction a {
+      color: #00ff00;
+      text-decoration: none;
+      flex: 1;
+    }
+    .transaction span {
+      flex: 1;
+      text-align: center;
+    }
+    .show-more {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .show-more a {
+      background-color: #222;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #00ff00;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .whatsapp-description {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .whatsapp-button-full {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background-color: green;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    /* Aapke purane code mein yeh hissa do baar tha, maine isko theek kar diya hai */
+    /* .rainbow-bar and other styles from the second block are kept below */
+    .rainbow-bar {
+      display: flex;
+      height: 60px; /* Increased height */
+    }
+
+    .rainbow-bar div {
+      flex: 1;
+      animation: glow 2s infinite alternate;
+    }
+
+    .rainbow-bar .red { background-color: #ff0000; }
+    .rainbow-bar .orange { background-color: #ff7f00; }
+    .rainbow-bar .yellow { background-color: #ffff00; color: #000; }
+    .rainbow-bar .green { background-color: #00ff00; color: #000; }
+    .rainbow-bar .blue { background-color: #0000ff; }
+    .rainbow-bar .indigo { background-color: #4b0082; }
+    .rainbow-bar .violet { background-color: #8f00ff; }
+
+    @keyframes glow {
+      from { opacity: 0.8; }
+      to { opacity: 1; }
+    }
+
+    /* Content styling */
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #111;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #0f0;
+    }
+
+    strong {
+      color: #0ff;
+    }
+
+    em {
+      color: #ff0;
+    }
+
+    .urdu {
+      direction: rtl;
+      text-align: right;
+      font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+      font-size: 20px;
+      line-height: 2;
+      margin-top: 40px;
+      background-color: #000;
+      padding: 20px;
+      border-top: 2px dashed #444;
+    }
+
+    .hashtags {
+      margin-top: 30px;
+      color: #ccc;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .hashtags span {
+      display: block;
+      margin: 5px;
+    }
+</style>
+</head>
+<body>
+<div style="background-color: #00FF00; color: black; padding: 10px; text-align: center; font-size: 28px; font-weight: bold;">LIFE_CHANGE_EASY.IO</div>
+
+<!-- All Partners -->
+<div class="participant-bar">
+All participants: <span id="allPartnersCount" style="color:white;">0</span> |
+Joined in 24 hours: <span id="partners24hCount" style="color:#00FF00;">0</span>
+</div>
+<!-- ✅ Web3 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+
+<!-- 2 pure system ke all partner  -->
+<script>
+  const contractAddress = "0x3B52a5A3A90a5f14Db481809844A0cC520195521";
+  const abi = [
+    {
+      "inputs": [],
+      "name": "totalUsers",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "users",
+      "outputs": [
+        { "internalType": "uint256", "name": "id", "type": "uint256" },
+        { "internalType": "address", "name": "wallet", "type": "address" },
+        { "internalType": "uint256", "name": "uplineId", "type": "uint256" },
+        { "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+        { "internalType": "string", "name": "dp", "type": "string" },
+        { "internalType": "string", "name": "name", "type": "string" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+  async function loadPartnerStats() {
+    const provider = new Web3("https://bsc-dataseed.binance.org/");
+    const contract = new provider.eth.Contract(abi, contractAddress);
+
+    try {
+      const total = await contract.methods.totalUsers().call();
+      let recent24h = 0;
+
+      const now = Math.floor(Date.now() / 1000);
+      const since = now - (24 * 60 * 60);
+
+      // ⚠️ Safe loop limit set (e.g. 200 latest users)
+      const checkLimit = Math.min(total, 200);
+
+      for (let i = total; i > total - checkLimit; i--) {
+        const user = await contract.methods.users(i).call();
+        if (parseInt(user.joinDate) >= since) {
+          recent24h++;
+        } else {
+          break; // optimize: stop if user is older than 24h
+        }
+      }
+
+      document.getElementById("allPartnersCount").innerText = total;
+      document.getElementById("partners24hCount").innerText = recent24h;
+
+    } catch (err) {
+      console.error("Failed to fetch partner data:", err);
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", loadPartnerStats);
+</script>
+
+<!-- ✅ REAL WEB3 SCRIPT -->
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<div id="bookBox" style="border: 4px solid transparent; padding: 20px; background: black; border-radius: 12px; width: 80%; max-width: 650px; margin: 50px auto; font-family: 'Segoe UI', sans-serif; font-size: 18px; font-weight: bold; position: relative; animation: borderGlow 2s infinite; overflow: hidden; transition: height 0.3s ease;">  
+<div id="typewriter" style="color: #00ff00; white-space: pre-line;"></div>  
+</div>  
+
+<style>  
+@keyframes borderGlow {  
+  0% { border-color: #ff00ff; }  
+  25% { border-color: #00ffff; }  
+  50% { border-color: #00ff00; }  
+  75% { border-color: #ff6600; }  
+  100% { border-color: #ff00ff; }  
+}
+</style>  
+
+<script>  
+const text = `📢 Dear Friends, Welcome!
+
+If you are new here and want to know about this system, let me tell you – this is a *life-changing opportunity*.  
+This amazing platform is called **LifeChangeEasy.io** – it is made to change people's lives. 🚪✨
+
+🌍 The founder of this great idea is **Mr. Jigar Shahzad** from Bahawalpur, Pakistan.  
+He faced poverty in his life, and that's why he made this system – so that even a simple person with little money can earn and grow.
+
+🛡️ This is a **blockchain-based decentralized system**, which means:
+✔️ No one can stop it – not even an admin or company  
+✔️ Your income comes *directly to your wallet*  
+✔️ No need to apply for withdrawals, no waiting!
+
+🔥 *Main Features:*
+💯 100% Profit – You keep everything you earn  
+⚡ Instant income – directly into your wallet  
+💸 Start with only Joining fee $0.001BNB wallet requirement $0.0022 BNB PKR mein 500  
+♾️ Works for lifetime – Never stops  
+🧩 4 powerful earning programs – earn with or without team  
+👩‍👧‍👦 Great for workers, students, and housewives  
+
+🧠 *Program Details:*
+✅ X1 – For hardworking people  
+✅ X2 – Mix of work and no work  
+✅ X3 & X4 – Daily passive income  
+
+📊 Want to see live stats?  
+You can see how many people joined today, how much earning happened, and your possible income – all live on the “Sign Up to Visit” page.
+
+🚀 *Why is LifeChangeEasy.io so special?*
+This system has *left behind many past projects* like **Forsage.io**, **MetaFor**, **EBL Pakistan**, and **TheEagle.i**.  
+Where those systems stopped or slowed down — **LifeChangeEasy.io is rising fast**, changing thousands of lives every week!  
+It’s not just a program — it’s a digital revolution in Pakistan and beyond.  
+
+💚 Ready to start? Just press “Register New” and begin your journey!
+
+📲 *Stay Connected:*  
+Join our WhatsApp and social media pages to get updates.
+
+──────────────────────────────
+
+👑 **Salute to the Founder – Mr. Jigar Shahzad** 👑
+
+In today’s world, where people think only about themselves – **Jigar Shahzad** gave power to others.  
+His system is not just a plan – it is a *movement*. A digital path to help the poor, support families, and give hope to dreamers.
+
+🔥 Because of his hard work, many people are now earning money from home.  
+🕊️ His goal is clear. His passion is strong.  
+💎 What he made is not just for now – it’s a *gift for the future*.
+
+🌟 We respect your honesty, your courage, and your big heart, **Jigar Shahzad**.  
+💖 You are not just a name – *you are an inspiration*.  
+🌠 *Thank you for starting this journey of success for all of us.*
+
+#JigarShahzadTheLegend  
+#LifeChangeEasyHero  
+#FromZeroToHero
+
+🌹 دل کو چھو لینے والا پروفیشنل ورژن 🌹
+
+👑 خراجِ عقیدت - بانی نظام، جناب جگر شہزاد 👑
+
+آج کے خودغرض دور میں، جہاں ہر شخص صرف اپنے فائدے کی سوچتا ہے —
+وہاں ایک نام چراغ کی مانند روشن ہوا... جگر شہزاد۔
+
+انہوں نے ایسا نظام بنایا جو صرف ایک سسٹم نہیں، بلکہ امید کا چراغ ہے۔
+یہ ایک خاموش انقلاب ہے — جو ان غریبوں کے لیے روشنی لایا، جنہیں دنیا نے اندھیروں میں چھوڑ دیا تھا۔
+
+💔 جن کے خواب ٹوٹ چکے تھے...
+👨‍👩‍👧 جن کے بچے بھوکے سوتے تھے...
+💸 جن کے پاس کاروبار یا تعلیم کے پیسے نہیں تھے...
+ان سب کے لیے جگر شہزاد ایک رحمت بن کر آئے۔
+
+🔥 اُن کی دن رات کی محنت،
+🕊️ اُن کی نیت کی صفائی،
+💎 اور اُن کا درد مند دل —
+یہ سب اس نظام کی بنیاد ہیں۔
+
+یہ پلیٹ فارم صرف ایک کمائی کا ذریعہ نہیں، بلکہ زندگی کی نئی شروعات ہے۔
+ایسا موقع جو ہر اُس انسان کو عزت، خودمختاری، اور خوشحالی دے رہا ہے، جسے زمانے نے ٹھکرا دیا تھا۔
+
+🌟 جگر شہزاد کا نام سن کر دل سکون محسوس کرتا ہے۔
+💖 وہ صرف ایک انسان نہیں — ایک احساس ہیں۔
+🌠 اُن سے ملنا صرف ملاقات نہیں، بلکہ مقدر بدلنے جیسا تجربہ ہے۔
+
+🙏 ہم اُن کے شکر گزار ہیں،
+کہ انہوں نے غریبوں کے دل کی آواز کو سنا —
+اور ایک ایسا نظام دیا جو نسلوں کے لیے روشنی بنے گا۔
+`;
+
+let i = 0;  
+const typeTarget = document.getElementById("typewriter");  
+const bookBox = document.getElementById("bookBox");  
+
+function typeWriter() {  
+  if (i < text.length) {  
+    typeTarget.innerHTML += text.charAt(i);  
+    bookBox.style.height = typeTarget.scrollHeight + 40 + "px";  
+    i++;  
+    setTimeout(typeWriter, 1);  
+  }  
+}  
+
+window.onload = () => {  
+  bookBox.style.height = "60px";  
+  typeWriter();  
+};
+</script>
+<div class="buttons" style="margin-top: 30px;">
+  <img
+  alt="Lion catching eagle" 
+    src="https://i.imgur.com/DF4sUbu.jpeg" 
+    style="
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #00FF00;
+      display: block;
+      margin: 0 auto 20px auto;
+    "
+  >
+</div>
+
+<style>
+    .color-button {
+        display: block;
+        text-align: center;
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 10px auto;
+        border-radius: 8px;
+        width: 250px;
+        text-decoration: none;
+        background: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet, red);
+        background-size: 1400% 1400%;
+        animation: rainbowMove 8s ease infinite;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .color-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes rainbowMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+</style>
+
+<a href="visit.html" class="color-button">System Visit Page</a>
+<a href="register.html" class="color-button">Register New</a>
+
+<div style="text-align: center; margin-top: 40px;">
+<div style="margin-bottom: 20px;">
+<div style="color: #000000; font-weight: bold; margin-bottom: 10px;">
+      Life Change easy Daily update WhatsApp official channel
+    </div>
+  <!-- Social Media Buttons -->
+<div style="margin-top:50px; text-align:center; padding:40px 20px; background:#111; border-top:2px solid #0f0;">
+    <!-- WhatsApp -->
+  <a href="https://whatsapp.com/channel/0029Vb673ShBfxo7zWIIHN3z" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#25D366; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #25D366;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/whatsapp.png" alt="WhatsApp Icon" style="width:24px; height:24px;">
+    Join WhatsApp Channel
+  </a>
+  <div style="color:#25D366; font-size:0.9rem; margin-top:5px;">📢 WhatsApp Channel</div>
+
+  <!-- YouTube -->
+  <a href="https://www.youtube.com/@LifeChangeeasy" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#FF0000; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #FF0000;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/youtube-play.png" alt="YouTube Icon" style="width:24px; height:24px;">
+    Visit YouTube Channel
+  </a>
+  <div style="color:#FF0000; font-size:0.9rem; margin-top:5px;">🎥 YouTube Channel</div>
+
+  <!-- TikTok -->
+  <a href="https://www.tiktok.com/@life.change.easy.io?_t=ZS-8yOeInx3dEG&_r=1" target="_blank" style="display:inline-flex; align-items:center; gap:10px; background:#1DA1F2; color:white; padding:12px 20px; margin:10px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:1rem; box-shadow:0 0 8px #1DA1F2;">
+    <img src="https://img.icons8.com/ios-filled/30/ffffff/tiktok--v1.png" alt="TikTok Icon" style="width:24px; height:24px;">
+    Follow TikTok Account
+  </a>
+  <div style="color:#1DA1F2; font-size:0.9rem; margin-top:5px;">🎶 TikTok Official</div>
+
+</div>
+
+</body>
+</html>
